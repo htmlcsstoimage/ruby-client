@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://hcti.io/v1/image?includeId=true
+    body:
+      encoding: UTF-8
+      string: '{"url":"https://hcti.io","viewport_width":800,"viewport_height":1200,"ms_delay":500}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic authentication-header
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 07 Aug 2020 16:26:02 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d3c6239ef3863b255e584197f6109aa701596817562; expires=Sun, 06-Sep-20
+        16:26:02 GMT; path=/; domain=.hcti.io; HttpOnly; SameSite=Lax
+      Cf-Ray:
+      - 5bf25b65bce50252-SJC
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - max-age=public, 31536000
+      Vary:
+      - Accept-Encoding
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cf-Request-Id:
+      - 046b57739000000252bcac6200000001
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Request-Context:
+      - appId=cid-v1:ef200074-f922-49b8-a889-360bb27d5561
+      X-Is-Overage:
+      - 'False'
+      X-Renders-Allowed:
+      - '500000'
+      X-Renders-Used:
+      - '4541'
+      Server:
+      - cloudflare
+    body:
+      encoding: ASCII-8BIT
+      string: '{"url":"https://hcti.io/v1/image/62157984-dfc9-4ec9-956a-de8931749215","id":"62157984-dfc9-4ec9-956a-de8931749215"}'
+  recorded_at: Fri, 07 Aug 2020 16:26:03 GMT
+recorded_with: VCR 6.0.0

@@ -1,0 +1,110 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://hcti.io/v1/template
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic authentication-header
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 06 Aug 2020 21:25:39 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - AWSALB=lVKuyuNFEjqfNaDkDxgqrzytNUb+WNwbEoJYuWl/uaVFNut/FpixcciblHfX4vzn/LdoTZU+RnIgjBB90kY7SUhcqudTAr7X7/ubSM65lP7WykpDrr5CphMc0mkC;
+        Expires=Thu, 13 Aug 2020 21:25:38 GMT; Path=/
+      - AWSALBCORS=lVKuyuNFEjqfNaDkDxgqrzytNUb+WNwbEoJYuWl/uaVFNut/FpixcciblHfX4vzn/LdoTZU+RnIgjBB90kY7SUhcqudTAr7X7/ubSM65lP7WykpDrr5CphMc0mkC;
+        Expires=Thu, 13 Aug 2020 21:25:38 GMT; Path=/; SameSite=None
+      - __cfduid=d24954ff54b38cb9910836fadcf6542f01596749138; expires=Sat, 05-Sep-20
+        21:25:38 GMT; path=/; domain=.hcti.io; HttpOnly; SameSite=Lax
+      - __cflb=02DiuGMQFf4rnadqPFSDhdmYgHrhp7JS62YACr3aZ9wsz; SameSite=Lax; path=/;
+        expires=Fri, 07-Aug-20 20:25:39 GMT; HttpOnly
+      Cf-Ray:
+      - 5bebd4e51d7aeb89-LAX
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cf-Request-Id:
+      - 046743632d0000eb8931ba9200000001
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Request-Context:
+      - appId=cid-v1:ef200074-f922-49b8-a889-360bb27d5561
+      Server:
+      - cloudflare
+    body:
+      encoding: ASCII-8BIT
+      string: '{"data":[{"css":".code-example {\n  background-color: white;\n  background-image:
+        linear-gradient(0deg,rgba(225,228,232,0),rgba(225,228,232,0) 7px,#e1e4e8 ,rgba(225,228,232,0)
+        8px),linear-gradient(90deg,rgba(225,228,232,0),rgba(225,228,232,0) 7px,#e1e4e8
+        ,rgba(225,228,232,0) 8px);\n  background-position: center center;\n  background-size:
+        45px 45px;\n  border: 1px solid #eeebee;\n  border-radius: 4px;\n  box-sizing:
+        border-box;\n  height: 300px;\n  margin: 30px;\n  padding: 30px;\n  width:
+        600px;\n  display: flex;\n  align-items: center; justify-content: center;
+        flex-direction: column;\n  -webkit-box-shadow: 5px 5px 15px -1px rgba(0,0,0,0.36);
+        \nbox-shadow: 5px 5px 15px -1px rgba(0,0,0,0.36);\n}\n.hcti-container {\n  box-sizing:
+        border-box;\n  padding: 5px;\n  display: flex;\n  align-items:center;\n}\nh1
+        {\n  text-align: center;\n  font-size: 40px;  \n  margin-top: auto;\n}\n.logo-text
+        {\n  margin-left: 6px;\n  font-size: 16px;\n}\n.w-border {\n  border: 1px
+        dashed #2869e6;\n  padding: 5px;\n  justify-content: center;\n  text-align:
+        center;\n  vertical-align: middle;\n  margin-top: auto;\n  margin-bottom:
+        10px;\n}\nimg {\n  border: 1px solid #eeebee;\n  box-sizing: border-box;\n  height:
+        auto;\n  margin: 0;\n  max-width: 100%;\n  padding: 0;\n  vertical-align:
+        bottom;\n}\n:root {\n  --bg-angle: 10deg; \n}\nbody {\nfont-family: -apple-system,
+        BlinkMacSystemFont, \"helvetica neue\", helvetica, Rubik, noto, \"segoe ui\",
+        arial, sans-serif;\n      background: linear-gradient(var(--bg-angle),#f79533,#f37055,#ef4e7b,#a166ab,#5073b8,#1098ad,#07b39b,#6fba82);\n}","created_at":"2020-08-02T20:01:56.762+00:00","description":null,"device_scale":null,"google_fonts":"Rubik","html":"<div
+        class=\"code-example\">\n  <h1>{{title}}</h1>\n  <div class=\"w-border\">\n    <div
+        class=\"hcti-container\"><img width=\"45\" src=\"https://docs.htmlcsstoimage.com/assets/images/HCTI.png\"><span
+        class=\"logo-text\">HTML/CSS to Image API</span>\n    </div>\n  </div>\n</div>\n<script>\n  //
+        Randomly change background color direction.\n  var random = Math.floor(Math.random()
+        * Math.floor(360))\n  var body = document.body;\n  body.style.setProperty(''--bg-angle'',
+        random + ''deg'');\n</script>","id":"t-9f6526a7-aa2c-4fbb-8723-06eff1c60e89","max_wait_ms":null,"ms_delay":null,"name":null,"render_when_ready":null,"updated_at":"2020-08-02T20:01:56.763+00:00","version":1596398516763,"viewport_height":null,"viewport_width":null},{"css":".code-example
+        {\n  background-color: white;\n  background-image: linear-gradient(0deg,rgba(225,228,232,0),rgba(225,228,232,0)
+        7px,#e1e4e8 ,rgba(225,228,232,0) 8px),linear-gradient(90deg,rgba(225,228,232,0),rgba(225,228,232,0)
+        7px,#e1e4e8 ,rgba(225,228,232,0) 8px);\n  background-position: center center;\n  background-size:
+        45px 45px;\n  border: 1px solid #eeebee;\n  border-radius: 4px;\n  box-sizing:
+        border-box;\n  height: 300px;\n  margin: 30px;\n  padding: 30px;\n  width:
+        600px;\n  display: flex;\n  align-items: center; justify-content: center;
+        flex-direction: column;\n  -webkit-box-shadow: 5px 5px 15px -1px rgba(0,0,0,0.36);
+        \nbox-shadow: 5px 5px 15px -1px rgba(0,0,0,0.36);\n}\n.hcti-container {\n  box-sizing:
+        border-box;\n  padding: 5px;\n  display: flex;\n  align-items:center;\n}\nh1
+        {\n  text-align: center;\n  font-size: 40px;  \n  margin-top: auto;\n}\n.logo-text
+        {\n  margin-left: 6px;\n  font-size: 16px;\n}\n.w-border {\n  border: 1px
+        dashed #2869e6;\n  padding: 5px;\n  justify-content: center;\n  text-align:
+        center;\n  vertical-align: middle;\n  margin-top: auto;\n  margin-bottom:
+        10px;\n}\nimg {\n  border: 1px solid #eeebee;\n  box-sizing: border-box;\n  height:
+        auto;\n  margin: 0;\n  max-width: 100%;\n  padding: 0;\n  vertical-align:
+        bottom;\n}\n:root {\n  --bg-angle: 10deg; \n}\nbody {\nfont-family: -apple-system,
+        BlinkMacSystemFont, \"helvetica neue\", helvetica, Rubik, noto, \"segoe ui\",
+        arial, sans-serif;\n      background: linear-gradient(var(--bg-angle),#f79533,#f37055,#ef4e7b,#a166ab,#5073b8,#1098ad,#07b39b,#6fba82);\n}","created_at":"2020-08-02T20:02:01.544+00:00","description":null,"device_scale":null,"google_fonts":"Rubik","html":"<div
+        class=\"code-example\">\n  <h1>{{title}}</h1>\n  <div class=\"w-border\">\n    <div
+        class=\"hcti-container\"><img width=\"45\" src=\"https://docs.htmlcsstoimage.com/assets/images/HCTI.png\"><span
+        class=\"logo-text\">HTML/CSS to Image API</span>\n    </div>\n  </div>\n</div>\n<script>\n  //
+        Randomly change background color direction.\n  var random = Math.floor(Math.random()
+        * Math.floor(360))\n  var body = document.body;\n  body.style.setProperty(''--bg-angle'',
+        random + ''deg'');\n</script>","id":"t-fc18eff2-6e43-4c10-963a-0be753db4065","max_wait_ms":null,"ms_delay":null,"name":null,"render_when_ready":null,"updated_at":"2020-08-02T20:02:01.544+00:00","version":1596398521544,"viewport_height":null,"viewport_width":null}],"pagination":{"next_page_start":null}}'
+  recorded_at: Thu, 06 Aug 2020 21:25:39 GMT
+recorded_with: VCR 6.0.0
