@@ -14,7 +14,6 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.4.4)
-    git (1.3.0)
     hashdiff (1.0.1)
     httparty (0.18.1)
       mime-types (~> 3.0)
@@ -51,11 +50,6 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    yard (0.8.7.6)
-    yard-ghpages (0.0.1)
-      git (~> 1.3.0)
-      rake (~> 10.5.0)
-      yard (~> 0.8.0)
 
 PLATFORMS
   ruby
@@ -69,7 +63,6 @@ DEPENDENCIES
   rspec (~> 3.0)
   vcr
   webmock
-  yard-ghpages
 
 BUNDLED WITH
    2.1.4
