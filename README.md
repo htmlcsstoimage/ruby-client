@@ -86,7 +86,7 @@ For help with the API, you can also contact `support@htmlcsstoimage.com`.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/htmlcsstoimage/ruby-client/contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/htmlcsstoimage/ruby-client.
 
 ## License
 
