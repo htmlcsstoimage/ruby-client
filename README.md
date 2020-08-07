@@ -4,8 +4,6 @@ Ruby client for the [HTML/CSS to Image API](https://htmlcsstoimage.com).
 
 Generate a png, jpg or webp images with Ruby. Renders exactly like Google Chrome.
 
-![](https://hcti.imgix.net/assets/images/dog-rates-example.png?auto=format,compress&fit=max&w=798&format=auto&ixlib=imgixjs-3.4.2)
-
 ## Installation
 
 Add this line to your application's Gemfile:
