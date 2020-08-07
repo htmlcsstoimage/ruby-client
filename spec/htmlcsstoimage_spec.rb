@@ -67,6 +67,15 @@ RSpec.describe HTMLCSSToImage do
     end
   end
 
+  describe "#create_template", :vcr do
+    it "creates a new template" do
+      template = client.create_template("<div>{{title}}</div>")
+
+      expect(template.id).to_not be_nil
+      expect(template.version).to_not be_nil
+    end
+  end
+
   describe "#create_image_from_template" do
     it "generates a signed url for the image" do
       # The key is used to generate the token, so we hardcode it here
