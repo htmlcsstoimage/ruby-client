@@ -73,7 +73,6 @@ class HTMLCSSToImage
     response
   end
 
-
   # Creates a signed URL for generating an image from a template
   # This URL contains the template_values in it. It is signed with HMAC so that it cannot be changed
   # by anyone without the API Key.
@@ -125,5 +124,30 @@ class HTMLCSSToImage
   def templates(params = {})
     options = params.merge({ basic_auth: @auth })
     self.class.get("/v1/template", options)
+  end
+
+  # Creates an image template
+  #
+  # @see https://docs.htmlcsstoimage.com/getting-started/templates/
+  #
+  # @param html [String] This is the HTML you want to render. You can send an HTML snippet (`<div>Your content</div>`) or an entire webpage.
+  #
+  # @option params [String] :name A short name to identify your template max length 64
+  # @option params [String] :description Description to elaborate on the use of your template max length 1024
+  # @option params [String] :css The CSS for your image.
+  # @option params [String] :google_fonts [Google fonts](https://docs.htmlcsstoimage.com/guides/using-google-fonts/) to be loaded. Example: `Roboto`. Multiple fonts can be loaded like this: `Roboto|Open Sans`
+  # @option params [String] :selector A CSS selector for an element on the webpage. We'll crop the image to this specific element. For example: `section#complete-toolkit.container-lg`
+  # @option params [Integer] :ms_delay The number of milliseconds the API should delay before generating the image. This is useful when waiting for JavaScript. We recommend starting with `500`. Large values slow down the initial render time.
+  # @option params [Double] :device_scale This adjusts the pixel ratio for the screenshot. Minimum: `1`, Maximum: `3`.
+  # @option params [Boolean] :render_when_ready Set to true to control when the image is generated. Call `ScreenshotReady()` from JavaScript to generate the image. [Learn more](https://docs.htmlcsstoimage.com/guides/render-when-ready/).
+  # @option params [Integer] :viewport_width Set the width of Chrome's viewport. This will disable automatic cropping. Both height and width parameters must be set if using either.
+  # @option params [Integer] :viewport_height Set the height of Chrome's viewport. This will disable automatic cropping. Both height and width parameters must be set if using either.
+  #
+  # @return [HTMLCSSToImage::ApiResponse] image URL available at `.url`.
+  def create_template(html, params = {})
+    body = { html: html }.merge(params).to_json
+    options = { basic_auth: @auth, body: body }
+
+    self.class.post("/v1/template", options)
   end
 end

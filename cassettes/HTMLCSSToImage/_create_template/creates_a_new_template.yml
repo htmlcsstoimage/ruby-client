@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://hcti.io/v1/template
+    body:
+      encoding: UTF-8
+      string: '{"html":"<div>{{title}}</div>"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic authentication-header
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 07 Aug 2020 19:36:19 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - AWSALB=8NnODxuzAe4Nb8xeygtwkJHJHF3lssQ/enmnhpDWIEnVBlUCGsJx7oOuPNoHhhnOmfAuosIx+goxLrCc65Bj5aHNLx2OQfAT2+s30zwTqYe68r9E92BliiwyFa5u;
+        Expires=Fri, 14 Aug 2020 19:36:19 GMT; Path=/
+      - AWSALBCORS=8NnODxuzAe4Nb8xeygtwkJHJHF3lssQ/enmnhpDWIEnVBlUCGsJx7oOuPNoHhhnOmfAuosIx+goxLrCc65Bj5aHNLx2OQfAT2+s30zwTqYe68r9E92BliiwyFa5u;
+        Expires=Fri, 14 Aug 2020 19:36:19 GMT; Path=/; SameSite=None
+      - __cfduid=d711e0d3ad7d037601f11d9cf3adf2b781596828978; expires=Sun, 06-Sep-20
+        19:36:18 GMT; path=/; domain=.hcti.io; HttpOnly; SameSite=Lax
+      - __cflb=0H28vWzHFPHZw4TS8VrB813a2Y9bcaGDgdxkfUiw3uN; SameSite=Lax; path=/;
+        expires=Sat, 08-Aug-20 18:36:19 GMT; HttpOnly
+      Cf-Ray:
+      - 5bf3721e3a64ed8b-SJC
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cf-Request-Id:
+      - 046c05a6e10000ed8b05ab1200000001
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Request-Context:
+      - appId=cid-v1:ef200074-f922-49b8-a889-360bb27d5561
+      Server:
+      - cloudflare
+    body:
+      encoding: ASCII-8BIT
+      string: '{"template_id":"t-5a518f6d-fc53-4c6a-96a1-34ef5ff89916","template_version":1596828979123}'
+  recorded_at: Fri, 07 Aug 2020 19:36:19 GMT
+recorded_with: VCR 6.0.0

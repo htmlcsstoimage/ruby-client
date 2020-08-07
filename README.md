@@ -67,6 +67,24 @@ Generate a screenshot of any public URL.
 image = client.url_to_image("https://github.com", viewport_width: 800, viewport_height: 1200)
 ```
 
+## Templates
+A template allows you to define HTML that includes variables to be substituted at the time of image creation. [Learn more about templates](https://docs.htmlcsstoimage.com/getting-started/templates/).
+
+```ruby
+template = client.create_template("<div>{{title}}</div>")
+# => #<HTMLCSSToImage::ApiResponse template_id="t-56c64be5-5861-4148-acec-aaaca452027f", template_version=1596829374001>
+
+# Get templates
+all_templates = client.templates
+
+# Create a signed URL for a templated image
+image = client.create_image_from_template(template.template_id, { title: "Hello, world!" })
+# => #<HTMLCSSToImage::ApiResponse url="https://hcti.io/v1/image/t-56c64be5-5861-4148-acec-aaaca452027f/3aaa814dd998b302cc62b3550ddb35e8b9117c5ecea286da904eced0a3f44d9e?title=Hello%2C%20world%21">
+
+image.url
+# => "https://hcti.io/v1/image/t-56c64be5-5861-4148-acec-aaaca452027f/3aaa814dd998b302cc62b3550ddb35e8b9117c5ecea286da904eced0a3f44d9e?title=Hello%2C%20world%21"
+```
+
 ### Additional methods
 See the [ruby-client docs for all of the available methods](https://htmlcsstoimage.github.io/ruby-client/HTMLCSSToImage.html).
 
