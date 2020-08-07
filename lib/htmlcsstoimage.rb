@@ -28,7 +28,7 @@ class HTMLCSSToImage
   #   If credentials are not provided, will try to use environment variables.
   #   `HCTI_USER_ID` and `HCTI_API_KEY`.
   #
-  # @see {https://htmlcsstoimage.com/dashboard}
+  # @see https://htmlcsstoimage.com/dashboard
   #
   # @param user_id [String] the user_id for the account.
   # @param api_key [String] the api_key for the account.
@@ -39,7 +39,7 @@ class HTMLCSSToImage
 
   # Converts HTML/CSS to an image with the API
   #
-  # @see {https://docs.htmlcsstoimage.com/getting-started/using-the-api}
+  # @see https://docs.htmlcsstoimage.com/getting-started/using-the-api
   #
   # @param html [String] This is the HTML you want to render. You can send an HTML snippet (`<div>Your content</div>`) or an entire webpage.
   #
@@ -62,7 +62,7 @@ class HTMLCSSToImage
 
   # Deletes an image
   #
-  # @see {https://docs.htmlcsstoimage.com/getting-started/using-the-api}
+  # @see https://docs.htmlcsstoimage.com/getting-started/using-the-api
   #
   # @param image_id [String] The ID for the image you would like to delete
   def delete_image(image_id)
@@ -80,7 +80,7 @@ class HTMLCSSToImage
   #
   # Does not make any network requests.
   #
-  # @see {https://docs.htmlcsstoimage.com/getting-started/using-the-api}
+  # @see https://docs.htmlcsstoimage.com/getting-started/using-the-api
   #
   # @param template_id [String] The ID for the template
   # @param template_values [Hash] A hash containing the values to replace in the template
@@ -101,6 +101,17 @@ class HTMLCSSToImage
     ApiResponse.new(url: url)
   end
 
+  # Generate a screenshot of a URL
+  #
+  # @see https://docs.htmlcsstoimage.com/getting-started/url-to-image/
+  #
+  # @param url [String] The fully qualified URL to a public webpage. Such as https://htmlcsstoimage.com.
+  # @option params [String] :selector A CSS selector for an element on the webpage. We'll crop the image to this specific element. For example: `section#complete-toolkit.container-lg`
+  # @option params [Integer] :ms_delay The number of milliseconds the API should delay before generating the image. This is useful when waiting for JavaScript. We recommend starting with `500`. Large values slow down the initial render time.
+  # @option params [Double] :device_scale This adjusts the pixel ratio for the screenshot. Minimum: `1`, Maximum: `3`.
+  # @option params [Boolean] :render_when_ready Set to true to control when the image is generated. Call `ScreenshotReady()` from JavaScript to generate the image. [Learn more](https://docs.htmlcsstoimage.com/guides/render-when-ready/).
+  # @option params [Integer] :viewport_width Set the width of Chrome's viewport. This will disable automatic cropping. Both height and width parameters must be set if using either.
+  # @option params [Integer] :viewport_height Set the height of Chrome's viewport. This will disable automatic cropping. Both height and width parameters must be set if using either.
   def url_to_image(url, params = {})
     body = { url: url }.merge(params).to_json
     options = { basic_auth: @auth, body: body, query: { includeId: true } }
@@ -108,6 +119,9 @@ class HTMLCSSToImage
     self.class.post("/v1/image", options)
   end
 
+  # Retrieves all available templates
+  #
+  # @see https://docs.htmlcsstoimage.com/getting-started/templates/
   def templates(params = {})
     options = params.merge({ basic_auth: @auth })
     self.class.get("/v1/template", options)

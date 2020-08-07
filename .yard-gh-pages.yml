@@ -1,0 +1,3 @@
+source_branch: 'main'
+source_directory: 'docs'
+destination_branch: 'gh-pages'
