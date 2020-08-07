@@ -29,6 +29,8 @@ Create a new instance of the API client.
 client = HTMLCSSToImage.new(user_id: "user-id", api_key: "api-key")
 ```
 
+**Using Environment variables**
+
 Alternatively, you can set `ENV["HCTI_USER_ID"]` and `ENV["HCTI_API_KEY"]`. These will be loaded automatically.
 
 ```ruby
@@ -36,6 +38,7 @@ client = HTMLCSSToImage.new
 ```
 
 ### Create an image
+Generate an image from HTML/CSS. Returns a URL to the image.
 
 ```ruby
 image = client.create_image("<div>Hello, world</div>",
@@ -49,11 +52,15 @@ image.url
 ```
 
 ### Delete an image
+Delete an existing image. Removes the image from HCTI servers and clears the CDN.
+
 ```ruby
 client.delete_image("254b444c-dd82-4cc1-94ef-aa4b3a6870a6")
 ```
 
 ### URL to image
+Generate a screenshot of any public URL.
+
 ```ruby
 image = client.url_to_image("https://github.com", viewport_width: 800, viewport_height: 1200)
 ```
