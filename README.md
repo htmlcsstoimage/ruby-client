@@ -49,7 +49,7 @@ image.url
 ```
 
 ### Delete an image
-```Ruby
+```ruby
 client.delete_image("254b444c-dd82-4cc1-94ef-aa4b3a6870a6")
 ```
 
@@ -57,6 +57,9 @@ client.delete_image("254b444c-dd82-4cc1-94ef-aa4b3a6870a6")
 ```ruby
 image = client.url_to_image("https://github.com", viewport_width: 800, viewport_height: 1200)
 ```
+
+### Additional methods
+See the [ruby-client docs for all of the available methods](https://htmlcsstoimage.github.io/ruby-client/HTMLCSSToImage.html).
 
 ## Available parameters
 For detailed information on all the available parameters, visit the docs: https://docs.htmlcsstoimage.com/getting-started/using-the-api/
