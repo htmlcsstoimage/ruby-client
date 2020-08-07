@@ -59,6 +59,8 @@
 
       <div id="content"><div id='filecontents'><h1 id="html-css-to-image-ruby">HTML/CSS to Image - Ruby</h1>
 
+<p><img src="https://github.com/htmlcsstoimage/ruby-client/workflows/Test/badge.svg?branch=main" alt="Test"> <a href="https://badge.fury.io/rb/htmlcsstoimage-api"><img src="https://badge.fury.io/rb/htmlcsstoimage-api.svg" alt="Gem Version"></a></p>
+
 <p>Ruby client for the <a href="https://htmlcsstoimage.com">HTML/CSS to Image API</a>.</p>
 
 <p>Generate a png, jpg or webp images with Ruby. Renders exactly like Google Chrome.</p>
@@ -88,12 +90,16 @@
 </span><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTMLCSSToImage.html" title="HTMLCSSToImage (class)">HTMLCSSToImage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="HTMLCSSToImage.html#initialize-instance_method" title="HTMLCSSToImage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>user_id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user-id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>api_key:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>api-key</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
 
+<p><strong>Using Environment variables</strong></p>
+
 <p>Alternatively, you can set <code>ENV[&quot;HCTI_USER_ID&quot;]</code> and <code>ENV[&quot;HCTI_API_KEY&quot;]</code>. These will be loaded automatically.</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="HTMLCSSToImage.html" title="HTMLCSSToImage (class)">HTMLCSSToImage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="HTMLCSSToImage.html#initialize-instance_method" title="HTMLCSSToImage#initialize (method)">new</a></span></span>
 </code></pre>
 
 <h3 id="create-an-image">Create an image</h3>
+
+<p>Generate an image from HTML/CSS. Returns a URL to the image.</p>
 
 <pre class="code ruby"><code class="ruby">image = client.create_image(&quot;&lt;div&gt;Hello, world&lt;/div&gt;&quot;,
                             css: &quot;div { background-color: red; font-family: Roboto; }&quot;,
@@ -107,13 +113,39 @@ image.url
 
 <h3 id="delete-an-image">Delete an image</h3>
 
-<pre class="code Ruby"><code class="Ruby">client.delete_image(&quot;254b444c-dd82-4cc1-94ef-aa4b3a6870a6&quot;)
+<p>Delete an existing image. Removes the image from HCTI servers and clears the CDN.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_delete_image'>delete_image</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>254b444c-dd82-4cc1-94ef-aa4b3a6870a6</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
 
 <h3 id="url-to-image">URL to image</h3>
 
+<p>Generate a screenshot of any public URL.</p>
+
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_image'>image</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_url_to_image'>url_to_image</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://github.com</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>viewport_width:</span> <span class='int'>800</span><span class='comma'>,</span> <span class='label'>viewport_height:</span> <span class='int'>1200</span><span class='rparen'>)</span>
 </code></pre>
+
+<h2 id="templates">Templates</h2>
+
+<p>A template allows you to define HTML that includes variables to be substituted at the time of image creation. <a href="https://docs.htmlcsstoimage.com/getting-started/templates/">Learn more about templates</a>.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_template'>template</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_template'>create_template</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;div&gt;{{title}}&lt;/div&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; #&lt;HTMLCSSToImage::ApiResponse template_id=&quot;t-56c64be5-5861-4148-acec-aaaca452027f&quot;, template_version=1596829374001&gt;
+</span>
+<span class='comment'># Get templates
+</span><span class='id identifier rubyid_all_templates'>all_templates</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_templates'>templates</span>
+
+<span class='comment'># Create a signed URL for a templated image
+</span><span class='id identifier rubyid_image'>image</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_image_from_template'>create_image_from_template</span><span class='lparen'>(</span><span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>title:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hello, world!</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='comment'># =&gt; #&lt;HTMLCSSToImage::ApiResponse url=&quot;https://hcti.io/v1/image/t-56c64be5-5861-4148-acec-aaaca452027f/3aaa814dd998b302cc62b3550ddb35e8b9117c5ecea286da904eced0a3f44d9e?title=Hello%2C%20world%21&quot;&gt;
+</span>
+<span class='id identifier rubyid_image'>image</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span>
+<span class='comment'># =&gt; &quot;https://hcti.io/v1/image/t-56c64be5-5861-4148-acec-aaaca452027f/3aaa814dd998b302cc62b3550ddb35e8b9117c5ecea286da904eced0a3f44d9e?title=Hello%2C%20world%21&quot;
+</span></code></pre>
+
+<h3 id="additional-methods">Additional methods</h3>
+
+<p>See the <a href="https://htmlcsstoimage.github.io/ruby-client/HTMLCSSToImage.html">ruby-client docs for all of the available methods</a>.</p>
 
 <h2 id="available-parameters">Available parameters</h2>
 
@@ -125,7 +157,7 @@ image.url
 
 <p>To install this gem onto your local machine, run <code>bundle exec rake install</code>. To release a new version, update the version number in <code>version.rb</code>, and then run <code>bundle exec rake release</code>, which will create a git tag for the version, push git commits and tags, and push the <code>.gem</code> file to <a href="https://rubygems.org">rubygems.org</a>.</p>
 
-<p>To generate the Yard docs, run <code>yard doc</code> and commit the changes.</p>
+<p>To generate the Yard docs, run <code>yard doc -o docs</code> and commit the changes.</p>
 
 <h2 id="support">Support</h2>
 
@@ -133,7 +165,7 @@ image.url
 
 <h2 id="contributing">Contributing</h2>
 
-<p>Bug reports and pull requests are welcome on GitHub at <a href="https://github.com/htmlcsstoimage/ruby-client/contributor-covenant.org">https://github.com/htmlcsstoimage/ruby-client/contributor-covenant.org</a>) code of conduct.</p>
+<p>Bug reports and pull requests are welcome on GitHub at <a href="https://github.com/htmlcsstoimage/ruby-client">https://github.com/htmlcsstoimage/ruby-client</a>.</p>
 
 <h2 id="license">License</h2>
 
@@ -145,7 +177,7 @@ image.url
 </div></div>
 
       <div id="footer">
-  Generated on Fri Aug  7 11:01:21 2020 by
+  Generated on Fri Aug  7 13:04:07 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.5).
 </div>
