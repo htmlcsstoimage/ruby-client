@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    htmlcsstoimage-api (0.1.0)
+    htmlcsstoimage-api (0.1.1)
       httparty (> 0.10)
 
 GEM
