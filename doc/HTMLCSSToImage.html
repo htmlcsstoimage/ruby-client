@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
   Class: HTMLCSSToImage
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.8.7.6
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
 
-<script type="text/javascript">
-  pathId = "HTMLCSSToImage";
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
   relpath = '';
+  framesUrl = "frames.html#!HTMLCSSToImage.html";
 </script>
 
 
@@ -27,48 +28,51 @@
 
   </head>
   <body>
-    <div class="nav_wrap">
-      <iframe id="nav" src="class_list.html?1"></iframe>
-      <div id="resizer"></div>
-    </div>
-
-    <div id="main" tabindex="-1">
-      <div id="header">
-        <div id="menu">
+    <div id="header">
+      <div id="menu">
   
     <a href="_index.html">Index (H)</a> &raquo;
     
     
     <span class="title">HTMLCSSToImage</span>
   
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
-        <div id="search">
+      <div id="search">
   
     <a class="full_list_link" id="class_list_link"
         href="class_list.html">
-
-        <svg width="24" height="24">
-          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
-          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
-          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
-        </svg>
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
     </a>
   
 </div>
-        <div class="clear"></div>
-      </div>
+      <div class="clear"></div>
+    </div>
 
-      <div id="content"><h1>Class: HTMLCSSToImage
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: HTMLCSSToImage
   
   
   
 </h1>
-<div class="box_info">
+
+<dl class="box">
   
-  <dl>
-    <dt>Inherits:</dt>
-    <dd>
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
       <span class="inheritName">Object</span>
       
         <ul class="fullTree">
@@ -79,32 +83,27 @@
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
       
-    </dd>
-  </dl>
-  
-
+      </dd>
+    
   
   
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2">HTTParty</dd>
+      
+    
   
   
-  <dl>
-      <dt>Includes:</dt>
-      <dd>HTTParty</dd>
-  </dl>
   
-  
-
-  
-
-  
-  <dl>
-    <dt>Defined in:</dt>
-    <dd>lib/htmlcsstoimage.rb<span class="defines">,<br />
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/htmlcsstoimage.rb<span class="defines">,<br />
   lib/htmlcsstoimage/version.rb</span>
 </dd>
-  </dl>
   
-</div>
+</dl>
+<div class="clear"></div>
 
 <h2>Defined Under Namespace</h2>
 <p class="children">
@@ -117,12 +116,8 @@
   
 </p>
 
+  <h2>Constant Summary</h2>
   
-    <h2>
-      Constant Summary
-      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
-    </h2>
-
     <dl class="constants">
       
         <dt id="SIGNED_URL_TEMPLATE-constant" class="">SIGNED_URL_TEMPLATE =
@@ -147,7 +142,7 @@
   
     <h2>
       Instance Method Summary
-      <small><a href="#" class="summary_toggle">collapse</a></small>
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
     </h2>
 
     <ul class="summary">
@@ -155,7 +150,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_image-instance_method" title="#create_image (instance method)">#<strong>create_image</strong>(html, params = {})  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+      <a href="#create_image-instance_method" title="#create_image (instance method)">- (HTMLCSSToImage::ApiResponse) <strong>create_image</strong>(html, params = {}) </a>
     
 
     
@@ -179,7 +174,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_image_from_template-instance_method" title="#create_image_from_template (instance method)">#<strong>create_image_from_template</strong>(template_id, template_values = {}, params = {})  &#x21d2; Object </a>
+      <a href="#create_image_from_template-instance_method" title="#create_image_from_template (instance method)">- (Object) <strong>create_image_from_template</strong>(template_id, template_values = {}, params = {}) </a>
     
 
     
@@ -203,7 +198,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete_image-instance_method" title="#delete_image (instance method)">#<strong>delete_image</strong>(image_id)  &#x21d2; Object </a>
+      <a href="#delete_image-instance_method" title="#delete_image (instance method)">- (Object) <strong>delete_image</strong>(image_id) </a>
     
 
     
@@ -227,7 +222,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(user_id: ENV[&quot;HCTI_USER_ID&quot;], api_key: ENV[&quot;HCTI_API_KEY&quot;])  &#x21d2; HTMLCSSToImage </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (HTMLCSSToImage) <strong>initialize</strong>(user_id: ENV[&quot;HCTI_USER_ID&quot;], api_key: ENV[&quot;HCTI_API_KEY&quot;]) </a>
     
 
     
@@ -253,7 +248,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#templates-instance_method" title="#templates (instance method)">#<strong>templates</strong>(params = {})  &#x21d2; Object </a>
+      <a href="#templates-instance_method" title="#templates (instance method)">- (Object) <strong>templates</strong>(params = {}) </a>
     
 
     
@@ -277,7 +272,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#url_to_image-instance_method" title="#url_to_image (instance method)">#<strong>url_to_image</strong>(url, params = {})  &#x21d2; Object </a>
+      <a href="#url_to_image-instance_method" title="#url_to_image (instance method)">- (Object) <strong>url_to_image</strong>(url, params = {}) </a>
     
 
     
@@ -308,7 +303,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(user_id: ENV[&quot;HCTI_USER_ID&quot;], api_key: ENV[&quot;HCTI_API_KEY&quot;])  &#x21d2; <tt><span class='object_link'><a href="" title="HTMLCSSToImage (class)">HTMLCSSToImage</a></span></tt> 
+    - (<tt><span class='object_link'><a href="" title="HTMLCSSToImage (class)">HTMLCSSToImage</a></span></tt>) <strong>initialize</strong>(user_id: ENV[&quot;HCTI_USER_ID&quot;], api_key: ENV[&quot;HCTI_API_KEY&quot;]) 
   
 
   
@@ -338,8 +333,6 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>ENV[&quot;HCTI_USER_ID&quot;]</tt>)</em>
-      
       
         &mdash;
         <div class='inline'>
@@ -355,8 +348,6 @@
       
         <span class='type'>(<tt>String</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>ENV[&quot;HCTI_API_KEY&quot;]</tt>)</em>
       
       
         &mdash;
@@ -407,7 +398,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="create_image-instance_method">
   
-    #<strong>create_image</strong>(html, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+    - (<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>) <strong>create_image</strong>(html, params = {}) 
   
 
   
@@ -632,7 +623,7 @@
       <div class="method_details ">
   <h3 class="signature " id="create_image_from_template-instance_method">
   
-    #<strong>create_image_from_template</strong>(template_id, template_values = {}, params = {})  &#x21d2; <tt>Object</tt> 
+    - (<tt>Object</tt>) <strong>create_image_from_template</strong>(template_id, template_values = {}, params = {}) 
   
 
   
@@ -723,7 +714,7 @@
       <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_image_from_template'>create_image_from_template</span><span class='lparen'>(</span><span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span> <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_template'>template</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#SIGNED_URL_TEMPLATE-constant" title="HTMLCSSToImage::SIGNED_URL_TEMPLATE (constant)">SIGNED_URL_TEMPLATE</a></span></span><span class='period'>.</span><span class='id identifier rubyid_partial_expand'>partial_expand</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+  <span class='id identifier rubyid_template'>template</span> <span class='op'>=</span> <span class='const'>SIGNED_URL_TEMPLATE</span><span class='period'>.</span><span class='id identifier rubyid_partial_expand'>partial_expand</span><span class='lparen'>(</span><span class='lbrace'>{</span>
     <span class='label'>template_id:</span> <span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
     <span class='label'>query:</span> <span class='id identifier rubyid_template_values'>template_values</span>
   <span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -736,7 +727,7 @@
     <span class='label'>signed_token:</span> <span class='id identifier rubyid_signed_token'>signed_token</span>
   <span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 
-  <span class='const'><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="HTMLCSSToImage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>url:</span> <span class='id identifier rubyid_url'>url</span><span class='rparen'>)</span>
+  <span class='const'>ApiResponse</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>url:</span> <span class='id identifier rubyid_url'>url</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -746,7 +737,7 @@
       <div class="method_details ">
   <h3 class="signature " id="delete_image-instance_method">
   
-    #<strong>delete_image</strong>(image_id)  &#x21d2; <tt>Object</tt> 
+    - (<tt>Object</tt>) <strong>delete_image</strong>(image_id) 
   
 
   
@@ -822,7 +813,7 @@
       <div class="method_details ">
   <h3 class="signature " id="templates-instance_method">
   
-    #<strong>templates</strong>(params = {})  &#x21d2; <tt>Object</tt> 
+    - (<tt>Object</tt>) <strong>templates</strong>(params = {}) 
   
 
   
@@ -872,7 +863,7 @@
       <div class="method_details ">
   <h3 class="signature " id="url_to_image-instance_method">
   
-    #<strong>url_to_image</strong>(url, params = {})  &#x21d2; <tt>Object</tt> 
+    - (<tt>Object</tt>) <strong>url_to_image</strong>(url, params = {}) 
   
 
   
@@ -1054,12 +1045,11 @@
 
 </div>
 
-      <div id="footer">
-  Generated on Fri Aug  7 10:50:05 2020 by
+    <div id="footer">
+  Generated on Fri Aug  7 10:53:50 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.5).
+  0.8.7.6 (ruby-2.6.5).
 </div>
 
-    </div>
   </body>
 </html>
