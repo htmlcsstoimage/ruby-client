@@ -1,5 +1,7 @@
 # HTML/CSS to Image - Ruby
 
+![Test](https://github.com/htmlcsstoimage/ruby-client/workflows/Test/badge.svg?branch=main) [![Gem Version](https://badge.fury.io/rb/htmlcsstoimage-api.svg)](https://badge.fury.io/rb/htmlcsstoimage-api)
+
 Ruby client for the [HTML/CSS to Image API](https://htmlcsstoimage.com).
 
 Generate a png, jpg or webp images with Ruby. Renders exactly like Google Chrome.
