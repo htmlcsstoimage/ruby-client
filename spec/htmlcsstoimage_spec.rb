@@ -71,7 +71,7 @@ RSpec.describe HTMLCSSToImage do
     it "creates a new template" do
       template = client.create_template("<div>{{title}}</div>")
 
-      expect(template.id).to_not be_nil
+      expect(template.template_id).to_not be_nil
       expect(template.version).to_not be_nil
     end
   end
