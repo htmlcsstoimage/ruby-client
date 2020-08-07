@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "htmlcsstoimage/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "htmlcsstoimage"
+  spec.name          = "htmlcsstoimage-api"
   spec.version       = HTMLCSSToImage::VERSION
   spec.authors       = ["Mike Coutermarsh", "Jeffrey Needles"]
   spec.email         = ["support@htmlcsstoimage.com"]

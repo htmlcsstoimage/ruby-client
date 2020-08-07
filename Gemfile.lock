@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    htmlcsstoimage (0.1.0)
+    htmlcsstoimage-api (0.1.0)
       httparty (> 0.10)
 
 GEM
@@ -56,7 +56,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (> 2.0)
-  htmlcsstoimage!
+  htmlcsstoimage-api!
   pry
   pry-byebug
   rake (~> 10.0)

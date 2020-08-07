@@ -9,7 +9,7 @@ Generate a png, jpg or webp images with Ruby. Renders exactly like Google Chrome
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'htmlcsstoimage'
+gem 'htmlcsstoimage-api'
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install htmlcsstoimage
+    $ gem install htmlcsstoimage-api
 
 ## Usage
 
