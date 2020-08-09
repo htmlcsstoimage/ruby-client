@@ -4,7 +4,7 @@
 
 Ruby client for the [HTML/CSS to Image API](https://htmlcsstoimage.com).
 
-Generate a png, jpg or webp images with Ruby. Renders exactly like Google Chrome.
+Generate png, jpg or webp images with Ruby. Renders exactly like Google Chrome.
 
 ## Installation
 
