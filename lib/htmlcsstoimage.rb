@@ -105,6 +105,7 @@ class HTMLCSSToImage
   # @see https://docs.htmlcsstoimage.com/getting-started/url-to-image/
   #
   # @param url [String] The fully qualified URL to a public webpage. Such as https://htmlcsstoimage.com.
+  # @option params [String] :css The CSS for your image. Gets injected into the webpage.
   # @option params [String] :selector A CSS selector for an element on the webpage. We'll crop the image to this specific element. For example: `section#complete-toolkit.container-lg`
   # @option params [Integer] :ms_delay The number of milliseconds the API should delay before generating the image. This is useful when waiting for JavaScript. We recommend starting with `500`. Large values slow down the initial render time.
   # @option params [Double] :device_scale This adjusts the pixel ratio for the screenshot. Minimum: `1`, Maximum: `3`.
