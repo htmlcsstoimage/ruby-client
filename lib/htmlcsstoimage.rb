@@ -89,7 +89,7 @@ class HTMLCSSToImage
       query: template_values
     })
 
-    query = Addressable::URI.parse(template.generate).query
+    query = Addressable::URI.parse(template.expand(signed_token: nil).to_s).query
     digest = OpenSSL::Digest.new('sha256')
     signed_token = OpenSSL::HMAC.hexdigest(digest, @auth[:password], CGI.unescape(query))
 
