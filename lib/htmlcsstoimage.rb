@@ -1,6 +1,7 @@
 require "htmlcsstoimage/version"
 require "httparty"
 require "addressable"
+require "ostruct"
 
 class HTMLCSSToImage
   include HTTParty
