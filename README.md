@@ -11,7 +11,7 @@ Generate png, jpg or webp images with Ruby. Renders exactly like Google Chrome.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'htmlcsstoimage-api'
+gem 'htmlcsstoimage-api', require: 'htmlcsstoimage'
 ```
 
 And then execute:
@@ -27,6 +27,7 @@ Or install it yourself as:
 Create a new instance of the API client.
 
 ```ruby
+require "htmlcsstoimage"
 # Retrieve your user id and api key from https://htmlcsstoimage.com/dashboard
 client = HTMLCSSToImage.new(user_id: "user-id", api_key: "api-key")
 ```
@@ -36,6 +37,7 @@ client = HTMLCSSToImage.new(user_id: "user-id", api_key: "api-key")
 Alternatively, you can set `ENV["HCTI_USER_ID"]` and `ENV["HCTI_API_KEY"]`. These will be loaded automatically.
 
 ```ruby
+require "htmlcsstoimage"
 client = HTMLCSSToImage.new
 ```
 
