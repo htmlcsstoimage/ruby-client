@@ -6,13 +6,13 @@
 <title>
   Class: HTMLCSSToImage
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.45
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" />
+  <link rel="stylesheet" href="css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "HTMLCSSToImage";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -99,14 +101,24 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/htmlcsstoimage.rb<span class="defines">,<br />
-  lib/htmlcsstoimage/version.rb</span>
+    <dd>lib/htmlcsstoimage/client.rb<span class="defines">,<br>
+  lib/htmlcsstoimage/images.rb,<br> lib/htmlcsstoimage/version.rb,<br> lib/htmlcsstoimage/templates.rb,<br> lib/htmlcsstoimage/signed_urls.rb</span>
+
 </dd>
   </dl>
   
 </div>
 
-<h2>Defined Under Namespace</h2>
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Client for creating images and managing templates with HTML/CSS to Image.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
 <p class="children">
   
     
@@ -125,15 +137,19 @@
 
     <dl class="constants">
       
-        <dt id="SIGNED_URL_TEMPLATE-constant" class="">SIGNED_URL_TEMPLATE =
-          
-        </dt>
-        <dd><pre class="code"><span class='const'>Addressable</span><span class='op'>::</span><span class='const'>Template</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://hcti.io/v1/image/{template_id}/{signed_token}{/format*}{?query*}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre></dd>
-      
         <dt id="VERSION-constant" class="">VERSION =
-          
+          <div class="docstring">
+  <div class="discussion">
+    <p>Current version of the Ruby client gem.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.1.1</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.1.4</span><span class='tstring_end'>&quot;</span></span></pre></dd>
       
     </dl>
   
@@ -169,9 +185,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Converts HTML/CSS to an image with the API.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Converts HTML/CSS to an image with the API.</p></div></span>
   
 </li>
 
@@ -179,7 +193,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_image_from_template-instance_method" title="#create_image_from_template (instance method)">#<strong>create_image_from_template</strong>(template_id, template_values = {}, params = {})  &#x21d2; Object </a>
+      <a href="#create_image_batch-instance_method" title="#create_image_batch (instance method)">#<strong>create_image_batch</strong>(variations, default_options = nil)  &#x21d2; HTMLCSSToImage::ApiResponse </a>
     
 
     
@@ -193,9 +207,29 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Creates a signed URL for generating an image from a template This URL contains the template_values in it.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Creates several HTML/CSS or URL images in one API request.</p></div></span>
+  
+</li>
+
+      
+        <li class="public deprecated">
+  <span class="summary_signature">
+    
+      <a href="#create_image_from_template-instance_method" title="#create_image_from_template (instance method)">#<strong>create_image_from_template</strong>(template_id, template_values = {}, params = {}, template_version: nil, **keyword_values)  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  <span class="deprecated note title">deprecated</span>
+  
+
+  
+    <span class="summary_desc"><strong>Deprecated.</strong> <div class='inline'><p>Use <span class='object_link'><a href="#generate_templated_image_url-instance_method" title="HTMLCSSToImage#generate_templated_image_url (method)">#generate_templated_image_url</a></span> instead.</p></div></span>
   
 </li>
 
@@ -217,9 +251,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Creates an image template.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Creates an image template.</p></div></span>
   
 </li>
 
@@ -227,7 +259,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete_image-instance_method" title="#delete_image (instance method)">#<strong>delete_image</strong>(image_id)  &#x21d2; Object </a>
+      <a href="#create_template_version-instance_method" title="#create_template_version (instance method)">#<strong>create_template_version</strong>(template_id, html, params = {})  &#x21d2; HTMLCSSToImage::ApiResponse </a>
     
 
     
@@ -241,9 +273,95 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Deletes an image.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Creates a new version of a saved template.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_templated_image-instance_method" title="#create_templated_image (instance method)">#<strong>create_templated_image</strong>(template_id, template_values = {}, template_version: nil, **keyword_values)  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Creates an image from a saved template with an API request.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_image-instance_method" title="#delete_image (instance method)">#<strong>delete_image</strong>(image_id)  &#x21d2; Boolean, HTMLCSSToImage::ApiResponse </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Deletes an image.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#generate_create_and_render_url-instance_method" title="#generate_create_and_render_url (instance method)">#<strong>generate_create_and_render_url</strong>(url, params = {})  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Generates a signed create-and-render URL for a URL screenshot.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#generate_templated_image_url-instance_method" title="#generate_templated_image_url (instance method)">#<strong>generate_templated_image_url</strong>(template_id, template_values = {}, template_version: nil, **keyword_values)  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Generates a signed URL for rendering an image from a saved template.</p></div></span>
   
 </li>
 
@@ -267,9 +385,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Creates an instance of HTMLCSSToImage with API credentials.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Creates an instance of HTMLCSSToImage with API credentials.</p></div></span>
   
 </li>
 
@@ -277,7 +393,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#templates-instance_method" title="#templates (instance method)">#<strong>templates</strong>(params = {})  &#x21d2; Object </a>
+      <a href="#list_template_versions-instance_method" title="#list_template_versions (instance method)">#<strong>list_template_versions</strong>(template_id, params = {})  &#x21d2; HTMLCSSToImage::ApiResponse </a>
     
 
     
@@ -291,9 +407,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Retrieves all available templates.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Retrieves versions of a saved template.</p></div></span>
   
 </li>
 
@@ -301,7 +415,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#url_to_image-instance_method" title="#url_to_image (instance method)">#<strong>url_to_image</strong>(url, params = {})  &#x21d2; Object </a>
+      <a href="#list_templates-instance_method" title="#list_templates (instance method)">#<strong>list_templates</strong>(params = {})  &#x21d2; HTMLCSSToImage::ApiResponse </a>
     
 
     
@@ -315,14 +429,57 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Generate a screenshot of a URL.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Retrieves saved templates.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#templates-instance_method" title="#templates (instance method)">#<strong>templates</strong>(params = {})  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Compatibility proxy for <span class='object_link'><a href="#list_templates-instance_method" title="HTMLCSSToImage#list_templates (method)">#list_templates</a></span>.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#url_to_image-instance_method" title="#url_to_image (instance method)">#<strong>url_to_image</strong>(url, params = {})  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Generates a screenshot of a public URL.</p></div></span>
   
 </li>
 
       
     </ul>
+    
   
 
 
@@ -340,13 +497,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Creates an instance of HTMLCSSToImage with API credentials.</p>
-
-<pre class="code ruby"><code class="ruby">If credentials are not provided, will try to use environment variables.
-`HCTI_USER_ID` and `HCTI_API_KEY`.
-</code></pre>
-
+    <p>Creates an instance of HTMLCSSToImage with API credentials.
+If credentials are not provided, the client uses the <code>HCTI_USER_ID</code>
+and <code>HCTI_API_KEY</code> environment variables.</p>
 
   </div>
 </div>
@@ -366,9 +519,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>the user_id for the account.</p>
-</div>
+        <div class='inline'><p>the user ID for the account</p></div>
       
     </li>
   
@@ -384,9 +535,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>the api_key for the account.</p>
-</div>
+        <div class='inline'><p>the API key for the account</p></div>
       
     </li>
   
@@ -406,12 +555,12 @@
       <pre class="lines">
 
 
-36
-37
-38</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/client.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>user_id:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HCTI_USER_ID</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>api_key:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HCTI_API_KEY</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@auth</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>username:</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='comma'>,</span> <span class='label'>password:</span> <span class='id identifier rubyid_api_key'>api_key</span> <span class='rbrace'>}</span>
@@ -439,9 +588,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Converts HTML/CSS to an image with the API</p>
-
+    <p>Converts HTML/CSS to an image with the API.</p>
 
   </div>
 </div>
@@ -459,9 +606,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>This is the HTML you want to render. You can send an HTML snippet (`&lt;div&gt;Your content&lt;/div&gt;`) or an entire webpage.</p>
-</div>
+        <div class='inline'><p>HTML to render, as a snippet or an entire webpage</p></div>
       
     </li>
   
@@ -477,9 +622,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>a customizable set of options</p>
-</div>
+        <div class='inline'><p>image creation options</p></div>
       
     </li>
   
@@ -500,9 +643,18 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>The CSS for your image.</p>
-</div>
+            &mdash; <div class='inline'><p>The CSS for your image.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:device_scale</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The pixel ratio for the screenshot. Minimum: <code>0.1</code>, Maximum: <code>3</code>.</p></div>
           
         </li>
       
@@ -513,22 +665,18 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>[Google fonts](<a href="https://docs.htmlcsstoimage.com/guides/using-google-fonts">docs.htmlcsstoimage.com/guides/using-google-fonts</a>/) to be loaded. Example: `Roboto`. Multiple fonts can be loaded like this: `Roboto|Open Sans`</p>
-</div>
+            &mdash; <div class='inline'><p>Google Fonts to load. Separate multiple fonts with <code>|</code>.</p></div>
           
         </li>
       
         <li>
-          <span class="name">:selector</span>
-          <span class="type">(<tt>String</tt>)</span>
+          <span class="name">:max_wait_ms</span>
+          <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>A CSS selector for an element on the webpage. We&#39;ll crop the image to this specific element. For example: `section#complete-toolkit.container-lg`</p>
-</div>
+            &mdash; <div class='inline'><p>The maximum time to wait before taking the screenshot. Minimum: <code>500</code>, Maximum: <code>10000</code>.</p></div>
           
         </li>
       
@@ -539,22 +687,7 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>The number of milliseconds the API should delay before generating the image. This is useful when waiting for JavaScript. We recommend starting with `500`. Large values slow down the initial render time.</p>
-</div>
-          
-        </li>
-      
-        <li>
-          <span class="name">:device_scale</span>
-          <span class="type">(<tt>Double</tt>)</span>
-          <span class="default">
-            
-          </span>
-          
-            &mdash; <div class='inline'>
-<p>This adjusts the pixel ratio for the screenshot. Minimum: `1`, Maximum: `3`.</p>
-</div>
+            &mdash; <div class='inline'><p>Extra time in milliseconds to wait before taking the screenshot. Maximum: <code>10000</code>.</p></div>
           
         </li>
       
@@ -565,22 +698,18 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>Set to true to control when the image is generated. Call `ScreenshotReady()` from JavaScript to generate the image. [Learn more](<a href="https://docs.htmlcsstoimage.com/guides/render-when-ready">docs.htmlcsstoimage.com/guides/render-when-ready</a>/).</p>
-</div>
+            &mdash; <div class='inline'><p>Wait until <code>ScreenshotReady()</code> is called from JavaScript before taking the screenshot.</p></div>
           
         </li>
       
         <li>
-          <span class="name">:viewport_width</span>
-          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="name">:selector</span>
+          <span class="type">(<tt>String</tt>)</span>
           <span class="default">
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>Set the width of Chrome&#39;s viewport. This will disable automatic cropping. Both height and width parameters must be set if using either.</p>
-</div>
+            &mdash; <div class='inline'><p>A CSS selector for the element to capture.</p></div>
           
         </li>
       
@@ -591,9 +720,161 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>Set the height of Chrome&#39;s viewport. This will disable automatic cropping. Both height and width parameters must be set if using either.</p>
-</div>
+            &mdash; <div class='inline'><p>The Chrome viewport height. Both viewport dimensions must be set if using either.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_width</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The Chrome viewport width. Both viewport dimensions must be set if using either.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:pdf_options</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Options for generating a PDF, including page size, margins, scale, and background printing.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:disable_twemoji</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Disable the Twemoji fallback and use native emoji fonts.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:max_render_once</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Ensure the image is only rendered and saved once.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:color_scheme</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Render using the <code>light</code> or <code>dark</code> browser color scheme.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:timezone</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The browser timezone as an IANA timezone identifier, such as <code>America/New_York</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_mobile</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether to honor the page's mobile viewport behavior.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_landscape</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether to render the viewport in landscape mode.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_touch</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether the viewport supports touch events.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:media_type</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Render using <code>print</code> or <code>screen</code> media.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:proxy_id</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The ID of an organization proxy to use for the render.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:jumbo_max_height</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Maximum output height in jumbo mode. Requires <code>jumbo_max_width</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:jumbo_max_width</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Maximum output width in jumbo mode. Requires <code>jumbo_max_height</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:transparent_background</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether to render the image with a transparent background.</p></div>
           
         </li>
       
@@ -611,9 +892,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>image URL available at `.url`.</p>
-</div>
+        <div class='inline'><p>image details, including <code>.url</code></p></div>
       
     </li>
   
@@ -632,15 +911,15 @@
       <pre class="lines">
 
 
-56
-57
-58
-59
-60
-61</pre>
+31
+32
+33
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_image'>create_image</span><span class='lparen'>(</span><span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>html:</span> <span class='id identifier rubyid_html'>html</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
@@ -654,9 +933,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="create_image_from_template-instance_method">
+  <h3 class="signature " id="create_image_batch-instance_method">
   
-    #<strong>create_image_from_template</strong>(template_id, template_values = {}, params = {})  &#x21d2; <tt>Object</tt> 
+    #<strong>create_image_batch</strong>(variations, default_options = nil)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
   
 
   
@@ -664,11 +943,125 @@
   
 </h3><div class="docstring">
   <div class="discussion">
+    <p>Creates several HTML/CSS or URL images in one API request.</p>
+<p>Templates are not supported in batch requests.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>variations</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;Hash&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>per-image values</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>default_options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>shared values inherited by each variation</p></div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>batch response with images available at <code>.images</code></p></div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
     
-<p>Creates a signed URL for generating an image from a template This URL contains the template_values in it. It is signed with HMAC so that it cannot be changed by anyone without the API Key.</p>
+      <li><a href="https://docs.htmlcsstoimage.com/getting-started/using-the-api" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/using-the-api">https://docs.htmlcsstoimage.com/getting-started/using-the-api</a></li>
+    
+  </ul>
 
-<p>Does not make any network requests.</p>
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
 
+
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 114</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_image_batch'>create_image_batch</span><span class='lparen'>(</span><span class='id identifier rubyid_variations'>variations</span><span class='comma'>,</span> <span class='id identifier rubyid_default_options'>default_options</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="HTMLCSSToImage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>images:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_variations'>variations</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>variations:</span> <span class='id identifier rubyid_variations'>variations</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_body'>body</span><span class='lbracket'>[</span><span class='symbol'>:default_options</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_default_options'>default_options</span> <span class='kw'>unless</span> <span class='id identifier rubyid_default_options'>default_options</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/image/batch</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='comma'>,</span>
+    <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_image_from_template-instance_method">
+  
+    #<strong>create_image_from_template</strong>(template_id, template_values = {}, params = {}, template_version: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <div class="note deprecated"><strong>Deprecated.</strong> <div class='inline'><p>Use <span class='object_link'><a href="#generate_templated_image_url-instance_method" title="HTMLCSSToImage#generate_templated_image_url (method)">#generate_templated_image_url</a></span> instead.</p></div></div>
+<p>Compatibility proxy for <span class='object_link'><a href="#generate_templated_image_url-instance_method" title="HTMLCSSToImage#generate_templated_image_url (method)">#generate_templated_image_url</a></span>.</p>
+<p>The third positional hash was accepted by previous versions but was not
+used. Its <code>template_version</code> value is now honored when present.</p>
 
   </div>
 </div>
@@ -686,9 +1079,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>The ID for the template</p>
-</div>
+        <div class='inline'><p>the saved template ID</p></div>
       
     </li>
   
@@ -704,21 +1095,74 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>A hash containing the values to replace in the template</p>
-</div>
+        <div class='inline'><p>values to substitute into the template</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>legacy options; only <code>template_version</code> is used</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>template_version</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a specific template version</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>keyword_values</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>template values passed as Ruby keyword arguments</p></div>
       
     </li>
   
 </ul>
 
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><a href="https://docs.htmlcsstoimage.com/getting-started/using-the-api" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/using-the-api">https://docs.htmlcsstoimage.com/getting-started/using-the-api</a></li>
-    
-  </ul>
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>signed URL available at <code>.url</code></p></div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -726,41 +1170,49 @@
       <pre class="lines">
 
 
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97
-98
-99
-100
-101</pre>
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/signed_urls.rb', line 51</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_create_image_from_template'>create_image_from_template</span><span class='lparen'>(</span><span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span> <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_template'>template</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#SIGNED_URL_TEMPLATE-constant" title="HTMLCSSToImage::SIGNED_URL_TEMPLATE (constant)">SIGNED_URL_TEMPLATE</a></span></span><span class='period'>.</span><span class='id identifier rubyid_partial_expand'>partial_expand</span><span class='lparen'>(</span><span class='lbrace'>{</span>
-    <span class='label'>template_id:</span> <span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
-    <span class='label'>query:</span> <span class='id identifier rubyid_template_values'>template_values</span>
-  <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_create_image_from_template'>create_image_from_template</span><span class='lparen'>(</span>
+  <span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
+  <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='label'>template_version:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='op'>**</span><span class='id identifier rubyid_keyword_values'>keyword_values</span>
+<span class='rparen'>)</span>
+  <span class='id identifier rubyid_params'>params</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='id identifier rubyid_template_values'>template_values</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_keyword_values'>keyword_values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_legacy_version'>legacy_version</span> <span class='op'>=</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:template_version</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>template_version</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='const'>Addressable</span><span class='op'>::</span><span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_generate'>generate</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_query'>query</span>
-  <span class='id identifier rubyid_digest'>digest</span> <span class='op'>=</span> <span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>Digest</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sha256</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_signed_token'>signed_token</span> <span class='op'>=</span> <span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>HMAC</span><span class='period'>.</span><span class='id identifier rubyid_hexdigest'>hexdigest</span><span class='lparen'>(</span><span class='id identifier rubyid_digest'>digest</span><span class='comma'>,</span> <span class='ivar'>@auth</span><span class='lbracket'>[</span><span class='symbol'>:password</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='const'>CGI</span><span class='period'>.</span><span class='id identifier rubyid_unescape'>unescape</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span><span class='rparen'>)</span>
-
-  <span class='id identifier rubyid_url'>url</span> <span class='op'>=</span> <span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_expand'>expand</span><span class='lparen'>(</span><span class='lbrace'>{</span>
-    <span class='label'>signed_token:</span> <span class='id identifier rubyid_signed_token'>signed_token</span>
-  <span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-
-  <span class='const'><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="HTMLCSSToImage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>url:</span> <span class='id identifier rubyid_url'>url</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_generate_templated_image_url'>generate_templated_image_url</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
+    <span class='id identifier rubyid_template_values'>template_values</span><span class='comma'>,</span>
+    <span class='label'>template_version:</span> <span class='id identifier rubyid_template_version'>template_version</span> <span class='op'>||</span> <span class='id identifier rubyid_legacy_version'>legacy_version</span>
+  <span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -778,9 +1230,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Creates an image template</p>
-
+    <p>Creates an image template.</p>
 
   </div>
 </div>
@@ -798,9 +1248,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>This is the HTML you want to render. You can send an HTML snippet (`&lt;div&gt;Your content&lt;/div&gt;`) or an entire webpage.</p>
-</div>
+        <div class='inline'><p>HTML for the template</p></div>
       
     </li>
   
@@ -816,9 +1264,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>a customizable set of options</p>
-</div>
+        <div class='inline'><p>template and rendering options</p></div>
       
     </li>
   
@@ -839,9 +1285,7 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>A short name to identify your template max length 64</p>
-</div>
+            &mdash; <div class='inline'><p>A short name to identify the template. Maximum length: 64.</p></div>
           
         </li>
       
@@ -852,9 +1296,7 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>Description to elaborate on the use of your template max length 1024</p>
-</div>
+            &mdash; <div class='inline'><p>A description of the template. Maximum length: 1024.</p></div>
           
         </li>
       
@@ -865,9 +1307,18 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>The CSS for your image.</p>
-</div>
+            &mdash; <div class='inline'><p>The CSS for the template.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:device_scale</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The pixel ratio for the screenshot. Minimum: <code>0.1</code>, Maximum: <code>3</code>.</p></div>
           
         </li>
       
@@ -878,22 +1329,18 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>[Google fonts](<a href="https://docs.htmlcsstoimage.com/guides/using-google-fonts">docs.htmlcsstoimage.com/guides/using-google-fonts</a>/) to be loaded. Example: `Roboto`. Multiple fonts can be loaded like this: `Roboto|Open Sans`</p>
-</div>
+            &mdash; <div class='inline'><p>Google Fonts to load. Separate multiple fonts with <code>|</code>.</p></div>
           
         </li>
       
         <li>
-          <span class="name">:selector</span>
-          <span class="type">(<tt>String</tt>)</span>
+          <span class="name">:max_wait_ms</span>
+          <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>A CSS selector for an element on the webpage. We&#39;ll crop the image to this specific element. For example: `section#complete-toolkit.container-lg`</p>
-</div>
+            &mdash; <div class='inline'><p>The maximum time to wait before taking the screenshot. Minimum: <code>500</code>, Maximum: <code>10000</code>.</p></div>
           
         </li>
       
@@ -904,22 +1351,7 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>The number of milliseconds the API should delay before generating the image. This is useful when waiting for JavaScript. We recommend starting with `500`. Large values slow down the initial render time.</p>
-</div>
-          
-        </li>
-      
-        <li>
-          <span class="name">:device_scale</span>
-          <span class="type">(<tt>Double</tt>)</span>
-          <span class="default">
-            
-          </span>
-          
-            &mdash; <div class='inline'>
-<p>This adjusts the pixel ratio for the screenshot. Minimum: `1`, Maximum: `3`.</p>
-</div>
+            &mdash; <div class='inline'><p>Extra time in milliseconds to wait before taking the screenshot. Maximum: <code>10000</code>.</p></div>
           
         </li>
       
@@ -930,22 +1362,29 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>Set to true to control when the image is generated. Call `ScreenshotReady()` from JavaScript to generate the image. [Learn more](<a href="https://docs.htmlcsstoimage.com/guides/render-when-ready">docs.htmlcsstoimage.com/guides/render-when-ready</a>/).</p>
-</div>
+            &mdash; <div class='inline'><p>Wait until <code>ScreenshotReady()</code> is called from JavaScript before taking the screenshot.</p></div>
           
         </li>
       
         <li>
-          <span class="name">:viewport_width</span>
-          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="name">:max_render_once</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>Set the width of Chrome&#39;s viewport. This will disable automatic cropping. Both height and width parameters must be set if using either.</p>
-</div>
+            &mdash; <div class='inline'><p>Ensure images created from the template are only rendered and saved once.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:selector</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>A CSS selector for the element to capture.</p></div>
           
         </li>
       
@@ -956,9 +1395,139 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>Set the height of Chrome&#39;s viewport. This will disable automatic cropping. Both height and width parameters must be set if using either.</p>
-</div>
+            &mdash; <div class='inline'><p>The Chrome viewport height. Both viewport dimensions must be set if using either.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_width</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The Chrome viewport width. Both viewport dimensions must be set if using either.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:disable_twemoji</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Disable the Twemoji fallback and use native emoji fonts.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:color_scheme</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Render using the <code>light</code> or <code>dark</code> browser color scheme.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:timezone</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The browser timezone as an IANA timezone identifier, such as <code>America/New_York</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_mobile</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether to honor the page's mobile viewport behavior.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_landscape</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether to render the viewport in landscape mode.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_touch</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether the viewport supports touch events.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:media_type</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Render using <code>print</code> or <code>screen</code> media.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:jumbo_max_height</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Maximum output height in jumbo mode. Requires <code>jumbo_max_width</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:jumbo_max_width</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Maximum output width in jumbo mode. Requires <code>jumbo_max_height</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:proxy_id</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The ID of an organization proxy to use for the render.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:transparent_background</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether images created from the template should use a transparent background.</p></div>
           
         </li>
       
@@ -976,9 +1545,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>image URL available at `.url`.</p>
-</div>
+        <div class='inline'><p>created template details</p></div>
       
     </li>
   
@@ -997,21 +1564,286 @@
       <pre class="lines">
 
 
-147
-148
-149
-150
-151
-152</pre>
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/templates.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_template'>create_template</span><span class='lparen'>(</span><span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>html:</span> <span class='id identifier rubyid_html'>html</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='comma'>,</span> <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_create_template_at_path'>create_template_at_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/template</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_template_version-instance_method">
+  
+    #<strong>create_template_version</strong>(template_id, html, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+  
 
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/template</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Creates a new version of a saved template.</p>
+<p>Accepts the same options as <span class='object_link'><a href="#create_template-instance_method" title="HTMLCSSToImage#create_template (method)">#create_template</a></span>.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>template_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the saved template ID</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>html</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>HTML for the new template version</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>template and rendering options</p></div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>created template version details</p></div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://docs.htmlcsstoimage.com/getting-started/templates/" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/templates/">https://docs.htmlcsstoimage.com/getting-started/templates/</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+87
+88
+89</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/templates.rb', line 87</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_template_version'>create_template_version</span><span class='lparen'>(</span><span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span> <span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_create_template_at_path'>create_template_at_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/template/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_template_id'>template_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_templated_image-instance_method">
+  
+    #<strong>create_templated_image</strong>(template_id, template_values = {}, template_version: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Creates an image from a saved template with an API request.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>template_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the saved template ID</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>template_values</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>values to substitute into the template</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>template_version</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a specific template version, or the latest when omitted</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>keyword_values</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>template values passed as Ruby keyword arguments</p></div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>image details, including <code>.url</code></p></div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://docs.htmlcsstoimage.com/getting-started/templates/" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/templates/">https://docs.htmlcsstoimage.com/getting-started/templates/</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 84</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_templated_image'>create_templated_image</span><span class='lparen'>(</span>
+  <span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
+  <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='label'>template_version:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='op'>**</span><span class='id identifier rubyid_keyword_values'>keyword_values</span>
+<span class='rparen'>)</span>
+  <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='id identifier rubyid_template_values'>template_values</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_keyword_values'>keyword_values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='label'>template_id:</span> <span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
+    <span class='label'>template_values:</span> <span class='id identifier rubyid_template_values'>template_values</span>
+  <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_body'>body</span><span class='lbracket'>[</span><span class='symbol'>:template_version</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_template_version'>template_version</span> <span class='kw'>unless</span> <span class='id identifier rubyid_template_version'>template_version</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/image</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='comma'>,</span>
+    <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span><span class='comma'>,</span>
+    <span class='label'>query:</span> <span class='lbrace'>{</span> <span class='label'>includeId:</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
+  <span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1021,7 +1853,7 @@
       <div class="method_details ">
   <h3 class="signature " id="delete_image-instance_method">
   
-    #<strong>delete_image</strong>(image_id)  &#x21d2; <tt>Object</tt> 
+    #<strong>delete_image</strong>(image_id)  &#x21d2; <tt>Boolean</tt>, <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
   
 
   
@@ -1029,9 +1861,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Deletes an image</p>
-
+    <p>Deletes an image.</p>
 
   </div>
 </div>
@@ -1049,14 +1879,28 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>The ID for the image you would like to delete</p>
-</div>
+        <div class='inline'><p>the ID of the image to delete</p></div>
       
     </li>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>, <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>true on success, or the API response on failure</p></div>
+      
+    </li>
+  
+</ul>
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
@@ -1071,16 +1915,16 @@
       <pre class="lines">
 
 
-68
-69
-70
-71
-72
-73
-74</pre>
+133
+134
+135
+136
+137
+138
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 133</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_image'>delete_image</span><span class='lparen'>(</span><span class='id identifier rubyid_image_id'>image_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/image/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_image_id'>image_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='rparen'>)</span>
@@ -1095,59 +1939,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="templates-instance_method">
+  <h3 class="signature " id="generate_create_and_render_url-instance_method">
   
-    #<strong>templates</strong>(params = {})  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Retrieves all available templates</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><a href="https://docs.htmlcsstoimage.com/getting-started/templates/" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/templates/">https://docs.htmlcsstoimage.com/getting-started/templates/</a></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-124
-125
-126
-127</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage.rb', line 124</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_templates'>templates</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/template</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="url_to_image-instance_method">
-  
-    #<strong>url_to_image</strong>(url, params = {})  &#x21d2; <tt>Object</tt> 
+    #<strong>generate_create_and_render_url</strong>(url, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
   
 
   
@@ -1155,9 +1949,10 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Generate a screenshot of a URL</p>
-
+    <p>Generates a signed create-and-render URL for a URL screenshot.</p>
+<p>This method makes no network requests. PDF options are omitted because the
+create-and-render endpoint does not support them. False boolean values are
+omitted except for <code>transparent_background</code>, where both values are meaningful.</p>
 
   </div>
 </div>
@@ -1175,9 +1970,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>The fully qualified URL to a public webpage. Such as <a href="https://htmlcsstoimage.com">htmlcsstoimage.com</a>.</p>
-</div>
+        <div class='inline'><p>the fully qualified URL to capture</p></div>
       
     </li>
   
@@ -1193,9 +1986,307 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>a customizable set of options</p>
+        <div class='inline'><p>URL screenshot options</p></div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>signed URL available at <code>.url</code></p></div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://docs.htmlcsstoimage.com/getting-started/create-and-render/" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/create-and-render/">https://docs.htmlcsstoimage.com/getting-started/create-and-render/</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/signed_urls.rb', line 83</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_generate_create_and_render_url'>generate_create_and_render_url</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_pairs'>pairs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>url</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_params'>params</span>
+    <span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid__value'>_value</span><span class='op'>|</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>url</span><span class='words_sep'> </span><span class='tstring_content'>pdf_options</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid__value'>_value</span><span class='op'>|</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='rbrace'>}</span>
+    <span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+      <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>==</span> <span class='kw'>false</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>transparent_background</span><span class='tstring_end'>&quot;</span></span>
+
+      <span class='id identifier rubyid_pairs'>pairs</span> <span class='op'>&lt;&lt;</span> <span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_signed_value'>signed_value</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='const'>Addressable</span><span class='op'>::</span><span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_form_encode'>form_encode</span><span class='lparen'>(</span><span class='id identifier rubyid_pairs'>pairs</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_token'>token</span> <span class='op'>=</span> <span class='id identifier rubyid_generate_hmac_token'>generate_hmac_token</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+
+  <span class='const'><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="HTMLCSSToImage#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+    <span class='label'>url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://hcti.io/v1/image/create-and-render/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@auth</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_token'>token</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_query'>query</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
 </div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="generate_templated_image_url-instance_method">
+  
+    #<strong>generate_templated_image_url</strong>(template_id, template_values = {}, template_version: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Generates a signed URL for rendering an image from a saved template.</p>
+<p>This method makes no network requests. Hashes and arrays in
+<code>template_values</code> are encoded as JSON before the query string is signed.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>template_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the saved template ID</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>template_values</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>values to substitute into the template</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>template_version</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a specific template version, or the latest when omitted</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>keyword_values</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>template values passed as Ruby keyword arguments</p></div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>signed URL available at <code>.url</code></p></div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://docs.htmlcsstoimage.com/getting-started/create-and-render/" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/create-and-render/">https://docs.htmlcsstoimage.com/getting-started/create-and-render/</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/signed_urls.rb', line 14</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_generate_templated_image_url'>generate_templated_image_url</span><span class='lparen'>(</span>
+  <span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
+  <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='label'>template_version:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='op'>**</span><span class='id identifier rubyid_keyword_values'>keyword_values</span>
+<span class='rparen'>)</span>
+  <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='id identifier rubyid_template_values'>template_values</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_keyword_values'>keyword_values</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_pairs'>pairs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_pairs'>pairs</span> <span class='op'>&lt;&lt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>template_version</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_template_version'>template_version</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_template_version'>template_version</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='id identifier rubyid_template_values'>template_values</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid__value'>_value</span><span class='op'>|</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+    <span class='id identifier rubyid_pairs'>pairs</span> <span class='op'>&lt;&lt;</span> <span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_signed_value'>signed_value</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='const'>Addressable</span><span class='op'>::</span><span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_form_encode'>form_encode</span><span class='lparen'>(</span><span class='id identifier rubyid_pairs'>pairs</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_token'>token</span> <span class='op'>=</span> <span class='id identifier rubyid_generate_hmac_token'>generate_hmac_token</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_separator'>separator</span> <span class='op'>=</span> <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span>
+
+  <span class='const'><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="HTMLCSSToImage#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+    <span class='label'>url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://hcti.io/v1/image/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_template_id'>template_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_token'>token</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_separator'>separator</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_query'>query</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="list_template_versions-instance_method">
+  
+    #<strong>list_template_versions</strong>(template_id, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Retrieves versions of a saved template.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>template_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the saved template ID</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>pagination options</p></div>
       
     </li>
   
@@ -1210,15 +2301,379 @@
     <ul class="option">
       
         <li>
-          <span class="name">:selector</span>
+          <span class="name">:count</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>number of versions to return, up to 100</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:max_version</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>pagination cursor returned by the previous request</p></div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>paginated template version response</p></div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://docs.htmlcsstoimage.com/getting-started/templates/" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/templates/">https://docs.htmlcsstoimage.com/getting-started/templates/</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40
+41</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/templates.rb', line 35</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_list_template_versions'>list_template_versions</span><span class='lparen'>(</span><span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/template/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_template_id'>template_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='comma'>,</span>
+    <span class='label'>query:</span> <span class='id identifier rubyid_params'>params</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="list_templates-instance_method">
+  
+    #<strong>list_templates</strong>(params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Retrieves saved templates.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>pagination options</p></div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>params</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:count</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>number of templates to return, up to 100</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:max_version</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>pagination cursor returned by the previous request</p></div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>paginated template response</p></div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://docs.htmlcsstoimage.com/getting-started/templates/" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/templates/">https://docs.htmlcsstoimage.com/getting-started/templates/</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+10
+11
+12
+13
+14
+15
+16</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/templates.rb', line 10</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_list_templates'>list_templates</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/template</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='comma'>,</span>
+    <span class='label'>query:</span> <span class='id identifier rubyid_params'>params</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="templates-instance_method">
+  
+    #<strong>templates</strong>(params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Compatibility proxy for <span class='object_link'><a href="#list_templates-instance_method" title="HTMLCSSToImage#list_templates (method)">#list_templates</a></span>.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>pagination options</p></div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>paginated template response</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/templates.rb', line 22</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_templates'>templates</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_list_templates'>list_templates</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="url_to_image-instance_method">
+  
+    #<strong>url_to_image</strong>(url, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Generates a screenshot of a public URL.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the fully qualified URL to capture</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>image creation options</p></div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>params</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:css</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>A CSS selector for an element on the webpage. We&#39;ll crop the image to this specific element. For example: `section#complete-toolkit.container-lg`</p>
-</div>
+            &mdash; <div class='inline'><p>CSS to inject into the webpage.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:device_scale</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The pixel ratio for the screenshot. Minimum: <code>0.1</code>, Maximum: <code>3</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:full_screen</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Take a screenshot of the entire scrollable page.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:max_wait_ms</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The maximum time to wait before taking the screenshot. Minimum: <code>500</code>, Maximum: <code>10000</code>.</p></div>
           
         </li>
       
@@ -1229,22 +2684,7 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>The number of milliseconds the API should delay before generating the image. This is useful when waiting for JavaScript. We recommend starting with `500`. Large values slow down the initial render time.</p>
-</div>
-          
-        </li>
-      
-        <li>
-          <span class="name">:device_scale</span>
-          <span class="type">(<tt>Double</tt>)</span>
-          <span class="default">
-            
-          </span>
-          
-            &mdash; <div class='inline'>
-<p>This adjusts the pixel ratio for the screenshot. Minimum: `1`, Maximum: `3`.</p>
-</div>
+            &mdash; <div class='inline'><p>Extra time in milliseconds to wait before taking the screenshot. Maximum: <code>10000</code>.</p></div>
           
         </li>
       
@@ -1255,22 +2695,18 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>Set to true to control when the image is generated. Call `ScreenshotReady()` from JavaScript to generate the image. [Learn more](<a href="https://docs.htmlcsstoimage.com/guides/render-when-ready">docs.htmlcsstoimage.com/guides/render-when-ready</a>/).</p>
-</div>
+            &mdash; <div class='inline'><p>Wait until <code>ScreenshotReady()</code> is called from JavaScript before taking the screenshot.</p></div>
           
         </li>
       
         <li>
-          <span class="name">:viewport_width</span>
-          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="name">:selector</span>
+          <span class="type">(<tt>String</tt>)</span>
           <span class="default">
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>Set the width of Chrome&#39;s viewport. This will disable automatic cropping. Both height and width parameters must be set if using either.</p>
-</div>
+            &mdash; <div class='inline'><p>A CSS selector for the element to capture.</p></div>
           
         </li>
       
@@ -1281,15 +2717,194 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>Set the height of Chrome&#39;s viewport. This will disable automatic cropping. Both height and width parameters must be set if using either.</p>
-</div>
+            &mdash; <div class='inline'><p>The Chrome viewport height. Both viewport dimensions must be set if using either.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_width</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The Chrome viewport width. Both viewport dimensions must be set if using either.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:pdf_options</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Options for generating a PDF, including page size, margins, scale, and background printing.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:disable_twemoji</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Disable the Twemoji fallback and use native emoji fonts.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:max_render_once</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Ensure the image is only rendered and saved once.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:color_scheme</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Render using the <code>light</code> or <code>dark</code> browser color scheme.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:timezone</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The browser timezone as an IANA timezone identifier, such as <code>America/New_York</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:block_consent_banners</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Attempt to block cookie and consent banners.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_mobile</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether to honor the page's mobile viewport behavior.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_landscape</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether to render the viewport in landscape mode.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_touch</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether the viewport supports touch events.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:media_type</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Render using <code>print</code> or <code>screen</code> media.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:proxy_id</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The ID of an organization proxy to use for the render.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:jumbo_max_height</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Maximum output height in jumbo mode. Requires <code>jumbo_max_width</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:jumbo_max_width</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Maximum output width in jumbo mode. Requires <code>jumbo_max_height</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:transparent_background</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether to render the image with a transparent background.</p></div>
           
         </li>
       
     </ul>
   
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>image details, including <code>.url</code></p></div>
+      
+    </li>
+  
+</ul>
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
@@ -1304,15 +2919,15 @@
       <pre class="lines">
 
 
-114
-115
-116
-117
-118
-119</pre>
+68
+69
+70
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url_to_image'>url_to_image</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>url:</span> <span class='id identifier rubyid_url'>url</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
@@ -1330,9 +2945,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Aug  7 13:04:07 2020 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.5).
+  Generated on Mon Jul 20 14:49:25 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.45 (ruby-3.3.6).
 </div>
 
     </div>
