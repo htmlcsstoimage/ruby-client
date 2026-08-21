@@ -42,6 +42,7 @@ client = HTMLCSSToImage.new
 ```
 
 ### Create an image
+
 Generate an image from HTML/CSS. Returns a URL to the image.
 
 ```ruby
@@ -56,20 +57,147 @@ image.url
 ```
 
 ### Delete an image
+
 Delete an existing image. Removes the image from HCTI servers and clears the CDN.
 
 ```ruby
 client.delete_image("254b444c-dd82-4cc1-94ef-aa4b3a6870a6")
 ```
 
+Delete several images in one request:
+
+```ruby
+client.delete_image_batch([
+  "254b444c-dd82-4cc1-94ef-aa4b3a6870a6",
+  "60ab90f0-c019-4d0d-a234-cc39e1f2226e"
+])
+```
+
 ### URL to image
+
 Generate a screenshot of any public URL.
 
 ```ruby
 image = client.url_to_image("https://github.com", viewport_width: 800, viewport_height: 1200)
 ```
 
+### Create a batch of images
+
+Create several HTML/CSS or URL images in one API request. Each variation inherits
+values from `default_options` and can override them.
+
+```ruby
+images = client.create_image_batch(
+  [
+    { html: "<h1>First</h1>" },
+    { html: "<h1>Second</h1>", transparent_background: true }
+  ],
+  { viewport_width: 1200 }
+)
+```
+
+## Signed URLs
+
+Signed URLs let another application, browser, or service render an image on
+demand without exposing your API key. Generating a signed URL does not make an
+API request; the image is created when the resulting URL is requested.
+
+Both signed URL methods return an `HTMLCSSToImage::ApiResponse`. Use `.url` to
+retrieve the URL:
+
+```ruby
+signed_image = client.generate_create_and_render_url("https://example.com")
+signed_image.url
+# => "https://hcti.io/v1/image/create-and-render/user-id/..."
+```
+
+Generate signed URLs in trusted server-side code. The API key is used to create
+the HMAC signature and should never be exposed to a browser or end user. Query
+parameters are covered by that signature, so modifying them after generation
+invalidates the URL. Remember that the URL and its query values remain visible
+to anyone who receives it.
+
+[Learn more about create-and-render and signed URLs](https://docs.htmlcsstoimage.com/getting-started/create-and-render/).
+
+### Sign a URL screenshot
+
+Use `generate_create_and_render_url` when you want HCTI to capture a public
+webpage each time the signed URL is requested. Pass the target URL first,
+followed by the same screenshot options accepted by `url_to_image`.
+
+```ruby
+signed_image = client.generate_create_and_render_url(
+  "https://example.com/dashboard",
+  css: ".navigation { display: none; }",
+  headers: { "X-Preview-Mode" => "enabled" },
+  additional_header_origins: ["https://api.example.com"],
+  include_headers_on_subrequests: true,
+  identify_as_hcti: true,
+  viewport_width: 1200,
+  viewport_height: 630,
+  transparent_background: false
+)
+
+signed_image.url
+# => "https://hcti.io/v1/image/create-and-render/user-id/..."
+```
+
+`pdf_options` is not supported by the create-and-render endpoint and
+`dedupe_duration_s` only applies to standard POST requests, so both are omitted
+when generating this URL. Other boolean options set to `false` are omitted,
+except `transparent_background`, where both `true` and `false` are meaningful.
+Custom headers are encoded in the URL and must not contain long-lived secrets.
+
+### Sign a templated image
+
+Use `generate_templated_image_url` to substitute values into a saved template
+when the signed URL is requested. Pass `template_version` to pin the URL to a
+specific version; omit it to use the latest template version.
+
+```ruby
+signed_image = client.generate_templated_image_url(
+  "t-56c64be5-5861-4148-acec-aaaca452027f",
+  {
+    title: "Hello, world!",
+    customer: {
+      name: "Ada",
+      plan: "Pro"
+    }
+  },
+  template_version: 1596829374001
+)
+
+signed_image.url
+# => "https://hcti.io/v1/image/t-56c64be5-.../signed-token?template_version=...&customer=...&title=..."
+```
+
+Hashes and arrays in `template_values` are serialized as JSON. Values set to
+`nil` are omitted from the signed query string.
+
+#### Changed in 0.2.0: template URL signatures
+
+Ruby client 0.1.x URL-decoded the query string before generating its HMAC.
+Version 0.2.0 instead signs the encoded query string exactly as it appears in
+the generated URL, as required by the current API.
+
+This means regenerating a template URL with the same inputs produces a
+different token after upgrading from 0.1.x. Previously generated URLs are not
+modified and continue to work.
+
+`create_image_from_template` remains available as a compatibility proxy:
+
+```ruby
+signed_image = client.create_image_from_template(
+  "t-56c64be5-5861-4148-acec-aaaca452027f",
+  { title: "Hello, world!" }
+)
+```
+
+Its legacy third argument was previously ignored. It remains unsupported except
+for `template_version`; other keys in that argument are ignored.
+
 ## Templates
+
 A template allows you to define HTML that includes variables to be substituted at the time of image creation. [Learn more about templates](https://docs.htmlcsstoimage.com/getting-started/templates/).
 
 ```ruby
@@ -77,21 +205,43 @@ template = client.create_template("<div>{{title}}</div>")
 # => #<HTMLCSSToImage::ApiResponse template_id="t-56c64be5-5861-4148-acec-aaaca452027f", template_version=1596829374001>
 
 # Get templates
-all_templates = client.templates
+all_templates = client.list_templates(count: 25)
 
-# Create a signed URL for a templated image
-image = client.create_image_from_template(template.template_id, { title: "Hello, world!" })
-# => #<HTMLCSSToImage::ApiResponse url="https://hcti.io/v1/image/t-56c64be5-5861-4148-acec-aaaca452027f/3aaa814dd998b302cc62b3550ddb35e8b9117c5ecea286da904eced0a3f44d9e?title=Hello%2C%20world%21">
+# Get versions of one template
+versions = client.list_template_versions(template.template_id, count: 25)
 
-image.url
-# => "https://hcti.io/v1/image/t-56c64be5-5861-4148-acec-aaaca452027f/3aaa814dd998b302cc62b3550ddb35e8b9117c5ecea286da904eced0a3f44d9e?title=Hello%2C%20world%21"
+# Create a new version
+version = client.create_template_version(
+  template.template_id,
+  "<div class='updated'>{{title}}</div>"
+)
+
+# Create a templated image with an API request
+created_image = client.create_templated_image(
+  template.template_id,
+  { title: "Hello, world!" },
+  template_version: version.template_version
+)
 ```
 
+For signed, on-demand template images, see “Sign a templated image” in the
+Signed URLs section above. `templates` remains available as a compatibility
+alias for `list_templates`.
+
 ### Additional methods
+
 See the [ruby-client docs for all of the available methods](https://htmlcsstoimage.github.io/ruby-client/HTMLCSSToImage.html).
 
 ## Available parameters
+
 For detailed information on all the available parameters, visit the docs: https://docs.htmlcsstoimage.com/getting-started/using-the-api/
+
+The client passes supported API parameters through as JSON. Recent additions
+include `dedupe_duration_s`, `storage_destination_id`,
+`transparent_background`, `proxy_id`, `jumbo_max_width`, `jumbo_max_height`,
+and, for URL screenshots, `headers`, `additional_header_origins`,
+`include_headers_on_subrequests`, `identify_as_hcti`, and
+`block_consent_banners`.
 
 ## Development
 
@@ -102,6 +252,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 To generate the Yard docs, run `yard doc -o docs` and commit the changes.
 
 ## Support
+
 For help with the API, you can also contact `support@htmlcsstoimage.com`.
 
 ## Contributing
