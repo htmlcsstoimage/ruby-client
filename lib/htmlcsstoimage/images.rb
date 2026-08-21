@@ -17,6 +17,7 @@ class HTMLCSSToImage
   # @option params [Hash] :pdf_options Options for generating a PDF, including page size, margins, scale, and background printing.
   # @option params [Boolean] :disable_twemoji Disable the Twemoji fallback and use native emoji fonts.
   # @option params [Boolean] :max_render_once Ensure the image is only rendered and saved once.
+  # @option params [Integer] :dedupe_duration_s Reuse an identical image created within this many seconds. Only supported for single-image POST requests.
   # @option params [String] :color_scheme Render using the `light` or `dark` browser color scheme.
   # @option params [String] :timezone The browser timezone as an IANA timezone identifier, such as `America/New_York`.
   # @option params [Boolean] :viewport_mobile Whether to honor the page's mobile viewport behavior.
@@ -24,6 +25,7 @@ class HTMLCSSToImage
   # @option params [Boolean] :viewport_touch Whether the viewport supports touch events.
   # @option params [String] :media_type Render using `print` or `screen` media.
   # @option params [String] :proxy_id The ID of an organization proxy to use for the render.
+  # @option params [String] :storage_destination_id The ID of an organization storage destination for the rendered image.
   # @option params [Integer] :jumbo_max_height Maximum output height in jumbo mode. Requires `jumbo_max_width`.
   # @option params [Integer] :jumbo_max_width Maximum output width in jumbo mode. Requires `jumbo_max_height`.
   # @option params [Boolean] :transparent_background Whether to render the image with a transparent background.
@@ -53,14 +55,20 @@ class HTMLCSSToImage
   # @option params [Hash] :pdf_options Options for generating a PDF, including page size, margins, scale, and background printing.
   # @option params [Boolean] :disable_twemoji Disable the Twemoji fallback and use native emoji fonts.
   # @option params [Boolean] :max_render_once Ensure the image is only rendered and saved once.
+  # @option params [Integer] :dedupe_duration_s Reuse an identical image created within this many seconds. Only supported for single-image POST requests.
   # @option params [String] :color_scheme Render using the `light` or `dark` browser color scheme.
   # @option params [String] :timezone The browser timezone as an IANA timezone identifier, such as `America/New_York`.
   # @option params [Boolean] :block_consent_banners Attempt to block cookie and consent banners.
+  # @option params [Hash{String => String}] :headers Custom HTTP headers to send to allowed origins.
+  # @option params [Array<String>] :additional_header_origins Additional exact origins allowed to receive custom headers.
+  # @option params [Boolean] :include_headers_on_subrequests Send custom headers on subrequests to allowed origins.
+  # @option params [Boolean] :identify_as_hcti Add `X-HCTI-SCREENSHOT: 1` to the top-level page request.
   # @option params [Boolean] :viewport_mobile Whether to honor the page's mobile viewport behavior.
   # @option params [Boolean] :viewport_landscape Whether to render the viewport in landscape mode.
   # @option params [Boolean] :viewport_touch Whether the viewport supports touch events.
   # @option params [String] :media_type Render using `print` or `screen` media.
   # @option params [String] :proxy_id The ID of an organization proxy to use for the render.
+  # @option params [String] :storage_destination_id The ID of an organization storage destination for the rendered image.
   # @option params [Integer] :jumbo_max_height Maximum output height in jumbo mode. Requires `jumbo_max_width`.
   # @option params [Integer] :jumbo_max_width Maximum output width in jumbo mode. Requires `jumbo_max_height`.
   # @option params [Boolean] :transparent_background Whether to render the image with a transparent background.
@@ -132,6 +140,26 @@ class HTMLCSSToImage
   # @return [Boolean, HTMLCSSToImage::ApiResponse] true on success, or the API response on failure
   def delete_image(image_id)
     response = self.class.delete("/v1/image/#{image_id}", basic_auth: @auth)
+
+    return true if response.success?
+
+    response
+  end
+
+  # Deletes multiple images in one request.
+  #
+  # @see https://docs.htmlcsstoimage.com/getting-started/using-the-api
+  #
+  # @param image_ids [Array<String>] IDs of the images to delete
+  # @return [Boolean, HTMLCSSToImage::ApiResponse] true on success, or the API response on failure
+  def delete_image_batch(image_ids)
+    return true if image_ids.empty?
+
+    response = self.class.delete(
+      "/v1/image/batch",
+      basic_auth: @auth,
+      body: { ids: image_ids }.to_json
+    )
 
     return true if response.success?
 

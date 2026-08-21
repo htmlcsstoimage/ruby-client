@@ -64,6 +64,15 @@ Delete an existing image. Removes the image from HCTI servers and clears the CDN
 client.delete_image("254b444c-dd82-4cc1-94ef-aa4b3a6870a6")
 ```
 
+Delete several images in one request:
+
+```ruby
+client.delete_image_batch([
+  "254b444c-dd82-4cc1-94ef-aa4b3a6870a6",
+  "60ab90f0-c019-4d0d-a234-cc39e1f2226e"
+])
+```
+
 ### URL to image
 
 Generate a screenshot of any public URL.
@@ -120,6 +129,10 @@ followed by the same screenshot options accepted by `url_to_image`.
 signed_image = client.generate_create_and_render_url(
   "https://example.com/dashboard",
   css: ".navigation { display: none; }",
+  headers: { "X-Preview-Mode" => "enabled" },
+  additional_header_origins: ["https://api.example.com"],
+  include_headers_on_subrequests: true,
+  identify_as_hcti: true,
   viewport_width: 1200,
   viewport_height: 630,
   transparent_background: false
@@ -129,9 +142,11 @@ signed_image.url
 # => "https://hcti.io/v1/image/create-and-render/user-id/..."
 ```
 
-`pdf_options` is not supported by the create-and-render endpoint and is omitted
+`pdf_options` is not supported by the create-and-render endpoint and
+`dedupe_duration_s` only applies to standard POST requests, so both are omitted
 when generating this URL. Other boolean options set to `false` are omitted,
 except `transparent_background`, where both `true` and `false` are meaningful.
+Custom headers are encoded in the URL and must not contain long-lived secrets.
 
 ### Sign a templated image
 
@@ -159,6 +174,16 @@ signed_image.url
 Hashes and arrays in `template_values` are serialized as JSON. Values set to
 `nil` are omitted from the signed query string.
 
+#### Changed in 0.2.0: template URL signatures
+
+Ruby client 0.1.x URL-decoded the query string before generating its HMAC.
+Version 0.2.0 instead signs the encoded query string exactly as it appears in
+the generated URL, as required by the current API.
+
+This means regenerating a template URL with the same inputs produces a
+different token after upgrading from 0.1.x. Previously generated URLs are not
+modified and continue to work.
+
 `create_image_from_template` remains available as a compatibility proxy:
 
 ```ruby
@@ -167,6 +192,9 @@ signed_image = client.create_image_from_template(
   { title: "Hello, world!" }
 )
 ```
+
+Its legacy third argument was previously ignored. It remains unsupported except
+for `template_version`; other keys in that argument are ignored.
 
 ## Templates
 
@@ -207,6 +235,13 @@ See the [ruby-client docs for all of the available methods](https://htmlcsstoima
 ## Available parameters
 
 For detailed information on all the available parameters, visit the docs: https://docs.htmlcsstoimage.com/getting-started/using-the-api/
+
+The client passes supported API parameters through as JSON. Recent additions
+include `dedupe_duration_s`, `storage_destination_id`,
+`transparent_background`, `proxy_id`, `jumbo_max_width`, `jumbo_max_height`,
+and, for URL screenshots, `headers`, `additional_header_origins`,
+`include_headers_on_subrequests`, `identify_as_hcti`, and
+`block_consent_banners`.
 
 ## Development
 

@@ -1,7 +1,6 @@
 require "htmlcsstoimage/version"
 require "json"
 require "openssl"
-require "cgi"
 require "httparty"
 require "addressable/uri"
 require "ostruct"

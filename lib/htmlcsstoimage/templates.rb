@@ -68,6 +68,7 @@ class HTMLCSSToImage
   # @option params [Integer] :jumbo_max_height Maximum output height in jumbo mode. Requires `jumbo_max_width`.
   # @option params [Integer] :jumbo_max_width Maximum output width in jumbo mode. Requires `jumbo_max_height`.
   # @option params [String] :proxy_id The ID of an organization proxy to use for the render.
+  # @option params [String] :storage_destination_id The ID of an organization storage destination inherited by images created from the template.
   # @option params [Boolean] :transparent_background Whether images created from the template should use a transparent background.
   # @return [HTMLCSSToImage::ApiResponse] created template details
   def create_template(html, params = {})

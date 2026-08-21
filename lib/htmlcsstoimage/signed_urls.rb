@@ -72,8 +72,10 @@ class HTMLCSSToImage
   # Generates a signed create-and-render URL for a URL screenshot.
   #
   # This method makes no network requests. PDF options are omitted because the
-  # create-and-render endpoint does not support them. False boolean values are
-  # omitted except for `transparent_background`, where both values are meaningful.
+  # create-and-render endpoint does not support them. `dedupe_duration_s` is
+  # omitted because deduplication applies only to standard POST requests. False
+  # boolean values are omitted except for `transparent_background`, where both
+  # values are meaningful.
   #
   # @see https://docs.htmlcsstoimage.com/getting-started/create-and-render/
   #
@@ -84,13 +86,22 @@ class HTMLCSSToImage
     pairs = [["url", url.to_s]]
 
     params
-      .reject { |key, _value| %w[url pdf_options].include?(key.to_s) }
+      .reject do |key, _value|
+        %w[url pdf_options dedupe_duration_s].include?(key.to_s)
+      end
       .sort_by { |key, _value| key.to_s }
       .each do |key, value|
         next if value.nil?
         next if value == false && key.to_s != "transparent_background"
 
-        pairs << [key.to_s, signed_value(value)]
+        case key.to_s
+        when "headers"
+          value.each { |name, header_value| pairs << ["headers", "#{name}:#{header_value}"] }
+        when "additional_header_origins"
+          value.each { |origin| pairs << ["additional_header_origins", origin.to_s] }
+        else
+          pairs << [key.to_s, signed_value(value)]
+        end
       end
 
     query = Addressable::URI.form_encode(pairs)

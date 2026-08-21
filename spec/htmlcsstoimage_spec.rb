@@ -22,6 +22,7 @@ RSpec.describe HTMLCSSToImage do
         pdf_options: { print_background: true, margins: ["1px", "2px", "3px", "4px"] },
         disable_twemoji: false,
         max_render_once: true,
+        dedupe_duration_s: 3600,
         color_scheme: "dark",
         timezone: "America/New_York",
         viewport_mobile: false,
@@ -29,6 +30,7 @@ RSpec.describe HTMLCSSToImage do
         viewport_touch: false,
         media_type: "print",
         proxy_id: "proxy-123",
+        storage_destination_id: "storage-123",
         jumbo_max_height: 9000,
         jumbo_max_width: 10000,
         transparent_background: false
@@ -59,14 +61,20 @@ RSpec.describe HTMLCSSToImage do
         pdf_options: { print_background: true },
         disable_twemoji: false,
         max_render_once: true,
+        dedupe_duration_s: 300,
         color_scheme: "dark",
         timezone: "America/New_York",
         block_consent_banners: false,
+        headers: { "Authorization" => "Bearer short-lived-token" },
+        additional_header_origins: ["https://api.example.com"],
+        include_headers_on_subrequests: true,
+        identify_as_hcti: true,
         viewport_mobile: false,
         viewport_landscape: true,
         viewport_touch: false,
         media_type: "screen",
         proxy_id: "proxy-123",
+        storage_destination_id: "storage-123",
         jumbo_max_height: 9000,
         jumbo_max_width: 10000,
         transparent_background: false
@@ -107,6 +115,7 @@ RSpec.describe HTMLCSSToImage do
         jumbo_max_height: 9000,
         jumbo_max_width: 10000,
         proxy_id: "proxy-123",
+        storage_destination_id: "storage-123",
         transparent_background: false
       }
 
@@ -217,6 +226,35 @@ RSpec.describe HTMLCSSToImage do
     it "deletes an image" do
       response = client.delete_image("254b444c-dd82-4cc1-94ef-aa4b3a6870a6")
       expect(response).to be true
+    end
+  end
+
+  describe "#delete_image_batch" do
+    it "deletes multiple images in one request" do
+      api_response = instance_double(HTTParty::Response, success?: true)
+      expect(described_class).to receive(:delete).with(
+        "/v1/image/batch",
+        hash_including(
+          body: {
+            ids: ["image-1", "image-2"]
+          }.to_json
+        )
+      ).and_return(api_response)
+
+      expect(client.delete_image_batch(["image-1", "image-2"])).to be true
+    end
+
+    it "returns the API response when deletion fails" do
+      api_response = instance_double(HTTParty::Response, success?: false)
+      allow(described_class).to receive(:delete).and_return(api_response)
+
+      expect(client.delete_image_batch(["missing-image"])).to be(api_response)
+    end
+
+    it "treats an empty list as a successful no-op" do
+      expect(described_class).not_to receive(:delete)
+
+      expect(client.delete_image_batch([])).to be true
     end
   end
 
@@ -377,6 +415,41 @@ RSpec.describe HTMLCSSToImage do
       expect(uri.path).to eq(
         "/v1/image/create-and-render/test-id/#{token}"
       )
+    end
+
+    it "encodes repeated header options and omits POST-only options" do
+      client = described_class.new(user_id: "test-id", api_key: "test-key")
+      image = client.generate_create_and_render_url(
+        "https://example.com/private",
+        headers: {
+          "Authorization" => "Bearer token",
+          "X-Preview-Mode" => "enabled"
+        },
+        additional_header_origins: [
+          "https://api.example.com",
+          "https://assets.example.com:8443"
+        ],
+        include_headers_on_subrequests: true,
+        identify_as_hcti: true,
+        dedupe_duration_s: 3600
+      )
+      uri = Addressable::URI.parse(image.url)
+      query = [
+        "url=https%3A%2F%2Fexample.com%2Fprivate",
+        "additional_header_origins=https%3A%2F%2Fapi.example.com",
+        "additional_header_origins=https%3A%2F%2Fassets.example.com%3A8443",
+        "headers=Authorization%3ABearer+token",
+        "headers=X-Preview-Mode%3Aenabled",
+        "identify_as_hcti=true",
+        "include_headers_on_subrequests=true"
+      ].join("&")
+      token = OpenSSL::HMAC.hexdigest("sha256", "test-key", query)
+
+      expect(uri.query).to eq(query)
+      expect(uri.path).to eq(
+        "/v1/image/create-and-render/test-id/#{token}"
+      )
+      expect(uri.query).not_to include("dedupe_duration_s")
     end
   end
 end
