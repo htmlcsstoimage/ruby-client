@@ -149,7 +149,7 @@
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.2.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.3.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
       
     </dl>
   
@@ -215,7 +215,7 @@
         <li class="public deprecated">
   <span class="summary_signature">
     
-      <a href="#create_image_from_template-instance_method" title="#create_image_from_template (instance method)">#<strong>create_image_from_template</strong>(template_id, template_values = {}, params = {}, template_version: nil, **keyword_values)  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+      <a href="#create_image_from_template-instance_method" title="#create_image_from_template (instance method)">#<strong>create_image_from_template</strong>(template_id, template_values = {}, params = {}, template_version: nil, format: nil, **keyword_values)  &#x21d2; HTMLCSSToImage::ApiResponse </a>
     
 
     
@@ -281,7 +281,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_templated_image-instance_method" title="#create_templated_image (instance method)">#<strong>create_templated_image</strong>(template_id, template_values = {}, template_version: nil, **keyword_values)  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+      <a href="#create_templated_image-instance_method" title="#create_templated_image (instance method)">#<strong>create_templated_image</strong>(template_id, template_values = {}, template_version: nil, format: nil, **keyword_values)  &#x21d2; HTMLCSSToImage::ApiResponse </a>
     
 
     
@@ -369,7 +369,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#generate_templated_image_url-instance_method" title="#generate_templated_image_url (instance method)">#<strong>generate_templated_image_url</strong>(template_id, template_values = {}, template_version: nil, **keyword_values)  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+      <a href="#generate_templated_image_url-instance_method" title="#generate_templated_image_url (instance method)">#<strong>generate_templated_image_url</strong>(template_id, template_values = {}, template_version: nil, format: nil, **keyword_values)  &#x21d2; HTMLCSSToImage::ApiResponse </a>
     
 
     
@@ -657,6 +657,17 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
     
     <p class="tag_title">Options Hash (<tt>params</tt>):</p>
     <ul class="option">
+      
+        <li>
+          <span class="name">:format</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The format used in the initially returned URL: <code>png</code>, <code>jpg</code>, <code>webp</code>, or <code>pdf</code>. This does not change the stored image definition or prevent rendering another supported format later.</p></div>
+          
+        </li>
       
         <li>
           <span class="name">:css</span>
@@ -955,15 +966,15 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
       <pre class="lines">
 
 
-33
 34
 35
 36
 37
-38</pre>
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_image'>create_image</span><span class='lparen'>(</span><span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>html:</span> <span class='id identifier rubyid_html'>html</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
@@ -1022,7 +1033,7 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
       
       
         &mdash;
-        <div class='inline'><p>shared values inherited by each variation</p></div>
+        <div class='inline'><p>shared values inherited by each variation; <code>format</code> may be <code>png</code>, <code>jpg</code>, <code>webp</code>, or <code>pdf</code> and only changes initially returned URL extensions</p></div>
       
     </li>
   
@@ -1058,21 +1069,21 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
       <pre class="lines">
 
 
-122
-123
-124
-125
-126
 127
 128
 129
 130
 131
 132
-133</pre>
+133
+134
+135
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 127</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_image_batch'>create_image_batch</span><span class='lparen'>(</span><span class='id identifier rubyid_variations'>variations</span><span class='comma'>,</span> <span class='id identifier rubyid_default_options'>default_options</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="HTMLCSSToImage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>images:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_variations'>variations</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -1094,7 +1105,7 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
       <div class="method_details ">
   <h3 class="signature " id="create_image_from_template-instance_method">
   
-    #<strong>create_image_from_template</strong>(template_id, template_values = {}, params = {}, template_version: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+    #<strong>create_image_from_template</strong>(template_id, template_values = {}, params = {}, template_version: nil, format: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
   
 
   
@@ -1177,6 +1188,22 @@ used. Its <code>template_version</code> value is now honored when present.</p>
   
     <li>
       
+        <span class='name'>format</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>output format appended to the signed URL path: <code>png</code>, <code>jpg</code>, <code>webp</code>, or <code>pdf</code></p></div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>keyword_values</span>
       
       
@@ -1214,10 +1241,6 @@ used. Its <code>template_version</code> value is now honored when present.</p>
       <pre class="lines">
 
 
-51
-52
-53
-54
 55
 56
 57
@@ -1233,16 +1256,21 @@ used. Its <code>template_version</code> value is now honored when present.</p>
 67
 68
 69
-70</pre>
+70
+71
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/signed_urls.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/signed_urls.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_image_from_template'>create_image_from_template</span><span class='lparen'>(</span>
   <span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
   <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
   <span class='label'>template_version:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>format:</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='op'>**</span><span class='id identifier rubyid_keyword_values'>keyword_values</span>
 <span class='rparen'>)</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -1252,11 +1280,10 @@ used. Its <code>template_version</code> value is now honored when present.</p>
       <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:template_version</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>template_version</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_generate_templated_image_url'>generate_templated_image_url</span><span class='lparen'>(</span>
-    <span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
-    <span class='id identifier rubyid_template_values'>template_values</span><span class='comma'>,</span>
-    <span class='label'>template_version:</span> <span class='id identifier rubyid_template_version'>template_version</span> <span class='op'>||</span> <span class='id identifier rubyid_legacy_version'>legacy_version</span>
-  <span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>template_version:</span> <span class='id identifier rubyid_template_version'>template_version</span> <span class='op'>||</span> <span class='id identifier rubyid_legacy_version'>legacy_version</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_format'>format</span> <span class='kw'>unless</span> <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='id identifier rubyid_generate_templated_image_url'>generate_templated_image_url</span><span class='lparen'>(</span><span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span> <span class='id identifier rubyid_template_values'>template_values</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1748,7 +1775,7 @@ used. Its <code>template_version</code> value is now honored when present.</p>
       <div class="method_details ">
   <h3 class="signature " id="create_templated_image-instance_method">
   
-    #<strong>create_templated_image</strong>(template_id, template_values = {}, template_version: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+    #<strong>create_templated_image</strong>(template_id, template_values = {}, template_version: nil, format: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
   
 
   
@@ -1812,6 +1839,22 @@ used. Its <code>template_version</code> value is now honored when present.</p>
   
     <li>
       
+        <span class='name'>format</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>the format used in the initially returned URL: <code>png</code>, <code>jpg</code>, <code>webp</code>, or <code>pdf</code>; does not change the stored image definition</p></div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>keyword_values</span>
       
       
@@ -1856,9 +1899,6 @@ used. Its <code>template_version</code> value is now honored when present.</p>
       <pre class="lines">
 
 
-92
-93
-94
 95
 96
 97
@@ -1875,15 +1915,21 @@ used. Its <code>template_version</code> value is now honored when present.</p>
 108
 109
 110
-111</pre>
+111
+112
+113
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_templated_image'>create_templated_image</span><span class='lparen'>(</span>
   <span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
   <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
   <span class='label'>template_version:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>format:</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='op'>**</span><span class='id identifier rubyid_keyword_values'>keyword_values</span>
 <span class='rparen'>)</span>
   <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='id identifier rubyid_template_values'>template_values</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_keyword_values'>keyword_values</span><span class='rparen'>)</span>
@@ -1892,6 +1938,7 @@ used. Its <code>template_version</code> value is now honored when present.</p>
     <span class='label'>template_values:</span> <span class='id identifier rubyid_template_values'>template_values</span>
   <span class='rbrace'>}</span>
   <span class='id identifier rubyid_body'>body</span><span class='lbracket'>[</span><span class='symbol'>:template_version</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_template_version'>template_version</span> <span class='kw'>unless</span> <span class='id identifier rubyid_template_version'>template_version</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='id identifier rubyid_body'>body</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_format'>format</span> <span class='kw'>unless</span> <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span>
     <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/image</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -1970,16 +2017,16 @@ used. Its <code>template_version</code> value is now honored when present.</p>
       <pre class="lines">
 
 
-141
-142
-143
-144
-145
 146
-147</pre>
+147
+148
+149
+150
+151
+152</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 146</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_image'>delete_image</span><span class='lparen'>(</span><span class='id identifier rubyid_image_id'>image_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/image/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_image_id'>image_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='rparen'>)</span>
@@ -2058,11 +2105,6 @@ used. Its <code>template_version</code> value is now honored when present.</p>
       <pre class="lines">
 
 
-155
-156
-157
-158
-159
 160
 161
 162
@@ -2070,10 +2112,15 @@ used. Its <code>template_version</code> value is now honored when present.</p>
 164
 165
 166
-167</pre>
+167
+168
+169
+170
+171
+172</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 160</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_image_batch'>delete_image_batch</span><span class='lparen'>(</span><span class='id identifier rubyid_image_ids'>image_ids</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_image_ids'>image_ids</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -2143,7 +2190,7 @@ values are meaningful.</p>
       
       
         &mdash;
-        <div class='inline'><p>URL screenshot options</p></div>
+        <div class='inline'><p>URL screenshot options; <code>format</code> may be <code>png</code>, <code>jpg</code>, <code>webp</code>, or <code>pdf</code> and is appended to the signed URL path instead of the query string</p></div>
       
     </li>
   
@@ -2179,10 +2226,6 @@ values are meaningful.</p>
       <pre class="lines">
 
 
-85
-86
-87
-88
 89
 90
 91
@@ -2207,17 +2250,24 @@ values are meaningful.</p>
 110
 111
 112
-113</pre>
+113
+114
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/signed_urls.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/signed_urls.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_generate_create_and_render_url'>generate_create_and_render_url</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_pairs'>pairs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>url</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>format</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
 
   <span class='id identifier rubyid_params'>params</span>
     <span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid__value'>_value</span><span class='op'>|</span>
-      <span class='qwords_beg'>%w[</span><span class='tstring_content'>url</span><span class='words_sep'> </span><span class='tstring_content'>pdf_options</span><span class='words_sep'> </span><span class='tstring_content'>dedupe_duration_s</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+      <span class='qwords_beg'>%w[</span><span class='tstring_content'>url</span><span class='words_sep'> </span><span class='tstring_content'>format</span><span class='words_sep'> </span><span class='tstring_content'>pdf_options</span><span class='words_sep'> </span><span class='tstring_content'>dedupe_duration_s</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
     <span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid__value'>_value</span><span class='op'>|</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='rbrace'>}</span>
     <span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -2236,9 +2286,10 @@ values are meaningful.</p>
 
   <span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='const'>Addressable</span><span class='op'>::</span><span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_form_encode'>form_encode</span><span class='lparen'>(</span><span class='id identifier rubyid_pairs'>pairs</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_token'>token</span> <span class='op'>=</span> <span class='id identifier rubyid_generate_hmac_token'>generate_hmac_token</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_format_path'>format_path</span> <span class='op'>=</span> <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_format'>format</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 
   <span class='const'><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="HTMLCSSToImage#initialize (method)">new</a></span></span><span class='lparen'>(</span>
-    <span class='label'>url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://hcti.io/v1/image/create-and-render/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@auth</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_token'>token</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_query'>query</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='label'>url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://hcti.io/v1/image/create-and-render/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@auth</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_token'>token</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_format_path'>format_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_query'>query</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2249,7 +2300,7 @@ values are meaningful.</p>
       <div class="method_details ">
   <h3 class="signature " id="generate_templated_image_url-instance_method">
   
-    #<strong>generate_templated_image_url</strong>(template_id, template_values = {}, template_version: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+    #<strong>generate_templated_image_url</strong>(template_id, template_values = {}, template_version: nil, format: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
   
 
   
@@ -2315,6 +2366,22 @@ values are meaningful.</p>
   
     <li>
       
+        <span class='name'>format</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>output format appended to the signed URL path: <code>png</code>, <code>jpg</code>, <code>webp</code>, or <code>pdf</code></p></div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>keyword_values</span>
       
       
@@ -2359,7 +2426,6 @@ values are meaningful.</p>
       <pre class="lines">
 
 
-14
 15
 16
 17
@@ -2382,15 +2448,19 @@ values are meaningful.</p>
 34
 35
 36
-37</pre>
+37
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/signed_urls.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/signed_urls.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_generate_templated_image_url'>generate_templated_image_url</span><span class='lparen'>(</span>
   <span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
   <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
   <span class='label'>template_version:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>format:</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='op'>**</span><span class='id identifier rubyid_keyword_values'>keyword_values</span>
 <span class='rparen'>)</span>
   <span class='id identifier rubyid_template_values'>template_values</span> <span class='op'>=</span> <span class='id identifier rubyid_template_values'>template_values</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_keyword_values'>keyword_values</span><span class='rparen'>)</span>
@@ -2406,9 +2476,10 @@ values are meaningful.</p>
   <span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='const'>Addressable</span><span class='op'>::</span><span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_form_encode'>form_encode</span><span class='lparen'>(</span><span class='id identifier rubyid_pairs'>pairs</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_token'>token</span> <span class='op'>=</span> <span class='id identifier rubyid_generate_hmac_token'>generate_hmac_token</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_separator'>separator</span> <span class='op'>=</span> <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_format_path'>format_path</span> <span class='op'>=</span> <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_format'>format</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 
   <span class='const'><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="HTMLCSSToImage#initialize (method)">new</a></span></span><span class='lparen'>(</span>
-    <span class='label'>url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://hcti.io/v1/image/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_template_id'>template_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_token'>token</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_separator'>separator</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_query'>query</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='label'>url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://hcti.io/v1/image/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_template_id'>template_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_token'>token</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_format_path'>format_path</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_separator'>separator</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_query'>query</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2809,6 +2880,17 @@ values are meaningful.</p>
     <ul class="option">
       
         <li>
+          <span class="name">:format</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The format used in the initially returned URL: <code>png</code>, <code>jpg</code>, <code>webp</code>, or <code>pdf</code>. This does not change the stored image definition or prevent rendering another supported format later.</p></div>
+          
+        </li>
+      
+        <li>
           <span class="name">:css</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
@@ -3160,15 +3242,15 @@ values are meaningful.</p>
       <pre class="lines">
 
 
-76
-77
 78
 79
 80
-81</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url_to_image'>url_to_image</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>url:</span> <span class='id identifier rubyid_url'>url</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
@@ -3186,7 +3268,7 @@ values are meaningful.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Aug 21 09:24:41 2026 by
+  Generated on Thu Aug 27 11:20:35 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-3.3.6).
 </div>

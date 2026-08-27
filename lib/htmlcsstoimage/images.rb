@@ -5,6 +5,7 @@ class HTMLCSSToImage
   #
   # @param html [String] HTML to render, as a snippet or an entire webpage
   # @param params [Hash] image creation options
+  # @option params [String] :format The format used in the initially returned URL: `png`, `jpg`, `webp`, or `pdf`. This does not change the stored image definition or prevent rendering another supported format later.
   # @option params [String] :css The CSS for your image.
   # @option params [Numeric] :device_scale The pixel ratio for the screenshot. Minimum: `0.1`, Maximum: `3`.
   # @option params [String] :google_fonts Google Fonts to load. Separate multiple fonts with `|`.
@@ -43,6 +44,7 @@ class HTMLCSSToImage
   #
   # @param url [String] the fully qualified URL to capture
   # @param params [Hash] image creation options
+  # @option params [String] :format The format used in the initially returned URL: `png`, `jpg`, `webp`, or `pdf`. This does not change the stored image definition or prevent rendering another supported format later.
   # @option params [String] :css CSS to inject into the webpage.
   # @option params [Numeric] :device_scale The pixel ratio for the screenshot. Minimum: `0.1`, Maximum: `3`.
   # @option params [Boolean] :full_screen Take a screenshot of the entire scrollable page.
@@ -87,12 +89,14 @@ class HTMLCSSToImage
   # @param template_id [String] the saved template ID
   # @param template_values [Hash] values to substitute into the template
   # @param template_version [Integer, nil] a specific template version, or the latest when omitted
+  # @param format [String, nil] the format used in the initially returned URL: `png`, `jpg`, `webp`, or `pdf`; does not change the stored image definition
   # @param keyword_values [Hash] template values passed as Ruby keyword arguments
   # @return [HTMLCSSToImage::ApiResponse] image details, including `.url`
   def create_templated_image(
     template_id,
     template_values = {},
     template_version: nil,
+    format: nil,
     **keyword_values
   )
     template_values = template_values.merge(keyword_values)
@@ -101,6 +105,7 @@ class HTMLCSSToImage
       template_values: template_values
     }
     body[:template_version] = template_version unless template_version.nil?
+    body[:format] = format unless format.nil?
 
     self.class.post(
       "/v1/image",
@@ -117,7 +122,7 @@ class HTMLCSSToImage
   # @see https://docs.htmlcsstoimage.com/getting-started/using-the-api
   #
   # @param variations [Array<Hash>] per-image values
-  # @param default_options [Hash, nil] shared values inherited by each variation
+  # @param default_options [Hash, nil] shared values inherited by each variation; `format` may be `png`, `jpg`, `webp`, or `pdf` and only changes initially returned URL extensions
   # @return [HTMLCSSToImage::ApiResponse] batch response with images available at `.images`
   def create_image_batch(variations, default_options = nil)
     return ApiResponse.new(images: []) if variations.empty?

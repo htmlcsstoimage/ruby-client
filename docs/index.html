@@ -62,7 +62,7 @@
       <div id="content"><div id='filecontents'><h1 id="HTML_CSS_to_Image___Ruby">HTML/CSS to Image - Ruby</h1>
 <p><img src="https://github.com/htmlcsstoimage/ruby-client/workflows/Test/badge.svg?branch=main" alt="Test" /> <a href="https://badge.fury.io/rb/htmlcsstoimage-api"><img src="https://badge.fury.io/rb/htmlcsstoimage-api.svg" alt="Gem Version" /></a></p>
 <p>Ruby client for the <a href="https://htmlcsstoimage.com">HTML/CSS to Image API</a>.</p>
-<p>Generate png, jpg or webp images with Ruby. Renders exactly like Google Chrome.</p>
+<p>Generate PNG, JPG, WebP, or PDF files with Ruby. Renders exactly like Google Chrome.</p>
 <h2 id="Installation">Installation</h2>
 <p>Add this line to your application's Gemfile:</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>htmlcsstoimage-api</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>require:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>htmlcsstoimage</span><span class='tstring_end'>&#39;</span></span>
@@ -88,7 +88,8 @@
 <p>Generate an image from HTML/CSS. Returns a URL to the image.</p>
 <pre class="code ruby"><code class="ruby">image = client.create_image(&quot;&lt;div&gt;Hello, world&lt;/div&gt;&quot;,
                             css: &quot;div { background-color: red; font-family: Roboto; }&quot;,
-                            google_fonts: &quot;Roboto&quot;)
+                            google_fonts: &quot;Roboto&quot;,
+                            format: &quot;webp&quot;)
 
 image
 =&gt; #&lt;HTMLCSSToImage::ApiResponse url=&quot;https://hcti.io/v1/image/254b444c-dd82-4cc1-94ef-aa4b3a6870a6&quot;, id=&quot;254b444c-dd82-4cc1-94ef-aa4b3a6870a6&quot;&gt;
@@ -109,15 +110,26 @@ image.url
 <p>Generate a screenshot of any public URL.</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_image'>image</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_url_to_image'>url_to_image</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://github.com</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>viewport_width:</span> <span class='int'>800</span><span class='comma'>,</span> <span class='label'>viewport_height:</span> <span class='int'>1200</span><span class='rparen'>)</span>
 </code></pre>
+<h3 id="Create_a_PDF">Create a PDF</h3>
+<p>Select PDF output with <code>format: &quot;pdf&quot;</code>; use <code>pdf_options</code> to configure its layout:</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_pdf'>pdf</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_image'>create_image</span><span class='lparen'>(</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;h1&gt;Quarterly report&lt;/h1&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>format:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pdf</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>pdf_options:</span> <span class='lbrace'>{</span>
+    <span class='label'>print_background:</span> <span class='kw'>true</span><span class='comma'>,</span>
+    <span class='label'>margins:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>20px</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>20px</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>20px</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>20px</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='rbrace'>}</span>
+<span class='rparen'>)</span>
+</code></pre>
 <h3 id="Create_a_batch_of_images">Create a batch of images</h3>
 <p>Create several HTML/CSS or URL images in one API request. Each variation inherits
 values from <code>default_options</code> and can override them.</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_images'>images</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_image_batch'>create_image_batch</span><span class='lparen'>(</span>
   <span class='lbracket'>[</span>
-    <span class='lbrace'>{</span> <span class='label'>html:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;h1&gt;First&lt;/h1&gt;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='lbrace'>{</span> <span class='label'>html:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;h1&gt;First&lt;/h1&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>format:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>jpg</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
     <span class='lbrace'>{</span> <span class='label'>html:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;h1&gt;Second&lt;/h1&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>transparent_background:</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
   <span class='rbracket'>]</span><span class='comma'>,</span>
-  <span class='lbrace'>{</span> <span class='label'>viewport_width:</span> <span class='int'>1200</span> <span class='rbrace'>}</span>
+  <span class='lbrace'>{</span> <span class='label'>viewport_width:</span> <span class='int'>1200</span><span class='comma'>,</span> <span class='label'>format:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>webp</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
 <span class='rparen'>)</span>
 </code></pre>
 <h2 id="Signed_URLs">Signed URLs</h2>
@@ -147,6 +159,7 @@ followed by the same screenshot options accepted by <code>url_to_image</code>.</
   <span class='label'>additional_header_origins:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://api.example.com</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
   <span class='label'>include_headers_on_subrequests:</span> <span class='kw'>true</span><span class='comma'>,</span>
   <span class='label'>identify_as_hcti:</span> <span class='kw'>true</span><span class='comma'>,</span>
+  <span class='label'>format:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>webp</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='label'>viewport_width:</span> <span class='int'>1200</span><span class='comma'>,</span>
   <span class='label'>viewport_height:</span> <span class='int'>630</span><span class='comma'>,</span>
   <span class='label'>transparent_background:</span> <span class='kw'>false</span>
@@ -173,7 +186,8 @@ specific version; omit it to use the latest template version.</p>
       <span class='label'>plan:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Pro</span><span class='tstring_end'>&quot;</span></span>
     <span class='rbrace'>}</span>
   <span class='rbrace'>}</span><span class='comma'>,</span>
-  <span class='label'>template_version:</span> <span class='int'>1596829374001</span>
+  <span class='label'>template_version:</span> <span class='int'>1596829374001</span><span class='comma'>,</span>
+  <span class='label'>format:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>webp</span><span class='tstring_end'>&quot;</span></span>
 <span class='rparen'>)</span>
 
 <span class='id identifier rubyid_signed_image'>signed_image</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span>
@@ -217,7 +231,8 @@ for <code>template_version</code>; other keys in that argument are ignored.</p>
 </span><span class='id identifier rubyid_created_image'>created_image</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_templated_image'>create_templated_image</span><span class='lparen'>(</span>
   <span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
   <span class='lbrace'>{</span> <span class='label'>title:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hello, world!</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
-  <span class='label'>template_version:</span> <span class='id identifier rubyid_version'>version</span><span class='period'>.</span><span class='id identifier rubyid_template_version'>template_version</span>
+  <span class='label'>template_version:</span> <span class='id identifier rubyid_version'>version</span><span class='period'>.</span><span class='id identifier rubyid_template_version'>template_version</span><span class='comma'>,</span>
+  <span class='label'>format:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>webp</span><span class='tstring_end'>&quot;</span></span>
 <span class='rparen'>)</span>
 </code></pre>
 <p>For signed, on-demand template images, see “Sign a templated image” in the
@@ -229,7 +244,7 @@ alias for <code>list_templates</code>.</p>
 <p>For detailed information on all the available parameters, visit the docs: <a href="https://docs.htmlcsstoimage.com/getting-started/using-the-api/">https://docs.htmlcsstoimage.com/getting-started/using-the-api/</a></p>
 <p>The client passes supported API parameters through as JSON. Recent additions
 include <code>dedupe_duration_s</code>, <code>storage_destination_id</code>,
-<code>transparent_background</code>, <code>proxy_id</code>, <code>jumbo_max_width</code>, <code>jumbo_max_height</code>,
+<code>transparent_background</code>, <code>format</code>, <code>proxy_id</code>, <code>jumbo_max_width</code>, <code>jumbo_max_height</code>,
 and, for URL screenshots, <code>headers</code>, <code>additional_header_origins</code>,
 <code>include_headers_on_subrequests</code>, <code>identify_as_hcti</code>, and
 <code>block_consent_banners</code>.</p>
@@ -247,7 +262,7 @@ and, for URL screenshots, <code>headers</code>, <code>additional_header_origins<
 <p>Everyone interacting in the project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the <a href="https://github.com/htmlcsstoimage/ruby-client/blob/main/CODE_OF_CONDUCT.md">code of conduct</a>.</p></div></div>
 
       <div id="footer">
-  Generated on Fri Aug 21 09:24:41 2026 by
+  Generated on Thu Aug 27 11:20:35 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-3.3.6).
 </div>

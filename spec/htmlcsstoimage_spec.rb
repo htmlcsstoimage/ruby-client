@@ -10,6 +10,7 @@ RSpec.describe HTMLCSSToImage do
   describe "request parameter passthrough" do
     it "passes all HTML/CSS image parameters through unchanged" do
       params = {
+        format: "webp",
         css: "body { color: black }",
         device_scale: 1.5,
         google_fonts: "Roboto|Open Sans",
@@ -49,6 +50,7 @@ RSpec.describe HTMLCSSToImage do
 
     it "passes all URL image parameters through unchanged" do
       params = {
+        format: "jpg",
         css: "body { color: black }",
         device_scale: 1.5,
         full_screen: false,
@@ -136,7 +138,8 @@ RSpec.describe HTMLCSSToImage do
           body: {
             template_id: "t-123",
             template_values: { title: "Hello" },
-            template_version: 42
+            template_version: 42,
+            format: "pdf"
           }.to_json,
           query: { includeId: true }
         )
@@ -145,7 +148,8 @@ RSpec.describe HTMLCSSToImage do
       client.create_templated_image(
         "t-123",
         { title: "Hello" },
-        template_version: 42
+        template_version: 42,
+        format: "pdf"
       )
     end
   end
@@ -153,10 +157,10 @@ RSpec.describe HTMLCSSToImage do
   describe "#create_image_batch" do
     it "posts variations and shared default options" do
       variations = [
-        { html: "<h1>First</h1>" },
+        { html: "<h1>First</h1>", format: "jpg" },
         { html: "<h1>Second</h1>", transparent_background: true }
       ]
-      defaults = { viewport_width: 1200 }
+      defaults = { viewport_width: 1200, format: "webp" }
 
       expect(described_class).to receive(:post).with(
         "/v1/image/batch",
@@ -345,14 +349,15 @@ RSpec.describe HTMLCSSToImage do
       image = client.generate_templated_image_url(
         "t-123",
         { z: [1, 2], a: false, skipped: nil },
-        template_version: 42
+        template_version: 42,
+        format: "pdf"
       )
       uri = Addressable::URI.parse(image.url)
       query = "template_version=42&a=false&z=%5B1%2C2%5D"
       token = OpenSSL::HMAC.hexdigest("sha256", "test", query)
 
       expect(uri.query).to eq(query)
-      expect(uri.path).to eq("/v1/image/t-123/#{token}")
+      expect(uri.path).to eq("/v1/image/t-123/#{token}/pdf")
     end
   end
 
@@ -361,13 +366,15 @@ RSpec.describe HTMLCSSToImage do
       expect(client).to receive(:generate_templated_image_url).with(
         "t-123",
         { title: "Hello" },
-        template_version: 42
+        template_version: 42,
+        format: "jpg"
       )
 
       client.create_image_from_template(
         "t-123",
         { title: "Hello" },
-        { template_version: 42 }
+        { template_version: 42 },
+        format: "jpg"
       )
     end
 
@@ -403,6 +410,7 @@ RSpec.describe HTMLCSSToImage do
         "https://example.com/a path",
         viewport_width: 1200,
         css: "body { background: none; }",
+        format: "pdf",
         full_screen: false,
         transparent_background: false,
         pdf_options: { print_background: true }
@@ -413,8 +421,9 @@ RSpec.describe HTMLCSSToImage do
 
       expect(uri.query).to eq(query)
       expect(uri.path).to eq(
-        "/v1/image/create-and-render/test-id/#{token}"
+        "/v1/image/create-and-render/test-id/#{token}/pdf"
       )
+      expect(uri.query).not_to include("format")
     end
 
     it "encodes repeated header options and omits POST-only options" do

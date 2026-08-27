@@ -9,12 +9,14 @@ class HTMLCSSToImage
   # @param template_id [String] the saved template ID
   # @param template_values [Hash] values to substitute into the template
   # @param template_version [Integer, nil] a specific template version, or the latest when omitted
+  # @param format [String, nil] output format appended to the signed URL path: `png`, `jpg`, `webp`, or `pdf`
   # @param keyword_values [Hash] template values passed as Ruby keyword arguments
   # @return [HTMLCSSToImage::ApiResponse] signed URL available at `.url`
   def generate_templated_image_url(
     template_id,
     template_values = {},
     template_version: nil,
+    format: nil,
     **keyword_values
   )
     template_values = template_values.merge(keyword_values)
@@ -30,9 +32,10 @@ class HTMLCSSToImage
     query = Addressable::URI.form_encode(pairs)
     token = generate_hmac_token(query)
     separator = query.empty? ? "" : "?"
+    format_path = format.nil? ? "" : "/#{format}"
 
     ApiResponse.new(
-      url: "https://hcti.io/v1/image/#{template_id}/#{token}#{separator}#{query}"
+      url: "https://hcti.io/v1/image/#{template_id}/#{token}#{format_path}#{separator}#{query}"
     )
   end
 
@@ -46,6 +49,7 @@ class HTMLCSSToImage
   # @param template_values [Hash] values to substitute into the template
   # @param params [Hash] legacy options; only `template_version` is used
   # @param template_version [Integer, nil] a specific template version
+  # @param format [String, nil] output format appended to the signed URL path: `png`, `jpg`, `webp`, or `pdf`
   # @param keyword_values [Hash] template values passed as Ruby keyword arguments
   # @return [HTMLCSSToImage::ApiResponse] signed URL available at `.url`
   def create_image_from_template(
@@ -53,6 +57,7 @@ class HTMLCSSToImage
     template_values = {},
     params = {},
     template_version: nil,
+    format: nil,
     **keyword_values
   )
     params ||= {}
@@ -62,11 +67,10 @@ class HTMLCSSToImage
         params[:template_version] || params["template_version"]
       end
 
-    generate_templated_image_url(
-      template_id,
-      template_values,
-      template_version: template_version || legacy_version
-    )
+    options = { template_version: template_version || legacy_version }
+    options[:format] = format unless format.nil?
+
+    generate_templated_image_url(template_id, template_values, **options)
   end
 
   # Generates a signed create-and-render URL for a URL screenshot.
@@ -80,14 +84,15 @@ class HTMLCSSToImage
   # @see https://docs.htmlcsstoimage.com/getting-started/create-and-render/
   #
   # @param url [String] the fully qualified URL to capture
-  # @param params [Hash] URL screenshot options
+  # @param params [Hash] URL screenshot options; `format` may be `png`, `jpg`, `webp`, or `pdf` and is appended to the signed URL path instead of the query string
   # @return [HTMLCSSToImage::ApiResponse] signed URL available at `.url`
   def generate_create_and_render_url(url, params = {})
     pairs = [["url", url.to_s]]
+    format = params[:format] || params["format"]
 
     params
       .reject do |key, _value|
-        %w[url pdf_options dedupe_duration_s].include?(key.to_s)
+        %w[url format pdf_options dedupe_duration_s].include?(key.to_s)
       end
       .sort_by { |key, _value| key.to_s }
       .each do |key, value|
@@ -106,9 +111,10 @@ class HTMLCSSToImage
 
     query = Addressable::URI.form_encode(pairs)
     token = generate_hmac_token(query)
+    format_path = format.nil? ? "" : "/#{format}"
 
     ApiResponse.new(
-      url: "https://hcti.io/v1/image/create-and-render/#{@auth[:username]}/#{token}?#{query}"
+      url: "https://hcti.io/v1/image/create-and-render/#{@auth[:username]}/#{token}#{format_path}?#{query}"
     )
   end
 

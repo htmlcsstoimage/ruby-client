@@ -4,7 +4,7 @@
 
 Ruby client for the [HTML/CSS to Image API](https://htmlcsstoimage.com).
 
-Generate png, jpg or webp images with Ruby. Renders exactly like Google Chrome.
+Generate PNG, JPG, WebP, or PDF files with Ruby. Renders exactly like Google Chrome.
 
 ## Installation
 
@@ -48,7 +48,8 @@ Generate an image from HTML/CSS. Returns a URL to the image.
 ```ruby
 image = client.create_image("<div>Hello, world</div>",
                             css: "div { background-color: red; font-family: Roboto; }",
-                            google_fonts: "Roboto")
+                            google_fonts: "Roboto",
+                            format: "webp")
 
 image
 => #<HTMLCSSToImage::ApiResponse url="https://hcti.io/v1/image/254b444c-dd82-4cc1-94ef-aa4b3a6870a6", id="254b444c-dd82-4cc1-94ef-aa4b3a6870a6">
@@ -81,6 +82,21 @@ Generate a screenshot of any public URL.
 image = client.url_to_image("https://github.com", viewport_width: 800, viewport_height: 1200)
 ```
 
+### Create a PDF
+
+Select PDF output with `format: "pdf"`; use `pdf_options` to configure its layout:
+
+```ruby
+pdf = client.create_image(
+  "<h1>Quarterly report</h1>",
+  format: "pdf",
+  pdf_options: {
+    print_background: true,
+    margins: ["20px", "20px", "20px", "20px"]
+  }
+)
+```
+
 ### Create a batch of images
 
 Create several HTML/CSS or URL images in one API request. Each variation inherits
@@ -89,10 +105,10 @@ values from `default_options` and can override them.
 ```ruby
 images = client.create_image_batch(
   [
-    { html: "<h1>First</h1>" },
+    { html: "<h1>First</h1>", format: "jpg" },
     { html: "<h1>Second</h1>", transparent_background: true }
   ],
-  { viewport_width: 1200 }
+  { viewport_width: 1200, format: "webp" }
 )
 ```
 
@@ -133,6 +149,7 @@ signed_image = client.generate_create_and_render_url(
   additional_header_origins: ["https://api.example.com"],
   include_headers_on_subrequests: true,
   identify_as_hcti: true,
+  format: "webp",
   viewport_width: 1200,
   viewport_height: 630,
   transparent_background: false
@@ -164,7 +181,8 @@ signed_image = client.generate_templated_image_url(
       plan: "Pro"
     }
   },
-  template_version: 1596829374001
+  template_version: 1596829374001,
+  format: "webp"
 )
 
 signed_image.url
@@ -220,7 +238,8 @@ version = client.create_template_version(
 created_image = client.create_templated_image(
   template.template_id,
   { title: "Hello, world!" },
-  template_version: version.template_version
+  template_version: version.template_version,
+  format: "webp"
 )
 ```
 
@@ -238,7 +257,7 @@ For detailed information on all the available parameters, visit the docs: https:
 
 The client passes supported API parameters through as JSON. Recent additions
 include `dedupe_duration_s`, `storage_destination_id`,
-`transparent_background`, `proxy_id`, `jumbo_max_width`, `jumbo_max_height`,
+`transparent_background`, `format`, `proxy_id`, `jumbo_max_width`, `jumbo_max_height`,
 and, for URL screenshots, `headers`, `additional_header_origins`,
 `include_headers_on_subrequests`, `identify_as_hcti`, and
 `block_consent_banners`.

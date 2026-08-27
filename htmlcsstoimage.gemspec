@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["support@htmlcsstoimage.com"]
 
   spec.summary       = %q{Ruby client for the HTML/CSS to Image API.}
-  spec.description   = %q{Ruby client for the HTML/CSS to Image API. Generate a png, jpg or webp images with Ruby. Renders exactly like Google Chrome. }
+  spec.description   = %q{Ruby client for the HTML/CSS to Image API. Generate PNG, JPG, WebP, or PDF files with Ruby. Renders exactly like Google Chrome. }
   spec.homepage      = "https://docs.htmlcsstoimage.com/example-code/ruby"
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 2.7.0"
