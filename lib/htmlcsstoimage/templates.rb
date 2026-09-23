@@ -58,7 +58,7 @@ class HTMLCSSToImage
   # @option params [String] :selector A CSS selector for the element to capture.
   # @option params [Integer] :viewport_height The Chrome viewport height. Both viewport dimensions must be set if using either.
   # @option params [Integer] :viewport_width The Chrome viewport width. Both viewport dimensions must be set if using either.
-  # @option params [Boolean] :disable_twemoji Disable the Twemoji fallback and use native emoji fonts.
+  # @option params [Boolean] :disable_twemoji Templates use Twemoji by default; true uses supplied or native emoji fonts instead.
   # @option params [String] :color_scheme Render using the `light` or `dark` browser color scheme.
   # @option params [String] :timezone The browser timezone as an IANA timezone identifier, such as `America/New_York`.
   # @option params [Boolean] :viewport_mobile Whether to honor the page's mobile viewport behavior.

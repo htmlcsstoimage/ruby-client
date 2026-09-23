@@ -16,7 +16,7 @@ class HTMLCSSToImage
   # @option params [Integer] :viewport_height The Chrome viewport height. Both viewport dimensions must be set if using either.
   # @option params [Integer] :viewport_width The Chrome viewport width. Both viewport dimensions must be set if using either.
   # @option params [Hash] :pdf_options Options for generating a PDF, including page size, margins, scale, and background printing.
-  # @option params [Boolean] :disable_twemoji Disable the Twemoji fallback and use native emoji fonts.
+  # @option params [Boolean] :disable_twemoji For HTML/CSS, true disables default Twemoji replacement. For URLs, only explicit false injects Twemoji; omitted or true leaves the page unchanged.
   # @option params [Boolean] :max_render_once Ensure the image is only rendered and saved once.
   # @option params [Integer] :dedupe_duration_s Reuse an identical image created within this many seconds. Only supported for single-image POST requests.
   # @option params [String] :color_scheme Render using the `light` or `dark` browser color scheme.
@@ -55,7 +55,7 @@ class HTMLCSSToImage
   # @option params [Integer] :viewport_height The Chrome viewport height. Both viewport dimensions must be set if using either.
   # @option params [Integer] :viewport_width The Chrome viewport width. Both viewport dimensions must be set if using either.
   # @option params [Hash] :pdf_options Options for generating a PDF, including page size, margins, scale, and background printing.
-  # @option params [Boolean] :disable_twemoji Disable the Twemoji fallback and use native emoji fonts.
+  # @option params [Boolean] :disable_twemoji For HTML/CSS, true disables default Twemoji replacement. For URLs, only explicit false injects Twemoji; omitted or true leaves the page unchanged.
   # @option params [Boolean] :max_render_once Ensure the image is only rendered and saved once.
   # @option params [Integer] :dedupe_duration_s Reuse an identical image created within this many seconds. Only supported for single-image POST requests.
   # @option params [String] :color_scheme Render using the `light` or `dark` browser color scheme.
