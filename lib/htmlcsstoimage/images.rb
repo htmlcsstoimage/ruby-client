@@ -26,6 +26,7 @@ class HTMLCSSToImage
   # @option params [Boolean] :viewport_touch Whether the viewport supports touch events.
   # @option params [String] :media_type Render using `print` or `screen` media.
   # @option params [String] :proxy_id The ID of an organization proxy to use for the render.
+  # @option params [Array<Hash>] :request_overrides Browser request block rules, such as `{ action: "block", resource_types: [RequestOverrideResourceType::Script] }`. Requires a paid plan.
   # @option params [String] :storage_destination_id The ID of an organization storage destination for the rendered image.
   # @option params [Integer] :jumbo_max_height Maximum output height in jumbo mode. Requires `jumbo_max_width`.
   # @option params [Integer] :jumbo_max_width Maximum output width in jumbo mode. Requires `jumbo_max_height`.
@@ -70,6 +71,7 @@ class HTMLCSSToImage
   # @option params [Boolean] :viewport_touch Whether the viewport supports touch events.
   # @option params [String] :media_type Render using `print` or `screen` media.
   # @option params [String] :proxy_id The ID of an organization proxy to use for the render.
+  # @option params [Array<Hash>] :request_overrides Browser request block rules, such as `{ action: "block", resource_types: [RequestOverrideResourceType::Script] }`. Requires a paid plan.
   # @option params [String] :storage_destination_id The ID of an organization storage destination for the rendered image.
   # @option params [Integer] :jumbo_max_height Maximum output height in jumbo mode. Requires `jumbo_max_width`.
   # @option params [Integer] :jumbo_max_width Maximum output width in jumbo mode. Requires `jumbo_max_height`.

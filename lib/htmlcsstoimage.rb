@@ -6,6 +6,7 @@ require "addressable/uri"
 require "ostruct"
 
 require "htmlcsstoimage/client"
+require "htmlcsstoimage/request_override_resource_type"
 require "htmlcsstoimage/images"
 require "htmlcsstoimage/signed_urls"
 require "htmlcsstoimage/templates"

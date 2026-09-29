@@ -92,7 +92,7 @@ class HTMLCSSToImage
 
     params
       .reject do |key, _value|
-        %w[url format pdf_options dedupe_duration_s].include?(key.to_s)
+        %w[url format pdf_options dedupe_duration_s request_overrides].include?(key.to_s)
       end
       .sort_by { |key, _value| key.to_s }
       .each do |key, value|

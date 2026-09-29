@@ -7,6 +7,13 @@ RSpec.describe HTMLCSSToImage do
     expect(HTMLCSSToImage::VERSION).not_to be nil
   end
 
+  it "serializes request resource types as strings and omits rules from signed URLs" do
+    rules = [{ action: "block", url: "*.js", resource_types: [HTMLCSSToImage::RequestOverrideResourceType::Script, HTMLCSSToImage::RequestOverrideResourceType::Fetch] }]
+    expect(JSON.parse(rules.to_json)).to eq([{ "action" => "block", "url" => "*.js", "resource_types" => ["script", "fetch"] }])
+    signed = described_class.new(user_id: "id", api_key: "key").generate_create_and_render_url("https://example.com", request_overrides: rules)
+    expect(signed.url).not_to include("request_overrides")
+  end
+
   describe "request parameter passthrough" do
     it "passes all HTML/CSS image parameters through unchanged" do
       params = {
