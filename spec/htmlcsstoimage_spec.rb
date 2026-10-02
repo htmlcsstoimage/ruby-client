@@ -161,6 +161,35 @@ RSpec.describe HTMLCSSToImage do
     end
   end
 
+  describe "#create_templated_image_batch" do
+    it "posts optional fields without merging or filtering nested null values" do
+      defaults = { template_id: "t-card", template_version: 3, format: "webp", template_values: { brand: { name: "Acme", color: "red" } } }
+      variations = [{}, { template_id: "t-other", template_values: { brand: { color: nil }, tags: [], active: false } }]
+      response = HTMLCSSToImage::ApiResponse.new(images: [{ id: "two", url: "two" }, { id: "one", url: "one" }])
+      expect(described_class).to receive(:post).with(
+        "/v1/image/batch/templated",
+        hash_including(basic_auth: { username: HCTI_USER_ID, password: HCTI_API_KEY }, body: { variations: variations, default_options: defaults }.to_json)
+      ).and_return(response)
+      authenticated_client = described_class.new(user_id: HCTI_USER_ID, api_key: HCTI_API_KEY)
+      expect(authenticated_client.create_templated_image_batch(variations, defaults)).to be(response)
+      expect(defaults[:template_values][:brand][:color]).to eq("red")
+      expect(variations[1]).not_to have_key(:template_version)
+    end
+
+    it "omits defaults and returns API errors unchanged" do
+      response = HTMLCSSToImage::ApiResponse.new(error: "Bad Request", message: "Invalid template")
+      expect(described_class).to receive(:post).with(
+        "/v1/image/batch/templated", hash_including(body: { variations: [{ template_id: "t-missing" }] }.to_json)
+      ).and_return(response)
+      expect(client.create_templated_image_batch([{ template_id: "t-missing" }])).to be(response)
+    end
+
+    it "skips the HTTP request for empty input" do
+      expect(described_class).not_to receive(:post)
+      expect(client.create_templated_image_batch([]).images).to eq([])
+    end
+  end
+
   describe "#create_image_batch" do
     it "posts variations and shared default options" do
       variations = [

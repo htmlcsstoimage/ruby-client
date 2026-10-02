@@ -285,3 +285,21 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/htmlcsstoimage/ruby-client/blob/main/CODE_OF_CONDUCT.md).
+
+## Templated image batches
+
+Create images from one or more templates with shared defaults and ordered variations:
+
+```ruby
+result = client.create_templated_image_batch(
+  [
+    { template_values: { title: "First" } },
+    { template_id: "t-other", template_values: { title: "Second" } }
+  ],
+  { template_id: "t-card", template_version: 3, format: "webp" }
+)
+```
+
+Omitted fields inherit defaults. Supplying a template ID resets the inherited version; omit its version to use latest. Template value objects merge recursively on the API; arrays, scalars, and explicit null values replace defaults. Results preserve input order and identical images reuse existing assets. Each merged values object must be nonempty and satisfy its template's required variables.
+
+See the [API reference](https://docs.htmlcsstoimage.com/getting-started/using-the-api/#batch-templated-image-creation) for plan limits and examples.

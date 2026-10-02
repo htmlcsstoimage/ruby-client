@@ -119,7 +119,7 @@ class HTMLCSSToImage
 
   # Creates several HTML/CSS or URL images in one API request.
   #
-  # Templates are not supported in batch requests.
+  # For template batches, use #create_templated_image_batch.
   #
   # @see https://docs.htmlcsstoimage.com/getting-started/using-the-api
   #
@@ -134,6 +134,24 @@ class HTMLCSSToImage
 
     self.class.post(
       "/v1/image/batch",
+      basic_auth: @auth,
+      body: body.to_json
+    )
+  end
+
+  # Creates images from one or more templates in a single request.
+  # Objects in template_values merge recursively; arrays, scalars and null replace defaults.
+  # Supplying template_id resets the inherited version; omit a version to use latest.
+  # @param variations [Array<Hash>] per-image template options; results preserve this order
+  # @param default_options [Hash, nil] shared template_id, template_version, template_values and format
+  # @return [HTMLCSSToImage::ApiResponse] batch response with results at `.images`
+  def create_templated_image_batch(variations, default_options = nil)
+    return ApiResponse.new(images: []) if variations.empty?
+
+    body = { variations: variations }
+    body[:default_options] = default_options unless default_options.nil?
+    self.class.post(
+      "/v1/image/batch/templated",
       basic_auth: @auth,
       body: body.to_json
     )
