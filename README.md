@@ -112,6 +112,107 @@ images = client.create_image_batch(
 )
 ```
 
+## Recordings
+
+Record HTML/CSS or a public webpage as MP4, WebM, or GIF. Use
+`create_html_css_recording` for HTML/CSS and `create_url_recording` for a webpage:
+
+```ruby
+recording = client.create_url_recording(
+  "https://example.com",
+  duration_ms: 10000,
+  viewport_width: 1280,
+  viewport_height: 720,
+  actions: [{ type: "simple_scroll" }],
+  output: { format: "mp4" }
+)
+
+recording.id
+recording.status_url
+recording.recording_url
+
+animation = client.create_html_css_recording(
+  "<h1>Hello</h1>",
+  css: "@keyframes fade { from { opacity: 0; } to { opacity: 1; } } h1 { animation: fade 2s; font-family: Roboto; }",
+  google_fonts: "Roboto",
+  duration_ms: 3000,
+  duration_mode: "fixed",
+  output: { format: "gif", scale: 0.5 }
+)
+```
+
+Both methods accept browser, timeline, and output options as hashes, following
+the image methods. Options pass through to the API without local validation.
+Omitted settings use API defaults. Recordings do not include audio.
+
+Triggers and actions use a `type` discriminator. For example, wait until an
+element is visible, click a button, and hold the result:
+
+```ruby
+demo = client.create_url_recording(
+  "https://example.com/demo",
+  duration_ms: 5000,
+  duration_mode: "fixed",
+  trigger: { type: "element_visible", selector: "#demo", timeout_ms: 2000 },
+  actions: [
+    { type: "click", selector: "#start", if_not_found: [{ type: "error" }] },
+    { type: "stall", duration_ms: 1000 }
+  ]
+)
+```
+
+Nested branches run on the API. For JavaScript actions, omitting `if_error` or
+setting it to `nil` fails on a script error; `if_error: []` ignores errors.
+Empty arrays, explicit `nil`, `false`, and zero values are preserved in JSON.
+
+A `scroll` action moves through ordered `steps`. Each step's `duration_ms` is
+required and must be at least 1:
+
+```ruby
+client.create_url_recording(
+  "https://example.com",
+  duration_ms: 6000,
+  actions: [
+    { type: "scroll", steps: [
+      { to: { type: "selector", selector: "#pricing" }, duration_ms: 1200, easing: "ease_in_out_cubic" },
+      { to: { type: "position", position: "bottom" }, duration_ms: 1500 }
+    ] }
+  ]
+)
+```
+
+Embed or request `recording_url` directly; the request waits until the
+recording is ready, so checking status is optional. To inspect progress, fetch
+the current status once with:
+
+```ruby
+status = client.fetch_recording_status(recording.id)
+puts status.status
+puts status.attempt_count
+```
+
+HTTP 200 and 202 both return status information. The states `ready`, `failed`,
+and `cancelled` are terminal. A successful status fetch can report a failed
+recording, and `status.error` can describe an earlier, retryable attempt.
+`status.status` is the raw API string. Treat values not listed here, which
+newer API versions may add, as unknown; the client passes them through as-is.
+API errors and transport failures follow the existing image-method behavior.
+
+Delete recordings individually or in a batch:
+
+```ruby
+client.delete_recording("recording-id")
+client.delete_recording_batch(["first-id", "second-id"])
+```
+
+Deletion returns `true` when accepted, or the API response on failure. Empty
+batch lists succeed without an API request, matching `delete_image_batch`.
+
+See the [recording guide](https://docs.htmlcsstoimage.com/getting-started/recordings/),
+[actions reference](https://docs.htmlcsstoimage.com/parameters/actions/), and
+[trigger reference](https://docs.htmlcsstoimage.com/parameters/trigger/) for
+options and examples.
+
 ## Signed URLs
 
 Signed URLs let another application, browser, or service render an image on

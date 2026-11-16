@@ -102,7 +102,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/htmlcsstoimage/client.rb<span class="defines">,<br>
-  lib/htmlcsstoimage/images.rb,<br> lib/htmlcsstoimage/version.rb,<br> lib/htmlcsstoimage/templates.rb,<br> lib/htmlcsstoimage/signed_urls.rb</span>
+  lib/htmlcsstoimage/images.rb,<br> lib/htmlcsstoimage/version.rb,<br> lib/htmlcsstoimage/templates.rb,<br> lib/htmlcsstoimage/recordings.rb,<br> lib/htmlcsstoimage/signed_urls.rb,<br> lib/htmlcsstoimage/request_override_resource_type.rb</span>
 
 </dd>
   </dl>
@@ -111,7 +111,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Client for creating images and managing templates with HTML/CSS to Image.</p>
+    <p>Named browser resource types for request_overrides rules.</p>
 
   </div>
 </div>
@@ -124,7 +124,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span>, <span class='object_link'><a href="HTMLCSSToImage/RequestOverrideResourceType.html" title="HTMLCSSToImage::RequestOverrideResourceType (class)">RequestOverrideResourceType</a></span>
     
   
 </p>
@@ -149,7 +149,7 @@
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.3.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1.0.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
       
     </dl>
   
@@ -171,6 +171,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#create_html_css_recording-instance_method" title="#create_html_css_recording (instance method)">#<strong>create_html_css_recording</strong>(html, params = {})  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+
+
+
+  </span>
+
+
+
+
+
+
+
+
+
+    <span class="summary_desc"><div class='inline'><p>Records an HTML document or fragment with optional CSS and Google Fonts.</p></div></span>
+
+</li>
+
+
+        <li class="public ">
+  <span class="summary_signature">
+
       <a href="#create_image-instance_method" title="#create_image (instance method)">#<strong>create_image</strong>(html, params = {})  &#x21d2; HTMLCSSToImage::ApiResponse </a>
     
 
@@ -303,6 +325,50 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#create_templated_image_batch-instance_method" title="#create_templated_image_batch (instance method)">#<strong>create_templated_image_batch</strong>(variations, default_options = nil)  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+
+
+
+  </span>
+
+
+
+
+
+
+
+
+
+    <span class="summary_desc"><div class='inline'><p>Creates images from one or more templates in a single request.</p></div></span>
+
+</li>
+
+
+        <li class="public ">
+  <span class="summary_signature">
+
+      <a href="#create_url_recording-instance_method" title="#create_url_recording (instance method)">#<strong>create_url_recording</strong>(url, params = {})  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+
+
+
+  </span>
+
+
+
+
+
+
+
+
+
+    <span class="summary_desc"><div class='inline'><p>Records a public HTTP or HTTPS webpage.</p></div></span>
+
+</li>
+
+
+        <li class="public ">
+  <span class="summary_signature">
+
       <a href="#delete_image-instance_method" title="#delete_image (instance method)">#<strong>delete_image</strong>(image_id)  &#x21d2; Boolean, HTMLCSSToImage::ApiResponse </a>
     
 
@@ -347,6 +413,72 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#delete_recording-instance_method" title="#delete_recording (instance method)">#<strong>delete_recording</strong>(recording_id)  &#x21d2; true, HTTParty::Response </a>
+
+
+
+  </span>
+
+
+
+
+
+
+
+
+
+    <span class="summary_desc"><div class='inline'><p>Deletes a recording and clears its media from the CDN.</p></div></span>
+
+</li>
+
+
+        <li class="public ">
+  <span class="summary_signature">
+
+      <a href="#delete_recording_batch-instance_method" title="#delete_recording_batch (instance method)">#<strong>delete_recording_batch</strong>(recording_ids)  &#x21d2; true, HTTParty::Response </a>
+
+
+
+  </span>
+
+
+
+
+
+
+
+
+
+    <span class="summary_desc"><div class='inline'><p>Deletes several recordings in one API request.</p></div></span>
+
+</li>
+
+
+        <li class="public ">
+  <span class="summary_signature">
+
+      <a href="#fetch_recording_status-instance_method" title="#fetch_recording_status (instance method)">#<strong>fetch_recording_status</strong>(recording_id)  &#x21d2; HTMLCSSToImage::ApiResponse </a>
+
+
+
+  </span>
+
+
+
+
+
+
+
+
+
+    <span class="summary_desc"><div class='inline'><p>Fetches a recording's current lifecycle state once.</p></div></span>
+
+</li>
+
+
+        <li class="public ">
+  <span class="summary_signature">
+
       <a href="#generate_create_and_render_url-instance_method" title="#generate_create_and_render_url (instance method)">#<strong>generate_create_and_render_url</strong>(url, params = {})  &#x21d2; HTMLCSSToImage::ApiResponse </a>
     
 
@@ -600,9 +732,381 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="create_image-instance_method">
+  <h3 class="signature first" id="create_html_css_recording-instance_method">
   
-    #<strong>create_image</strong>(html, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+    #<strong>create_html_css_recording</strong>(html, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Records an HTML document or fragment with optional CSS and Google Fonts.
+Returns the recording ID, status URL, and media URL while rendering can
+continue in the background. Optional settings use the API defaults.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>html</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>HTML to record, as a fragment or a complete document</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>browser, timeline, and output options passed to the API</p></div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>params</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:duration_ms</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Required recording duration in milliseconds: 500–30000, or up to 90000 in target mode.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:css</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>CSS used to style the recording.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:google_fonts</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Google Fonts to load, separated by <code>|</code>. Set font-family in the CSS to use them.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:device_scale</span>
+          <span class="type">(<tt>Numeric</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Capture pixel density. HTML/CSS defaults to 2; URL recordings default to 1.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_height</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Chrome viewport height in CSS pixels. Supply both viewport dimensions to set the recording size.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_width</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Chrome viewport width in CSS pixels. Supply both viewport dimensions to set the recording size.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:disable_twemoji</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>True disables Twemoji for HTML/CSS. URL recordings inject Twemoji only when explicitly false.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:dedupe_duration_s</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Reuse an identical recent recording for this many seconds. Set to 0 to disable deduplication.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:color_scheme</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Chrome's preferred color scheme: <code>light</code> or <code>dark</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:timezone</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Browser timezone as an IANA identifier, such as <code>America/New_York</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_mobile</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Enable mobile viewport behavior, including the page's viewport meta tag.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_landscape</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Emulate landscape orientation.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:viewport_touch</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Emulate touch support.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:media_type</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>CSS media type used while recording: <code>print</code> or <code>screen</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:proxy_id</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Configured organization proxy to use while recording.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:storage_destination_id</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Configured storage destination to receive the recording.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:request_overrides</span>
+          <span class="type">(<tt>Array&lt;Hash&gt;</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Browser request block rules. Requires a paid plan.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:trigger</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Start condition: <code>type: &quot;immediate&quot;</code> (default), <code>&quot;element_visible&quot;</code> with a <code>selector</code>, or <code>&quot;function_call&quot;</code> to wait for <code>window.RecordingReady()</code>. Waiting triggers accept <code>timeout_ms</code>.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:actions</span>
+          <span class="type">(<tt>Array&lt;Hash&gt;</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Ordered timeline interactions: <code>simple_scroll</code>, <code>scroll</code>, <code>stall</code>, <code>click</code>, <code>locate_selector</code>, <code>execute_javascript</code>, or <code>error</code>. Each action has a <code>type</code> discriminator. Omit or use an empty array to record without interactions.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:output</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Media <code>format</code> (<code>mp4</code>, <code>webm</code>, or <code>gif</code>), <code>fps</code>, and pixel <code>scale</code>. Defaults to MP4 at 30 fps; GIF defaults to 15 fps. Recordings have no audio.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:duration_mode</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p><code>at_most</code> (default) stops when actions finish or the duration is reached. <code>fixed</code> pads or cuts off at that duration. <code>at_least</code> lets actions finish up to 90 seconds. <code>target</code> adjusts playback speed to fit the duration.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:defer_render</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Wait to render until media or storage is requested. Defaults to false; does not reset deduplicated recordings.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:skip_scroll_preload</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Skip the preparation scroll that loads lazy content. Scrolling actions still run. Defaults to false.</p></div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>recording details at <code>.id</code>, <code>.status_url</code>, and <code>.recording_url</code></p></div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://docs.htmlcsstoimage.com/getting-started/recordings/" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/recordings/">https://docs.htmlcsstoimage.com/getting-started/recordings/</a></li>
+
+      <li><a href="https://docs.htmlcsstoimage.com/parameters/actions/" target="_parent" title="https://docs.htmlcsstoimage.com/parameters/actions/">https://docs.htmlcsstoimage.com/parameters/actions/</a></li>
+
+      <li><a href="https://docs.htmlcsstoimage.com/parameters/trigger/" target="_parent" title="https://docs.htmlcsstoimage.com/parameters/trigger/">https://docs.htmlcsstoimage.com/parameters/trigger/</a></li>
+
+      <li><a href="https://docs.htmlcsstoimage.com/parameters/output/" target="_parent" title="https://docs.htmlcsstoimage.com/parameters/output/">https://docs.htmlcsstoimage.com/parameters/output/</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39
+40
+41</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 37</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_html_css_recording'>create_html_css_recording</span><span class='lparen'>(</span><span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>html:</span> <span class='id identifier rubyid_html'>html</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/recording</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='comma'>,</span> <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_image-instance_method">
+  
+    #<strong>create_image</strong>(html, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>
   
 
   
@@ -641,323 +1145,334 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
       
       
         <em class="default">(defaults to: <tt>{}</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'><p>image creation options</p></div>
-      
+
     </li>
-  
+
 </ul>
 
-  
-    
-    
-    
-    
+
+
+
+
+
     <p class="tag_title">Options Hash (<tt>params</tt>):</p>
     <ul class="option">
-      
+
         <li>
           <span class="name">:format</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The format used in the initially returned URL: <code>png</code>, <code>jpg</code>, <code>webp</code>, or <code>pdf</code>. This does not change the stored image definition or prevent rendering another supported format later.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:css</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The CSS for your image.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:device_scale</span>
           <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The pixel ratio for the screenshot. Minimum: <code>0.1</code>, Maximum: <code>3</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:google_fonts</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Google Fonts to load. Separate multiple fonts with <code>|</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:max_wait_ms</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The maximum time to wait before taking the screenshot. Minimum: <code>500</code>, Maximum: <code>10000</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:ms_delay</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Extra time in milliseconds to wait before taking the screenshot. Maximum: <code>10000</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:render_when_ready</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Wait until <code>ScreenshotReady()</code> is called from JavaScript before taking the screenshot.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:selector</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>A CSS selector for the element to capture.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:viewport_height</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The Chrome viewport height. Both viewport dimensions must be set if using either.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:viewport_width</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The Chrome viewport width. Both viewport dimensions must be set if using either.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:pdf_options</span>
           <span class="type">(<tt>Hash</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Options for generating a PDF, including page size, margins, scale, and background printing.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:disable_twemoji</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
-            &mdash; <div class='inline'><p>Disable the Twemoji fallback and use native emoji fonts.</p></div>
-          
+
+            &mdash; <div class='inline'><p>For HTML/CSS, true disables default Twemoji replacement. For URLs, only explicit false injects Twemoji; omitted or true leaves the page unchanged.</p></div>
+
         </li>
-      
+
         <li>
           <span class="name">:max_render_once</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Ensure the image is only rendered and saved once.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:dedupe_duration_s</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Reuse an identical image created within this many seconds. Only supported for single-image POST requests.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:color_scheme</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Render using the <code>light</code> or <code>dark</code> browser color scheme.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:timezone</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The browser timezone as an IANA timezone identifier, such as <code>America/New_York</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:viewport_mobile</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Whether to honor the page's mobile viewport behavior.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:viewport_landscape</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Whether to render the viewport in landscape mode.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:viewport_touch</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Whether the viewport supports touch events.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:media_type</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Render using <code>print</code> or <code>screen</code> media.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:proxy_id</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The ID of an organization proxy to use for the render.</p></div>
-          
+
         </li>
-      
+
+        <li>
+          <span class="name">:request_overrides</span>
+          <span class="type">(<tt>Array&lt;Hash&gt;</tt>)</span>
+          <span class="default">
+
+          </span>
+
+            &mdash; <div class='inline'><p>Browser request block rules, such as <code>{ action: &quot;block&quot;, resource_types: [RequestOverrideResourceType::Script] }</code>. Requires a paid plan.</p></div>
+
+        </li>
+
         <li>
           <span class="name">:storage_destination_id</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The ID of an organization storage destination for the rendered image.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:jumbo_max_height</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Maximum output height in jumbo mode. Requires <code>jumbo_max_width</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:jumbo_max_width</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Maximum output width in jumbo mode. Requires <code>jumbo_max_height</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:transparent_background</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Whether to render the image with a transparent background.</p></div>
-          
+
         </li>
-      
+
     </ul>
-  
+
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><p>image details, including <code>.url</code></p></div>
-      
+
     </li>
-  
+
 </ul>
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
-    
+
       <li><a href="https://docs.htmlcsstoimage.com/getting-started/using-the-api" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/using-the-api">https://docs.htmlcsstoimage.com/getting-started/using-the-api</a></li>
-    
+
   </ul>
 
 </div><table class="source_code">
@@ -966,15 +1481,15 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
       <pre class="lines">
 
 
-34
 35
 36
 37
 38
-39</pre>
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_image'>create_image</span><span class='lparen'>(</span><span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>html:</span> <span class='id identifier rubyid_html'>html</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
@@ -986,81 +1501,81 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="create_image_batch-instance_method">
-  
-    #<strong>create_image_batch</strong>(variations, default_options = nil)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
-  
 
-  
+    #<strong>create_image_batch</strong>(variations, default_options = nil)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
     <p>Creates several HTML/CSS or URL images in one API request.</p>
-<p>Templates are not supported in batch requests.</p>
+<p>For template batches, use #create_templated_image_batch.</p>
 
   </div>
 </div>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>variations</span>
-      
-      
+
+
         <span class='type'>(<tt>Array&lt;Hash&gt;</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><p>per-image values</p></div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>default_options</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>, <tt>nil</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'><p>shared values inherited by each variation; <code>format</code> may be <code>png</code>, <code>jpg</code>, <code>webp</code>, or <code>pdf</code> and only changes initially returned URL extensions</p></div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><p>batch response with images available at <code>.images</code></p></div>
-      
+
     </li>
-  
+
 </ul>
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
-    
+
       <li><a href="https://docs.htmlcsstoimage.com/getting-started/using-the-api" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/using-the-api">https://docs.htmlcsstoimage.com/getting-started/using-the-api</a></li>
-    
+
   </ul>
 
 </div><table class="source_code">
@@ -1069,8 +1584,6 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
       <pre class="lines">
 
 
-127
-128
 129
 130
 131
@@ -1080,10 +1593,12 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
 135
 136
 137
-138</pre>
+138
+139
+140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 129</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_image_batch'>create_image_batch</span><span class='lparen'>(</span><span class='id identifier rubyid_variations'>variations</span><span class='comma'>,</span> <span class='id identifier rubyid_default_options'>default_options</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="HTMLCSSToImage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>images:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_variations'>variations</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -1101,16 +1616,16 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="create_image_from_template-instance_method">
-  
-    #<strong>create_image_from_template</strong>(template_id, template_values = {}, params = {}, template_version: nil, format: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
-  
 
-  
+    #<strong>create_image_from_template</strong>(template_id, template_values = {}, params = {}, template_version: nil, format: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
     <div class="note deprecated"><strong>Deprecated.</strong> <div class='inline'><p>Use <span class='object_link'><a href="#generate_templated_image_url-instance_method" title="HTMLCSSToImage#generate_templated_image_url (method)">#generate_templated_image_url</a></span> instead.</p></div></div>
@@ -1123,116 +1638,116 @@ used. Its <code>template_version</code> value is now honored when present.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>template_id</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><p>the saved template ID</p></div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>template_values</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>{}</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'><p>values to substitute into the template</p></div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>params</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>{}</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'><p>legacy options; only <code>template_version</code> is used</p></div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>template_version</span>
-      
-      
+
+
         <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'><p>a specific template version</p></div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>format</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'><p>output format appended to the signed URL path: <code>png</code>, <code>jpg</code>, <code>webp</code>, or <code>pdf</code></p></div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>keyword_values</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><p>template values passed as Ruby keyword arguments</p></div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><p>signed URL available at <code>.url</code></p></div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1289,16 +1804,16 @@ used. Its <code>template_version</code> value is now honored when present.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="create_template-instance_method">
-  
-    #<strong>create_template</strong>(html, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
-  
 
-  
+    #<strong>create_template</strong>(html, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
     <p>Creates an image template.</p>
@@ -1308,336 +1823,347 @@ used. Its <code>template_version</code> value is now honored when present.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>html</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><p>HTML for the template</p></div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>params</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>{}</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'><p>template and rendering options</p></div>
-      
+
     </li>
-  
+
 </ul>
 
-  
-    
-    
-    
-    
+
+
+
+
+
     <p class="tag_title">Options Hash (<tt>params</tt>):</p>
     <ul class="option">
-      
+
         <li>
           <span class="name">:name</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>A short name to identify the template. Maximum length: 64.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:description</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>A description of the template. Maximum length: 1024.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:css</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The CSS for the template.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:device_scale</span>
           <span class="type">(<tt>Numeric</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The pixel ratio for the screenshot. Minimum: <code>0.1</code>, Maximum: <code>3</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:google_fonts</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Google Fonts to load. Separate multiple fonts with <code>|</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:max_wait_ms</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The maximum time to wait before taking the screenshot. Minimum: <code>500</code>, Maximum: <code>10000</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:ms_delay</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Extra time in milliseconds to wait before taking the screenshot. Maximum: <code>10000</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:render_when_ready</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Wait until <code>ScreenshotReady()</code> is called from JavaScript before taking the screenshot.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:max_render_once</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Ensure images created from the template are only rendered and saved once.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:selector</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>A CSS selector for the element to capture.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:viewport_height</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The Chrome viewport height. Both viewport dimensions must be set if using either.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:viewport_width</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The Chrome viewport width. Both viewport dimensions must be set if using either.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:disable_twemoji</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
-            &mdash; <div class='inline'><p>Disable the Twemoji fallback and use native emoji fonts.</p></div>
-          
+
+            &mdash; <div class='inline'><p>Templates use Twemoji by default; true uses supplied or native emoji fonts instead.</p></div>
+
         </li>
-      
+
         <li>
           <span class="name">:color_scheme</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Render using the <code>light</code> or <code>dark</code> browser color scheme.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:timezone</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The browser timezone as an IANA timezone identifier, such as <code>America/New_York</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:viewport_mobile</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Whether to honor the page's mobile viewport behavior.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:viewport_landscape</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Whether to render the viewport in landscape mode.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:viewport_touch</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Whether the viewport supports touch events.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:media_type</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Render using <code>print</code> or <code>screen</code> media.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:jumbo_max_height</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Maximum output height in jumbo mode. Requires <code>jumbo_max_width</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:jumbo_max_width</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Maximum output width in jumbo mode. Requires <code>jumbo_max_height</code>.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:proxy_id</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The ID of an organization proxy to use for the render.</p></div>
-          
+
         </li>
-      
+
+        <li>
+          <span class="name">:request_overrides</span>
+          <span class="type">(<tt>Array&lt;Hash&gt;</tt>)</span>
+          <span class="default">
+
+          </span>
+
+            &mdash; <div class='inline'><p>Browser request block rules. Use <code>RequestOverrideResourceType</code> values in <code>resource_types</code>.</p></div>
+
+        </li>
+
         <li>
           <span class="name">:storage_destination_id</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>The ID of an organization storage destination inherited by images created from the template.</p></div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:transparent_background</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'><p>Whether images created from the template should use a transparent background.</p></div>
-          
+
         </li>
-      
+
     </ul>
-  
+
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><p>created template details</p></div>
-      
+
     </li>
-  
+
 </ul>
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
-    
+
       <li><a href="https://docs.htmlcsstoimage.com/getting-started/templates/" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/templates/">https://docs.htmlcsstoimage.com/getting-started/templates/</a></li>
-    
+
   </ul>
 
 </div><table class="source_code">
@@ -1646,12 +2172,12 @@ used. Its <code>template_version</code> value is now honored when present.</p>
       <pre class="lines">
 
 
-74
 75
-76</pre>
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/templates.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/templates.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_template'>create_template</span><span class='lparen'>(</span><span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_create_template_at_path'>create_template_at_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/template</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
@@ -1660,16 +2186,16 @@ used. Its <code>template_version</code> value is now honored when present.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="create_template_version-instance_method">
-  
-    #<strong>create_template_version</strong>(template_id, html, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
-  
 
-  
+    #<strong>create_template_version</strong>(template_id, html, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
     <p>Creates a new version of a saved template.</p>
@@ -1680,46 +2206,46 @@ used. Its <code>template_version</code> value is now honored when present.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>template_id</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><p>the saved template ID</p></div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>html</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><p>HTML for the new template version</p></div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>params</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>{}</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'><p>template and rendering options</p></div>
       
@@ -1757,12 +2283,12 @@ used. Its <code>template_version</code> value is now honored when present.</p>
       <pre class="lines">
 
 
-88
 89
-90</pre>
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/templates.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/templates.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_template_version'>create_template_version</span><span class='lparen'>(</span><span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span> <span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_create_template_at_path'>create_template_at_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/template/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_template_id'>template_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
@@ -1775,7 +2301,7 @@ used. Its <code>template_version</code> value is now honored when present.</p>
       <div class="method_details ">
   <h3 class="signature " id="create_templated_image-instance_method">
   
-    #<strong>create_templated_image</strong>(template_id, template_values = {}, template_version: nil, format: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+    #<strong>create_templated_image</strong>(template_id, template_values = {}, template_version: nil, format: nil, **keyword_values)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>
   
 
   
@@ -1888,9 +2414,9 @@ used. Its <code>template_version</code> value is now honored when present.</p>
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
-    
+
       <li><a href="https://docs.htmlcsstoimage.com/getting-started/templates/" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/templates/">https://docs.htmlcsstoimage.com/getting-started/templates/</a></li>
-    
+
   </ul>
 
 </div><table class="source_code">
@@ -1899,8 +2425,6 @@ used. Its <code>template_version</code> value is now honored when present.</p>
       <pre class="lines">
 
 
-95
-96
 97
 98
 99
@@ -1920,10 +2444,12 @@ used. Its <code>template_version</code> value is now honored when present.</p>
 113
 114
 115
-116</pre>
+116
+117
+118</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_templated_image'>create_templated_image</span><span class='lparen'>(</span>
   <span class='id identifier rubyid_template_id'>template_id</span><span class='comma'>,</span>
@@ -1953,9 +2479,9 @@ used. Its <code>template_version</code> value is now honored when present.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="delete_image-instance_method">
+  <h3 class="signature " id="create_templated_image_batch-instance_method">
   
-    #<strong>delete_image</strong>(image_id)  &#x21d2; <tt>Boolean</tt>, <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+    #<strong>create_templated_image_batch</strong>(variations, default_options = nil)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>
   
 
   
@@ -1963,7 +2489,9 @@ used. Its <code>template_version</code> value is now honored when present.</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Deletes an image.</p>
+    <p>Creates images from one or more templates in a single request.
+Objects in template_values merge recursively; arrays, scalars and null replace defaults.
+Supplying template_id resets the inherited version; omit a version to use latest.</p>
 
   </div>
 </div>
@@ -1973,15 +2501,31 @@ used. Its <code>template_version</code> value is now honored when present.</p>
   
     <li>
       
-        <span class='name'>image_id</span>
+        <span class='name'>variations</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Array&lt;Hash&gt;</tt>)</span>
       
       
       
         &mdash;
-        <div class='inline'><p>the ID of the image to delete</p></div>
+        <div class='inline'><p>per-image template options; results preserve this order</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>default_options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>shared template_id, template_version, template_values and format</p></div>
       
     </li>
   
@@ -1993,12 +2537,185 @@ used. Its <code>template_version</code> value is now honored when present.</p>
     <li>
       
       
-        <span class='type'>(<tt>Boolean</tt>, <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
       
       
       
         &mdash;
-        <div class='inline'><p>true on success, or the API response on failure</p></div>
+        <div class='inline'><p>batch response with results at <code>.images</code></p></div>
+      
+    </li>
+
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 148</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_templated_image_batch'>create_templated_image_batch</span><span class='lparen'>(</span><span class='id identifier rubyid_variations'>variations</span><span class='comma'>,</span> <span class='id identifier rubyid_default_options'>default_options</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="HTMLCSSToImage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>images:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_variations'>variations</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>variations:</span> <span class='id identifier rubyid_variations'>variations</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_body'>body</span><span class='lbracket'>[</span><span class='symbol'>:default_options</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_default_options'>default_options</span> <span class='kw'>unless</span> <span class='id identifier rubyid_default_options'>default_options</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/image/batch/templated</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='comma'>,</span>
+    <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+
+      <div class="method_details ">
+  <h3 class="signature " id="create_url_recording-instance_method">
+
+    #<strong>create_url_recording</strong>(url, params = {})  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>
+
+
+
+
+
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Records a public HTTP or HTTPS webpage.</p>
+<p>Accepts the browser, timeline, and output options documented on
+<span class='object_link'><a href="#create_html_css_recording-instance_method" title="HTMLCSSToImage#create_html_css_recording (method)">#create_html_css_recording</a></span>. CSS is injected into the page after it loads.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+
+    <li>
+      
+        <span class='name'>url</span>
+
+
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>public HTTP or HTTPS URL to record</p></div>
+      
+    </li>
+
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+
+        &mdash;
+        <div class='inline'><p>recording options, including the required <code>duration_ms</code></p></div>
+
+    </li>
+
+</ul>
+
+
+
+
+
+
+    <p class="tag_title">Options Hash (<tt>params</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:block_consent_banners</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Attempt to hide cookie and consent banners before recording.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:identify_as_hcti</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Add <code>X-HCTI-SCREENSHOT: 1</code> to the top-level navigation.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:headers</span>
+          <span class="type">(<tt>Hash{String =&gt; String}</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Custom HTTP headers for top-level navigations to the URL's origin and additional_header_origins.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:additional_header_origins</span>
+          <span class="type">(<tt>Array&lt;String&gt;</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Additional exact HTTP or HTTPS origins allowed to receive custom headers.</p></div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:include_headers_on_subrequests</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Also send custom headers with subrequests to allowed origins. Defaults to false.</p></div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>recording details at <code>.id</code>, <code>.status_url</code>, and <code>.recording_url</code></p></div>
       
     </li>
   
@@ -2007,7 +2724,9 @@ used. Its <code>template_version</code> value is now honored when present.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="https://docs.htmlcsstoimage.com/getting-started/using-the-api" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/using-the-api">https://docs.htmlcsstoimage.com/getting-started/using-the-api</a></li>
+      <li><span class='object_link'><a href="#create_html_css_recording-instance_method" title="HTMLCSSToImage#create_html_css_recording (method)">#create_html_css_recording</a></span></li>
+
+      <li><a href="https://docs.htmlcsstoimage.com/guides/recordings/scrolling-video/" target="_parent" title="https://docs.htmlcsstoimage.com/guides/recordings/scrolling-video/">https://docs.htmlcsstoimage.com/guides/recordings/scrolling-video/</a></li>
     
   </ul>
 
@@ -2017,16 +2736,100 @@ used. Its <code>template_version</code> value is now honored when present.</p>
       <pre class="lines">
 
 
-146
-147
-148
-149
-150
-151
-152</pre>
+59
+60
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 146</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 59</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_url_recording'>create_url_recording</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>url:</span> <span class='id identifier rubyid_url'>url</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/recording</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='comma'>,</span> <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_image-instance_method">
+  
+    #<strong>delete_image</strong>(image_id)  &#x21d2; <tt>Boolean</tt>, <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>
+
+
+
+
+
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Deletes an image.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+
+    <li>
+
+        <span class='name'>image_id</span>
+
+
+        <span class='type'>(<tt>String</tt>)</span>
+
+
+
+        &mdash;
+        <div class='inline'><p>the ID of the image to delete</p></div>
+
+    </li>
+
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+
+    <li>
+
+
+        <span class='type'>(<tt>Boolean</tt>, <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+
+
+
+        &mdash;
+        <div class='inline'><p>true on success, or the API response on failure</p></div>
+
+    </li>
+
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+
+      <li><a href="https://docs.htmlcsstoimage.com/getting-started/using-the-api" target="_parent" title="https://docs.htmlcsstoimage.com/getting-started/using-the-api">https://docs.htmlcsstoimage.com/getting-started/using-the-api</a></li>
+
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+166
+167
+168
+169
+170
+171
+172</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 166</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_image'>delete_image</span><span class='lparen'>(</span><span class='id identifier rubyid_image_id'>image_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/image/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_image_id'>image_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='rparen'>)</span>
@@ -2039,11 +2842,11 @@ used. Its <code>template_version</code> value is now honored when present.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="delete_image_batch-instance_method">
-  
-    #<strong>delete_image_batch</strong>(image_ids)  &#x21d2; <tt>Boolean</tt>, <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt> 
+
+    #<strong>delete_image_batch</strong>(image_ids)  &#x21d2; <tt>Boolean</tt>, <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>
   
 
   
@@ -2105,22 +2908,22 @@ used. Its <code>template_version</code> value is now honored when present.</p>
       <pre class="lines">
 
 
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172</pre>
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 160</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_image_batch'>delete_image_batch</span><span class='lparen'>(</span><span class='id identifier rubyid_image_ids'>image_ids</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_image_ids'>image_ids</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -2134,6 +2937,256 @@ used. Its <code>template_version</code> value is now honored when present.</p>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_success?'>success?</span>
 
   <span class='id identifier rubyid_response'>response</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_recording-instance_method">
+  
+    #<strong>delete_recording</strong>(recording_id)  &#x21d2; <tt>true</tt>, <tt>HTTParty::Response</tt>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Deletes a recording and clears its media from the CDN.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>recording_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the recording ID to delete</p></div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>true</tt>, <tt>HTTParty::Response</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>true when accepted, or the API response on failure</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+82
+83
+84
+85
+86</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 82</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_recording'>delete_recording</span><span class='lparen'>(</span><span class='id identifier rubyid_recording_id'>recording_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/recordings/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_recording_id'>recording_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_success?'>success?</span> <span class='op'>?</span> <span class='kw'>true</span> <span class='op'>:</span> <span class='id identifier rubyid_response'>response</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_recording_batch-instance_method">
+  
+    #<strong>delete_recording_batch</strong>(recording_ids)  &#x21d2; <tt>true</tt>, <tt>HTTParty::Response</tt>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Deletes several recordings in one API request.
+Empty lists succeed without calling the API, as with <span class='object_link'><a href="#delete_image_batch-instance_method" title="HTMLCSSToImage#delete_image_batch (method)">#delete_image_batch</a></span>.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>recording_ids</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the recording IDs to delete</p></div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>true</tt>, <tt>HTTParty::Response</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>true when accepted, or the API response on failure</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 93</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_recording_batch'>delete_recording_batch</span><span class='lparen'>(</span><span class='id identifier rubyid_recording_ids'>recording_ids</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_recording_ids'>recording_ids</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/recordings/batch</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='comma'>,</span>
+    <span class='label'>body:</span> <span class='lbrace'>{</span> <span class='label'>ids:</span> <span class='id identifier rubyid_recording_ids'>recording_ids</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+  <span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_success?'>success?</span> <span class='op'>?</span> <span class='kw'>true</span> <span class='op'>:</span> <span class='id identifier rubyid_response'>response</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="fetch_recording_status-instance_method">
+  
+    #<strong>fetch_recording_status</strong>(recording_id)  &#x21d2; <tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Fetches a recording's current lifecycle state once.
+HTTP 200 and 202 both return status information. The states <code>ready</code>,
+<code>failed</code>, and <code>cancelled</code> are terminal; an error can also describe an
+earlier, retryable attempt. Requesting the media URL waits for processing.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>recording_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the recording ID returned by creation</p></div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">HTMLCSSToImage::ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p><code>.status</code>, <code>.attempt_count</code>, <code>.status_entered_at</code>, <code>.stored_duration_ms</code>, <code>.recording_url</code>, and optional <code>.error</code></p></div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://docs.htmlcsstoimage.com/management-api/recordings/" target="_parent" title="https://docs.htmlcsstoimage.com/management-api/recordings/">https://docs.htmlcsstoimage.com/management-api/recordings/</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+74
+75
+76</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 74</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch_recording_status'>fetch_recording_status</span><span class='lparen'>(</span><span class='id identifier rubyid_recording_id'>recording_id</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/recordings/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_recording_id'>recording_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/status</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2267,7 +3320,7 @@ values are meaningful.</p>
 
   <span class='id identifier rubyid_params'>params</span>
     <span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid__value'>_value</span><span class='op'>|</span>
-      <span class='qwords_beg'>%w[</span><span class='tstring_content'>url</span><span class='words_sep'> </span><span class='tstring_content'>format</span><span class='words_sep'> </span><span class='tstring_content'>pdf_options</span><span class='words_sep'> </span><span class='tstring_content'>dedupe_duration_s</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+      <span class='qwords_beg'>%w[</span><span class='tstring_content'>url</span><span class='words_sep'> </span><span class='tstring_content'>format</span><span class='words_sep'> </span><span class='tstring_content'>pdf_options</span><span class='words_sep'> </span><span class='tstring_content'>dedupe_duration_s</span><span class='words_sep'> </span><span class='tstring_content'>request_overrides</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
     <span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid__value'>_value</span><span class='op'>|</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='rbrace'>}</span>
     <span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -3007,7 +4060,7 @@ values are meaningful.</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>Disable the Twemoji fallback and use native emoji fonts.</p></div>
+            &mdash; <div class='inline'><p>For HTML/CSS, true disables default Twemoji replacement. For URLs, only explicit false injects Twemoji; omitted or true leaves the page unchanged.</p></div>
           
         </li>
       
@@ -3166,6 +4219,17 @@ values are meaningful.</p>
         </li>
       
         <li>
+          <span class="name">:request_overrides</span>
+          <span class="type">(<tt>Array&lt;Hash&gt;</tt>)</span>
+          <span class="default">
+
+          </span>
+
+            &mdash; <div class='inline'><p>Browser request block rules, such as <code>{ action: &quot;block&quot;, resource_types: [RequestOverrideResourceType::Script] }</code>. Requires a paid plan.</p></div>
+
+        </li>
+
+        <li>
           <span class="name">:storage_destination_id</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
@@ -3242,15 +4306,15 @@ values are meaningful.</p>
       <pre class="lines">
 
 
-78
-79
 80
 81
 82
-83</pre>
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/images.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url_to_image'>url_to_image</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>url:</span> <span class='id identifier rubyid_url'>url</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
@@ -3268,9 +4332,9 @@ values are meaningful.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Aug 27 11:20:35 2026 by
+  Generated on Mon Nov 16 13:27:12 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.45 (ruby-3.3.6).
+  0.9.45 (ruby-3.3.5).
 </div>
 
     </div>
