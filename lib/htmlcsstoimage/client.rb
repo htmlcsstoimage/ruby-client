@@ -1,4 +1,4 @@
-# Client for creating images and managing templates with HTML/CSS to Image.
+# Client for creating images, recordings, and managing templates with HTML/CSS to Image.
 class HTMLCSSToImage
   include HTTParty
 

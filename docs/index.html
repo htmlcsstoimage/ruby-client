@@ -132,6 +132,71 @@ values from <code>default_options</code> and can override them.</p>
   <span class='lbrace'>{</span> <span class='label'>viewport_width:</span> <span class='int'>1200</span><span class='comma'>,</span> <span class='label'>format:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>webp</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
 <span class='rparen'>)</span>
 </code></pre>
+<h2 id="Recordings">Recordings</h2>
+<p>Record HTML/CSS or a public webpage as MP4, WebM, or GIF. Use
+<code>create_html_css_recording</code> for HTML/CSS and <code>create_url_recording</code> for a webpage:</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_recording'>recording</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_url_recording'>create_url_recording</span><span class='lparen'>(</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://example.com</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>duration_ms:</span> <span class='int'>10000</span><span class='comma'>,</span>
+  <span class='label'>viewport_width:</span> <span class='int'>1280</span><span class='comma'>,</span>
+  <span class='label'>viewport_height:</span> <span class='int'>720</span><span class='comma'>,</span>
+  <span class='label'>actions:</span> <span class='lbracket'>[</span><span class='lbrace'>{</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>simple_scroll</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>output:</span> <span class='lbrace'>{</span> <span class='label'>format:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mp4</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+<span class='rparen'>)</span>
+
+<span class='id identifier rubyid_recording'>recording</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+<span class='id identifier rubyid_recording'>recording</span><span class='period'>.</span><span class='id identifier rubyid_status_url'>status_url</span>
+<span class='id identifier rubyid_recording'>recording</span><span class='period'>.</span><span class='id identifier rubyid_recording_url'>recording_url</span>
+
+<span class='id identifier rubyid_animation'>animation</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_html_css_recording'>create_html_css_recording</span><span class='lparen'>(</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;h1&gt;Hello&lt;/h1&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>css:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@keyframes fade { from { opacity: 0; } to { opacity: 1; } } h1 { animation: fade 2s; font-family: Roboto; }</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>google_fonts:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Roboto</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>duration_ms:</span> <span class='int'>3000</span><span class='comma'>,</span>
+  <span class='label'>duration_mode:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>fixed</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>output:</span> <span class='lbrace'>{</span> <span class='label'>format:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gif</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scale:</span> <span class='float'>0.5</span> <span class='rbrace'>}</span>
+<span class='rparen'>)</span>
+</code></pre>
+<p>Both methods accept browser, timeline, and output options as hashes, following
+the image methods. Options pass through to the API without local validation.
+Omitted settings use API defaults. Recordings do not include audio.</p>
+<p>Triggers and actions use a <code>type</code> discriminator. For example, wait until an
+element is visible, click a button, and hold the result:</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_demo'>demo</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_url_recording'>create_url_recording</span><span class='lparen'>(</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://example.com/demo</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>duration_ms:</span> <span class='int'>5000</span><span class='comma'>,</span>
+  <span class='label'>duration_mode:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>fixed</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>trigger:</span> <span class='lbrace'>{</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>element_visible</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>selector:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#demo</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>timeout_ms:</span> <span class='int'>2000</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='label'>actions:</span> <span class='lbracket'>[</span>
+    <span class='lbrace'>{</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>click</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>selector:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#start</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>if_not_found:</span> <span class='lbracket'>[</span><span class='lbrace'>{</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='lbrace'>{</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stall</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>duration_ms:</span> <span class='int'>1000</span> <span class='rbrace'>}</span>
+  <span class='rbracket'>]</span>
+<span class='rparen'>)</span>
+</code></pre>
+<p>Nested branches run on the API. For JavaScript actions, omitting <code>if_error</code> or
+setting it to <code>nil</code> fails on a script error; <code>if_error: []</code> ignores errors.
+Empty arrays, explicit <code>nil</code>, <code>false</code>, and zero values are preserved in JSON.</p>
+<p>Creation returns the recording URLs while rendering can continue in the
+background. Requesting <code>recording_url</code> waits for processing. Fetch the current
+status once with:</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_fetch_recording_status'>fetch_recording_status</span><span class='lparen'>(</span><span class='id identifier rubyid_recording'>recording</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
+<span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_attempt_count'>attempt_count</span>
+</code></pre>
+<p>HTTP 200 and 202 both return status information. The states <code>ready</code>, <code>failed</code>,
+and <code>cancelled</code> are terminal. A successful status fetch can report a failed
+recording, and <code>status.error</code> can describe an earlier, retryable attempt.
+API errors and transport failures follow the existing image-method behavior.</p>
+<p>Delete recordings individually or in a batch:</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_delete_recording'>delete_recording</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>recording-id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_delete_recording_batch'>delete_recording_batch</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>first-id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>second-id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+</code></pre>
+<p>Deletion returns <code>true</code> when accepted, or the API response on failure. Empty
+batch lists succeed without an API request, matching <code>delete_image_batch</code>.</p>
+<p>See the <a href="https://docs.htmlcsstoimage.com/getting-started/recordings/">recording guide</a>,
+<a href="https://docs.htmlcsstoimage.com/parameters/actions/">actions reference</a>, and
+<a href="https://docs.htmlcsstoimage.com/parameters/trigger/">trigger reference</a> for
+options and examples.</p>
 <h2 id="Signed_URLs">Signed URLs</h2>
 <p>Signed URLs let another application, browser, or service render an image on
 demand without exposing your API key. Generating a signed URL does not make an
@@ -259,12 +324,24 @@ and, for URL screenshots, <code>headers</code>, <code>additional_header_origins<
 <h2 id="License">License</h2>
 <p>The gem is available as open source under the terms of the <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
 <h2 id="Code_of_Conduct">Code of Conduct</h2>
-<p>Everyone interacting in the project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the <a href="https://github.com/htmlcsstoimage/ruby-client/blob/main/CODE_OF_CONDUCT.md">code of conduct</a>.</p></div></div>
+<p>Everyone interacting in the project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the <a href="https://github.com/htmlcsstoimage/ruby-client/blob/main/CODE_OF_CONDUCT.md">code of conduct</a>.</p>
+<h2 id="Templated_image_batches">Templated image batches</h2>
+<p>Create images from one or more templates with shared defaults and ordered variations:</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_templated_image_batch'>create_templated_image_batch</span><span class='lparen'>(</span>
+  <span class='lbracket'>[</span>
+    <span class='lbrace'>{</span> <span class='label'>template_values:</span> <span class='lbrace'>{</span> <span class='label'>title:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>First</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='lbrace'>{</span> <span class='label'>template_id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>t-other</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>template_values:</span> <span class='lbrace'>{</span> <span class='label'>title:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Second</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='rbrace'>}</span>
+  <span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='lbrace'>{</span> <span class='label'>template_id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>t-card</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>template_version:</span> <span class='int'>3</span><span class='comma'>,</span> <span class='label'>format:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>webp</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+<span class='rparen'>)</span>
+</code></pre>
+<p>Omitted fields inherit defaults. Supplying a template ID resets the inherited version; omit its version to use latest. Template value objects merge recursively on the API; arrays, scalars, and explicit null values replace defaults. Results preserve input order and identical images reuse existing assets. Each merged values object must be nonempty and satisfy its template's required variables.</p>
+<p>See the <a href="https://docs.htmlcsstoimage.com/getting-started/using-the-api/#batch-templated-image-creation">API reference</a> for plan limits and examples.</p></div></div>
 
       <div id="footer">
-  Generated on Thu Aug 27 11:20:35 2026 by
+  Generated on Mon Nov 16 13:27:12 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.45 (ruby-3.3.6).
+  0.9.45 (ruby-3.3.5).
 </div>
 
     </div>
