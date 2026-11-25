@@ -56,6 +56,35 @@ RSpec.describe "HTMLCSSToImage recordings" do
 
   after { WebMock.reset! }
 
+  it "sends a private audio asset with explicit zero and false playback options" do
+    audio = HTMLCSSToImage::RecordingAudio.new(asset_id: "asset_1", source_start_ms: 0,
+      delay_ms: 500, when_audio_ends: "loop", error_on_source_invalid: false)
+    stub_api(:post, "/v1/recording", body: created).with do |request|
+      expect(JSON.parse(request.body).fetch("audio")).to eq({
+        "asset_id" => "asset_1", "source_start_ms" => 0, "delay_ms" => 500,
+        "when_audio_ends" => "loop", "error_on_source_invalid" => false
+      })
+      true
+    end
+    expect(client.create_html_css_recording("<h1>Intro</h1>", duration_ms: 1000, audio: audio).id).to eq(created[:id])
+  end
+
+  it "accepts a public audio URL from a hash with string keys" do
+    audio = { "url" => "https://cdn.example.com/audio/intro.mp3" }.freeze
+    stub_api(:post, "/v1/recording", body: created).with do |request|
+      expect(JSON.parse(request.body).fetch("audio")).to eq(audio)
+      true
+    end
+    client.create_url_recording("https://example.com", { "duration_ms" => 1000, "audio" => audio })
+  end
+
+  it "rejects missing and conflicting audio sources before sending the request" do
+    [{}, { asset_id: "asset_1", url: "https://cdn.example.com/audio/intro.mp3" }].each do |audio|
+      expect { client.create_url_recording("https://example.com", duration_ms: 1000, audio: audio) }
+        .to raise_error(ArgumentError, /exactly one recording audio source/)
+    end
+  end
+
   def stub_api(method, path, status: 200, body: nil)
     WebMock.stub_request(method, "https://hcti.io#{path}").with(
       headers: { "Authorization" => authorization }
