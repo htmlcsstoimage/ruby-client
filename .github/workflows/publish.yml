@@ -1,0 +1,85 @@
+name: Publish to RubyGems
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+
+jobs:
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: rubygems
+    concurrency: rubygems-${{ inputs.version }}
+    permissions:
+      contents: write
+      id-token: write
+    env:
+      VERSION: ${{ inputs.version }}
+      TAG: v${{ inputs.version }}
+      GEM_NAME: htmlcsstoimage-api
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Check the tag and RubyGems version
+        id: check
+        run: |
+          set -euo pipefail
+          git check-ref-format "refs/tags/$TAG"
+          tagged=false
+          if git show-ref --verify --quiet "refs/tags/$TAG"; then
+            if [[ "$(git rev-parse "refs/tags/$TAG^{commit}")" != "$GITHUB_SHA" ]]; then
+              echo "::error::$TAG already points to a different commit."
+              exit 1
+            fi
+            tagged=true
+          fi
+          status=$(curl --silent --show-error --retry 3 --output "$RUNNER_TEMP/gem.json" \
+            --write-out '%{http_code}' "https://rubygems.org/api/v2/rubygems/$GEM_NAME/versions/$VERSION.json")
+          case "$status" in
+            404) echo "push_gem=true" >> "$GITHUB_OUTPUT" ;;
+            200)
+              if [[ "$tagged" != true ]] || ! jq -e '.yanked == false' "$RUNNER_TEMP/gem.json" > /dev/null; then
+                echo "::error::RubyGems already has $VERSION. Check its status and the matching Git tag."
+                exit 1
+              fi
+              ;;
+            *) echo "::error::RubyGems version lookup returned HTTP $status."; exit 1 ;;
+          esac
+          echo "tagged=$tagged" >> "$GITHUB_OUTPUT"
+
+      - name: Build the gem
+        if: steps.check.outputs.push_gem == 'true'
+        run: |
+          gem build htmlcsstoimage.gemspec
+          test -f "$GEM_NAME-$VERSION.gem"
+
+      - name: Create the version tag
+        if: steps.check.outputs.tagged == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag --annotate "$TAG" "$GITHUB_SHA" --message "Release $TAG"
+          git push origin "refs/tags/$TAG"
+
+      - name: Authenticate with RubyGems
+        if: steps.check.outputs.push_gem == 'true'
+        uses: rubygems/configure-rubygems-credentials@c6ca7f4bac0e29c9bde8eeae0a0a986b27efa05f # v2.2.0
+      - name: Publish the gem
+        if: steps.check.outputs.push_gem == 'true'
+        run: gem push --host https://rubygems.org "$GEM_NAME-$VERSION.gem"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ env.TAG }}
+          generate_release_notes: true

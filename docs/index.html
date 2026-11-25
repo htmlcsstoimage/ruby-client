@@ -330,7 +330,9 @@ and, for URL screenshots, <code>headers</code>, <code>additional_header_origins<
 <code>block_consent_banners</code>.</p>
 <h2 id="Development">Development</h2>
 <p>After checking out the repo, run <code>bin/setup</code> to install dependencies. Then, run <code>rake spec</code> to run the tests. You can also run <code>bin/console</code> for an interactive prompt that will allow you to experiment.</p>
-<p>To install this gem onto your local machine, run <code>bundle exec rake install</code>. To release a new version, update the version number in <code>version.rb</code>, and then run <code>bundle exec rake release</code>, which will create a git tag for the version, push git commits and tags, and push the <code>.gem</code> file to <a href="https://rubygems.org">rubygems.org</a>.</p>
+<p>To install the gem locally, run <code>bundle exec rake install</code>.</p>
+<p>To release, bump <code>lib/htmlcsstoimage/version.rb</code>, run <code>bundle install</code> to update <code>Gemfile.lock</code>, and merge both changes into <code>main</code>. After the tests pass, GitHub Actions tags the tested commit as <code>v&lt;version&gt;</code>, publishes the gem to RubyGems.org, and creates a GitHub Release. If a step fails, rerun the original workflow for that commit.</p>
+<p>The RubyGems trusted publisher for <code>htmlcsstoimage-api</code> uses the GitHub repository <code>htmlcsstoimage/ruby-client</code>, workflow filename <code>publish.yml</code>, and environment <code>rubygems</code>. Leave the two optional workflow repository fields blank. <a href="https://guides.rubygems.org/trusted-publishing/">RubyGems trusted publishing guide</a>.</p>
 <p>To generate the Yard docs, run <code>yard doc -o docs</code> and commit the changes.</p>
 <h2 id="Support">Support</h2>
 <p>For help with the API, you can also contact <code>support@htmlcsstoimage.com</code>.</p>
