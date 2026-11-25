@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    htmlcsstoimage-api (1.1.0)
+    htmlcsstoimage-api (1.1.1)
       addressable (> 2.5.0)
       httparty (> 0.10)
 
