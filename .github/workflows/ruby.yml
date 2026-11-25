@@ -8,16 +8,48 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      release_version: ${{ steps.version.outputs.version }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      with:
+        fetch-depth: 0
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@78c62f2208e480ce3d5ae4dfd9b9e181acf48b63 # v1
       with:
         ruby-version: '3.3'
     - name: Install dependencies
       run: bundle install
     - name: Run tests
       run: bundle exec rake
+    - name: Check for a version bump
+      id: version
+      if: >-
+        github.repository == 'htmlcsstoimage/ruby-client' &&
+        github.event_name == 'push' && github.ref == 'refs/heads/main'
+      env:
+        BEFORE_SHA: ${{ github.event.before }}
+      run: |
+        set -euo pipefail
+        version_file=lib/htmlcsstoimage/version.rb
+        version=$(ruby -r "./$version_file" -e 'print HTMLCSSToImage::VERSION')
+        if [[ "$BEFORE_SHA" != "0000000000000000000000000000000000000000" ]]; then
+          git show "$BEFORE_SHA:$version_file" > "$RUNNER_TEMP/previous_version.rb"
+          previous=$(ruby -r "$RUNNER_TEMP/previous_version.rb" -e 'print HTMLCSSToImage::VERSION')
+          if [[ "$previous" == "$version" ]]; then exit 0; fi
+        fi
+        echo "version=$version" >> "$GITHUB_OUTPUT"
+
+  publish:
+    needs: test
+    if: needs.test.outputs.release_version != ''
+    permissions:
+      contents: write
+      id-token: write
+    uses: ./.github/workflows/publish.yml
+    with:
+      version: ${{ needs.test.outputs.release_version }}
