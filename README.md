@@ -144,7 +144,7 @@ animation = client.create_html_css_recording(
 Both methods accept browser, timeline, and output options as hashes, following
 the image methods. Omitted settings use API defaults.
 
-To add a soundtrack to MP4 or WebM, pass `audio: { asset_id: "YOUR_ASSET_ID", delay_ms: 500 }` or `audio: { url: "https://cdn.example.com/audio/intro.mp3" }` to either recording method. You can also reuse an `HTMLCSSToImage::RecordingAudio` instance with the same keyword arguments. [Audio sources and playback options](https://docs.htmlcsstoimage.com/parameters/audio/).
+To add a soundtrack to MP4 or WebM, pass `audio: { asset_id: "YOUR_ASSET_ID", delay_ms: 500 }` or `audio: { url: "https://cdn.example.com/audio/intro.mp3" }` to either recording method. [Audio sources and playback options](https://docs.htmlcsstoimage.com/parameters/audio/).
 
 Triggers and actions use a `type` discriminator. For example, wait until an
 element is visible, click a button, and hold the result:

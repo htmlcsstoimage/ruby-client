@@ -102,7 +102,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/htmlcsstoimage/client.rb<span class="defines">,<br>
-  lib/htmlcsstoimage/images.rb,<br> lib/htmlcsstoimage/version.rb,<br> lib/htmlcsstoimage/templates.rb,<br> lib/htmlcsstoimage/recordings.rb,<br> lib/htmlcsstoimage/signed_urls.rb,<br> lib/htmlcsstoimage/recording_audio.rb,<br> lib/htmlcsstoimage/request_override_resource_type.rb</span>
+  lib/htmlcsstoimage/images.rb,<br> lib/htmlcsstoimage/version.rb,<br> lib/htmlcsstoimage/templates.rb,<br> lib/htmlcsstoimage/recordings.rb,<br> lib/htmlcsstoimage/signed_urls.rb,<br> lib/htmlcsstoimage/request_override_resource_type.rb</span>
 
 </dd>
   </dl>
@@ -124,7 +124,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span>, <span class='object_link'><a href="HTMLCSSToImage/RecordingAudio.html" title="HTMLCSSToImage::RecordingAudio (class)">RecordingAudio</a></span>, <span class='object_link'><a href="HTMLCSSToImage/RequestOverrideResourceType.html" title="HTMLCSSToImage::RequestOverrideResourceType (class)">RequestOverrideResourceType</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="HTMLCSSToImage/ApiResponse.html" title="HTMLCSSToImage::ApiResponse (class)">ApiResponse</a></span>, <span class='object_link'><a href="HTMLCSSToImage/RequestOverrideResourceType.html" title="HTMLCSSToImage::RequestOverrideResourceType (class)">RequestOverrideResourceType</a></span>
     
   
 </p>
@@ -1015,12 +1015,15 @@ ready, so checking status is optional. Optional settings use the API defaults.</
 
         <li>
           <span class="name">:audio</span>
-          <span class="type">(<tt><span class='object_link'><a href="HTMLCSSToImage/RecordingAudio.html" title="HTMLCSSToImage::RecordingAudio (class)">RecordingAudio</a></span></tt>, <tt>Hash</tt>)</span>
+          <span class="type">(<tt>Hash</tt>)</span>
           <span class="default">
 
           </span>
 
-            &mdash; <div class='inline'><p>Optional MP4 or WebM soundtrack. Supply one Asset Library <code>asset_id</code> or public <code>url</code>. See <span class='object_link'><a href="HTMLCSSToImage/RecordingAudio.html#initialize-instance_method" title="HTMLCSSToImage::RecordingAudio#initialize (method)">HTMLCSSToImage::RecordingAudio#initialize</a></span> for playback options.</p></div>
+            &mdash; <div class='inline'><p>Optional MP4 or WebM soundtrack. Supply exactly one source, an Asset Library <code>asset_id</code> or a public HTTP(S) <code>url</code>.
+<code>source_start_ms</code> skips into the track and <code>delay_ms</code> delays playback in the video. Both default to 0.
+<code>when_audio_ends</code> accepts <code>&quot;silence&quot;</code> (default), <code>&quot;loop&quot;</code>, or <code>&quot;trim_video&quot;</code>.
+Set <code>error_on_source_invalid: false</code> to return the full video silently if the track cannot play.</p></div>
           
         </li>
       
@@ -1098,15 +1101,19 @@ ready, so checking status is optional. Optional settings use the API defaults.</
       <pre class="lines">
 
 
-40
-41
-42</pre>
+43
+44
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_html_css_recording'>create_html_css_recording</span><span class='lparen'>(</span><span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_post_recording'>post_recording</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>html:</span> <span class='id identifier rubyid_html'>html</span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>html:</span> <span class='id identifier rubyid_html'>html</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/recording</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='comma'>,</span> <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2746,15 +2753,19 @@ Supplying template_id resets the inherited version; omit a version to use latest
       <pre class="lines">
 
 
-60
-61
-62</pre>
+65
+66
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_url_recording'>create_url_recording</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_post_recording'>post_recording</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>url:</span> <span class='id identifier rubyid_url'>url</span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>url:</span> <span class='id identifier rubyid_url'>url</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/recording</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='comma'>,</span> <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -3007,14 +3018,14 @@ Supplying template_id resets the inherited version; omit a version to use latest
       <pre class="lines">
 
 
-84
-85
-86
-87
-88</pre>
+91
+92
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_recording'>delete_recording</span><span class='lparen'>(</span><span class='id identifier rubyid_recording_id'>recording_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/recordings/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_recording_id'>recording_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='rparen'>)</span>
@@ -3085,20 +3096,20 @@ Empty lists succeed without calling the API, as with <span class='object_link'><
       <pre class="lines">
 
 
-95
-96
-97
-98
-99
-100
-101
 102
 103
 104
-105</pre>
+105
+106
+107
+108
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_recording_batch'>delete_recording_batch</span><span class='lparen'>(</span><span class='id identifier rubyid_recording_ids'>recording_ids</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_recording_ids'>recording_ids</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -3187,12 +3198,12 @@ passes them through as-is.</p>
       <pre class="lines">
 
 
-76
-77
-78</pre>
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_recording_status'>fetch_recording_status</span><span class='lparen'>(</span><span class='id identifier rubyid_recording_id'>recording_id</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/recordings/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_recording_id'>recording_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/status</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='rparen'>)</span>
@@ -4341,7 +4352,7 @@ values are meaningful.</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Nov 25 14:11:06 2026 by
+  Generated on Wed Nov 25 14:27:34 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-3.3.5).
 </div>
