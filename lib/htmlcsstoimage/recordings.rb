@@ -8,6 +8,7 @@ class HTMLCSSToImage
   # @see https://docs.htmlcsstoimage.com/parameters/actions/
   # @see https://docs.htmlcsstoimage.com/parameters/trigger/
   # @see https://docs.htmlcsstoimage.com/parameters/output/
+  # @see https://docs.htmlcsstoimage.com/parameters/audio/
   #
   # @param html [String] HTML to record, as a fragment or a complete document
   # @param params [Hash] browser, timeline, and output options passed to the API
@@ -30,7 +31,11 @@ class HTMLCSSToImage
   # @option params [Array<Hash>] :request_overrides Browser request block rules. Requires a paid plan.
   # @option params [Hash] :trigger Start condition: `type: "immediate"` (default), `"element_visible"` with a `selector`, or `"function_call"` to wait for `window.RecordingReady()`. Waiting triggers accept `timeout_ms`.
   # @option params [Array<Hash>] :actions Ordered timeline interactions: `simple_scroll`, `scroll`, `stall`, `click`, `locate_selector`, `execute_javascript`, or `error`. Each action has a `type` discriminator. Each `scroll` action step requires `duration_ms` of at least 1. Omit or use an empty array to record without interactions.
-  # @option params [Hash] :output Media `format` (`mp4`, `webm`, or `gif`), `fps`, and pixel `scale`. Defaults to MP4 at 30 fps; GIF defaults to 15 fps. Recordings have no audio.
+  # @option params [Hash] :output Media `format` (`mp4`, `webm`, or `gif`), `fps`, and pixel `scale`. Defaults to MP4 at 30 fps; GIF defaults to 15 fps.
+  # @option params [Hash] :audio Optional MP4 or WebM soundtrack. Supply exactly one source, an Asset Library `asset_id` or a public HTTP(S) `url`.
+  #   `source_start_ms` skips into the track and `delay_ms` delays playback in the video. Both default to 0.
+  #   `when_audio_ends` accepts `"silence"` (default), `"loop"`, or `"trim_video"`.
+  #   Set `error_on_source_invalid: false` to return the full video silently if the track cannot play.
   # @option params [String] :duration_mode `at_most` (default) stops when actions finish or the duration is reached. `fixed` pads or cuts off at that duration. `at_least` lets actions finish up to 90 seconds. `target` adjusts playback speed to fit the duration.
   # @option params [Boolean] :defer_render Wait to render until media or storage is requested. Defaults to false; does not reset deduplicated recordings.
   # @option params [Boolean] :skip_scroll_preload Skip the preparation scroll that loads lazy content. Scrolling actions still run. Defaults to false.

@@ -149,7 +149,7 @@
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1.0.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1.1.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
       
     </dl>
   
@@ -743,8 +743,9 @@ and <code>HCTI_API_KEY</code> environment variables.</p>
 </h3><div class="docstring">
   <div class="discussion">
     <p>Records an HTML document or fragment with optional CSS and Google Fonts.
-Returns the recording ID, status URL, and media URL while rendering can
-continue in the background. Optional settings use the API defaults.</p>
+Returns the recording ID, status URL, and media URL. The <code>recording_url</code> can
+be embedded or requested directly; a request waits until the recording is
+ready, so checking status is optional. Optional settings use the API defaults.</p>
 
   </div>
 </div>
@@ -997,7 +998,7 @@ continue in the background. Optional settings use the API defaults.</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>Ordered timeline interactions: <code>simple_scroll</code>, <code>scroll</code>, <code>stall</code>, <code>click</code>, <code>locate_selector</code>, <code>execute_javascript</code>, or <code>error</code>. Each action has a <code>type</code> discriminator. Omit or use an empty array to record without interactions.</p></div>
+            &mdash; <div class='inline'><p>Ordered timeline interactions: <code>simple_scroll</code>, <code>scroll</code>, <code>stall</code>, <code>click</code>, <code>locate_selector</code>, <code>execute_javascript</code>, or <code>error</code>. Each action has a <code>type</code> discriminator. Each <code>scroll</code> action step requires <code>duration_ms</code> of at least 1. Omit or use an empty array to record without interactions.</p></div>
           
         </li>
       
@@ -1008,7 +1009,21 @@ continue in the background. Optional settings use the API defaults.</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>Media <code>format</code> (<code>mp4</code>, <code>webm</code>, or <code>gif</code>), <code>fps</code>, and pixel <code>scale</code>. Defaults to MP4 at 30 fps; GIF defaults to 15 fps. Recordings have no audio.</p></div>
+            &mdash; <div class='inline'><p>Media <code>format</code> (<code>mp4</code>, <code>webm</code>, or <code>gif</code>), <code>fps</code>, and pixel <code>scale</code>. Defaults to MP4 at 30 fps; GIF defaults to 15 fps.</p></div>
+
+        </li>
+
+        <li>
+          <span class="name">:audio</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+
+          </span>
+
+            &mdash; <div class='inline'><p>Optional MP4 or WebM soundtrack. Supply exactly one source, an Asset Library <code>asset_id</code> or a public HTTP(S) <code>url</code>.
+<code>source_start_ms</code> skips into the track and <code>delay_ms</code> delays playback in the video. Both default to 0.
+<code>when_audio_ends</code> accepts <code>&quot;silence&quot;</code> (default), <code>&quot;loop&quot;</code>, or <code>&quot;trim_video&quot;</code>.
+Set <code>error_on_source_invalid: false</code> to return the full video silently if the track cannot play.</p></div>
           
         </li>
       
@@ -1076,6 +1091,8 @@ continue in the background. Optional settings use the API defaults.</p>
 
       <li><a href="https://docs.htmlcsstoimage.com/parameters/output/" target="_parent" title="https://docs.htmlcsstoimage.com/parameters/output/">https://docs.htmlcsstoimage.com/parameters/output/</a></li>
     
+      <li><a href="https://docs.htmlcsstoimage.com/parameters/audio/" target="_parent" title="https://docs.htmlcsstoimage.com/parameters/audio/">https://docs.htmlcsstoimage.com/parameters/audio/</a></li>
+
   </ul>
 
 </div><table class="source_code">
@@ -1084,14 +1101,14 @@ continue in the background. Optional settings use the API defaults.</p>
       <pre class="lines">
 
 
-37
-38
-39
-40
-41</pre>
+43
+44
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_html_css_recording'>create_html_css_recording</span><span class='lparen'>(</span><span class='id identifier rubyid_html'>html</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>html:</span> <span class='id identifier rubyid_html'>html</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
@@ -2736,14 +2753,14 @@ Supplying template_id resets the inherited version; omit a version to use latest
       <pre class="lines">
 
 
-59
-60
-61
-62
-63</pre>
+65
+66
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_url_recording'>create_url_recording</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>url:</span> <span class='id identifier rubyid_url'>url</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
@@ -3001,14 +3018,14 @@ Supplying template_id resets the inherited version; omit a version to use latest
       <pre class="lines">
 
 
-82
-83
-84
-85
-86</pre>
+91
+92
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_recording'>delete_recording</span><span class='lparen'>(</span><span class='id identifier rubyid_recording_id'>recording_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/recordings/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_recording_id'>recording_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='rparen'>)</span>
@@ -3079,20 +3096,20 @@ Empty lists succeed without calling the API, as with <span class='object_link'><
       <pre class="lines">
 
 
-93
-94
-95
-96
-97
-98
-99
-100
-101
 102
-103</pre>
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_recording_batch'>delete_recording_batch</span><span class='lparen'>(</span><span class='id identifier rubyid_recording_ids'>recording_ids</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_recording_ids'>recording_ids</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -3121,10 +3138,13 @@ Empty lists succeed without calling the API, as with <span class='object_link'><
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Fetches a recording's current lifecycle state once.
+    <p>Fetches a recording's current lifecycle state once. Checking status is
+optional: requesting the <code>recording_url</code> directly waits until it is ready.
 HTTP 200 and 202 both return status information. The states <code>ready</code>,
 <code>failed</code>, and <code>cancelled</code> are terminal; an error can also describe an
-earlier, retryable attempt. Requesting the media URL waits for processing.</p>
+earlier, retryable attempt. <code>.status</code> is the raw API string: treat values
+not listed here, which newer API versions may add, as unknown; the client
+passes them through as-is.</p>
 
   </div>
 </div>
@@ -3159,7 +3179,7 @@ earlier, retryable attempt. Requesting the media URL waits for processing.</p>
       
       
         &mdash;
-        <div class='inline'><p><code>.status</code>, <code>.attempt_count</code>, <code>.status_entered_at</code>, <code>.stored_duration_ms</code>, <code>.recording_url</code>, and optional <code>.error</code></p></div>
+        <div class='inline'><p><code>.id</code>, <code>.status</code>, <code>.attempt_count</code>, <code>.status_entered_at</code>, <code>.stored_duration_ms</code>, <code>.storage_destination_hcti_storage_disabled</code>, <code>.recording_url</code>, and optional <code>.error</code></p></div>
       
     </li>
   
@@ -3178,12 +3198,12 @@ earlier, retryable attempt. Requesting the media URL waits for processing.</p>
       <pre class="lines">
 
 
-74
-75
-76</pre>
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/htmlcsstoimage/recordings.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_recording_status'>fetch_recording_status</span><span class='lparen'>(</span><span class='id identifier rubyid_recording_id'>recording_id</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/recordings/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_recording_id'>recording_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/status</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>basic_auth:</span> <span class='ivar'>@auth</span><span class='rparen'>)</span>
@@ -4332,7 +4352,7 @@ values are meaningful.</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Nov 16 13:27:12 2026 by
+  Generated on Wed Nov 25 14:27:34 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-3.3.5).
 </div>

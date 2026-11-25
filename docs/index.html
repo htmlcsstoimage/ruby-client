@@ -158,8 +158,8 @@ values from <code>default_options</code> and can override them.</p>
 <span class='rparen'>)</span>
 </code></pre>
 <p>Both methods accept browser, timeline, and output options as hashes, following
-the image methods. Options pass through to the API without local validation.
-Omitted settings use API defaults. Recordings do not include audio.</p>
+the image methods. Omitted settings use API defaults.</p>
+<p>To add a soundtrack to MP4 or WebM, pass <code>audio: { asset_id: &quot;YOUR_ASSET_ID&quot;, delay_ms: 500 }</code> or <code>audio: { url: &quot;https://cdn.example.com/audio/intro.mp3&quot; }</code> to either recording method. <a href="https://docs.htmlcsstoimage.com/parameters/audio/">Audio sources and playback options</a>.</p>
 <p>Triggers and actions use a <code>type</code> discriminator. For example, wait until an
 element is visible, click a button, and hold the result:</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_demo'>demo</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_url_recording'>create_url_recording</span><span class='lparen'>(</span>
@@ -176,9 +176,22 @@ element is visible, click a button, and hold the result:</p>
 <p>Nested branches run on the API. For JavaScript actions, omitting <code>if_error</code> or
 setting it to <code>nil</code> fails on a script error; <code>if_error: []</code> ignores errors.
 Empty arrays, explicit <code>nil</code>, <code>false</code>, and zero values are preserved in JSON.</p>
-<p>Creation returns the recording URLs while rendering can continue in the
-background. Requesting <code>recording_url</code> waits for processing. Fetch the current
-status once with:</p>
+<p>A <code>scroll</code> action moves through ordered <code>steps</code>. Each step's <code>duration_ms</code> is
+required and must be at least 1:</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_url_recording'>create_url_recording</span><span class='lparen'>(</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://example.com</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>duration_ms:</span> <span class='int'>6000</span><span class='comma'>,</span>
+  <span class='label'>actions:</span> <span class='lbracket'>[</span>
+    <span class='lbrace'>{</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>scroll</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>steps:</span> <span class='lbracket'>[</span>
+      <span class='lbrace'>{</span> <span class='label'>to:</span> <span class='lbrace'>{</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>selector</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>selector:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#pricing</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>duration_ms:</span> <span class='int'>1200</span><span class='comma'>,</span> <span class='label'>easing:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ease_in_out_cubic</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+      <span class='lbrace'>{</span> <span class='label'>to:</span> <span class='lbrace'>{</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>position</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bottom</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>duration_ms:</span> <span class='int'>1500</span> <span class='rbrace'>}</span>
+    <span class='rbracket'>]</span> <span class='rbrace'>}</span>
+  <span class='rbracket'>]</span>
+<span class='rparen'>)</span>
+</code></pre>
+<p>Embed or request <code>recording_url</code> directly; the request waits until the
+recording is ready, so checking status is optional. To inspect progress, fetch
+the current status once with:</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_fetch_recording_status'>fetch_recording_status</span><span class='lparen'>(</span><span class='id identifier rubyid_recording'>recording</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
 <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_attempt_count'>attempt_count</span>
@@ -186,6 +199,8 @@ status once with:</p>
 <p>HTTP 200 and 202 both return status information. The states <code>ready</code>, <code>failed</code>,
 and <code>cancelled</code> are terminal. A successful status fetch can report a failed
 recording, and <code>status.error</code> can describe an earlier, retryable attempt.
+<code>status.status</code> is the raw API string. Treat values not listed here, which
+newer API versions may add, as unknown; the client passes them through as-is.
 API errors and transport failures follow the existing image-method behavior.</p>
 <p>Delete recordings individually or in a batch:</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_delete_recording'>delete_recording</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>recording-id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -339,7 +354,7 @@ and, for URL screenshots, <code>headers</code>, <code>additional_header_origins<
 <p>See the <a href="https://docs.htmlcsstoimage.com/getting-started/using-the-api/#batch-templated-image-creation">API reference</a> for plan limits and examples.</p></div></div>
 
       <div id="footer">
-  Generated on Mon Nov 16 13:27:12 2026 by
+  Generated on Wed Nov 25 14:27:34 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.45 (ruby-3.3.5).
 </div>
